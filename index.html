@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>maySunAI — AI-Powered Apps by Jason</title>
+  <meta name="description" content="Jason's personal brand. AI-powered apps for everyone — MD Reader, and more." />
+  <style>
+    [data-theme="dark"] {
+      --bg: #0f0f0f;
+      --bg2: #1a1a1a;
+      --card: #1e1e1e;
+      --border: #2a2a2a;
+      --accent: #60a5fa;
+      --accent2: #34d399;
+      --text: #e0e0e0;
+      --muted: #888;
+      --theme-btn-bg: #2a2a2a;
+      --theme-btn-color: #ccc;
+    }
+    [data-theme="light"] {
+      --bg: #f4f4f5;
+      --bg2: #ffffff;
+      --card: #ffffff;
+      --border: #e0e0e0;
+      --accent: #2563eb;
+      --accent2: #059669;
+      --text: #1a1a1a;
+      --muted: #666;
+      --theme-btn-bg: #e4e4e7;
+      --theme-btn-color: #444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; transition: background 0.25s, color 0.25s; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; transition: background 0.25s; }
+    .nav-logo { font-weight: bold; font-size: 1.1em; color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-links { display: flex; gap: 20px; font-size: 0.9em; }
+    .nav-links a { color: var(--muted); }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* THEME TOGGLE */
+    .theme-toggle { background: var(--theme-btn-bg); color: var(--theme-btn-color); border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px; font-size: 0.82em; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* HERO */
+    .hero { padding: 80px 24px 60px; text-align: center; max-width: 700px; margin: 0 auto; }
+    .hero h1 { font-size: clamp(2em, 5vw, 3.2em); font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { font-size: 1.1em; color: var(--muted); margin-bottom: 32px; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn { padding: 12px 24px; border-radius: 8px; font-size: 0.95em; font-weight: 600; cursor: pointer; border: none; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn:hover { opacity: 0.85; }
+
+    /* SECTION */
+    section { padding: 60px 24px; max-width: 900px; margin: 0 auto; }
+    section h2 { font-size: 1.6em; font-weight: 700; margin-bottom: 8px; }
+    .section-sub { color: var(--muted); margin-bottom: 36px; font-size: 0.95em; }
+
+    /* PRODUCTS */
+    .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: border-color 0.2s, background 0.25s; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .product-card:hover { border-color: var(--accent); }
+    .product-icon { font-size: 2.4em; margin-bottom: 12px; }
+    .product-card h3 { font-size: 1.1em; margin-bottom: 6px; }
+    .product-card p { color: var(--muted); font-size: 0.9em; line-height: 1.5; margin-bottom: 16px; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75em; font-weight: 600; }
+    .badge-live { background: #064e3b; color: var(--accent2); }
+    .badge-review { background: #1e3a5f; color: var(--accent); }
+    [data-theme="light"] .badge-live { background: #d1fae5; color: #065f46; }
+    [data-theme="light"] .badge-review { background: #dbeafe; color: #1d4ed8; }
+    .product-link { display: inline-block; margin-top: 12px; font-size: 0.85em; color: var(--accent); }
+
+    /* ABOUT T00 */
+    .about-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .about-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; transition: background 0.25s; }
+    .about-item .num { font-size: 2em; font-weight: 800; color: var(--accent); }
+    .about-item p { color: var(--muted); font-size: 0.9em; margin-top: 4px; }
+
+    /* CONTACT */
+    .contact-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; transition: background 0.25s; }
+    .contact-box h3 { font-size: 1.3em; margin-bottom: 8px; }
+    .contact-box p { color: var(--muted); margin-bottom: 20px; font-size: 0.95em; }
+    .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .contact-link { padding: 10px 20px; border-radius: 8px; background: var(--bg2); border: 1px solid var(--border); font-size: 0.9em; color: var(--text); transition: all 0.2s; }
+    .contact-link:hover { border-color: var(--accent); text-decoration: none; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; color: var(--muted); font-size: 0.85em; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">☀️ maySunAI</span>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#about">About T00</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>AI-Powered Apps<br /><span>Built for Everyone</span></h1>
+  <p>Simple, useful apps powered by AI — for mobile, desktop, and the web.<br />Made with the T00 AI development framework.</p>
+  <div class="hero-btns">
+    <a href="#products"><button class="btn btn-primary">View Products</button></a>
+    <a href="#about"><button class="btn btn-outline">About T00</button></a>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- PRODUCTS -->
+<section id="products">
+  <h2>Products</h2>
+  <p class="section-sub">Apps developed and published under the maySunAI brand</p>
+  <div class="products">
+
+    <div class="product-card">
+      <div class="product-icon">📄</div>
+      <h3>MD Markdown Reader</h3>
+      <p>A clean, fast Markdown file reader for Android. Supports drag &amp; drop, search, and multiple encodings including Shift-JIS.</p>
+      <span class="badge badge-review">Google Play — Under Review</span>
+      <br /><a class="product-link" href="#" title="Coming soon">View on Google Play →</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-icon">📚</div>
+      <h3>KDP E-Book</h3>
+      <p>A practical guide to AI-assisted development with the T00 framework. Available on Amazon KDP Japan.</p>
+      <span class="badge badge-review">Amazon KDP — Submitted</span>
+    </div>
+
+    <div class="product-card">
+      <div class="product-icon">🐍</div>
+      <h3>Web Game — Snake</h3>
+      <p>A classic snake game built as a single HTML file. Works on both mobile and desktop, no install needed.</p>
+      <span class="badge badge-live">Live</span>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ABOUT T00 -->
+<section id="about">
+  <h2>About T00</h2>
+  <p class="section-sub">T00 is a personal AI development framework — a system for building real products fast using Claude AI</p>
+  <div class="about-grid">
+    <div class="about-item">
+      <div class="num">44+</div>
+      <p>Projects created with the T00 framework</p>
+    </div>
+    <div class="about-item">
+      <div class="num">AI</div>
+      <p>Claude-powered — from design to deployment</p>
+    </div>
+    <div class="about-item">
+      <div class="num">🌏</div>
+      <p>Targeting Japan, China, and global markets</p>
+    </div>
+    <div class="about-item">
+      <div class="num">⚡</div>
+      <p>Fast iteration — idea to published app in days</p>
+    </div>
+  </div>
+  <p style="margin-top:24px; color:var(--muted); font-size:0.9em;">
+    T00 is a structured workflow for solo developers to build, publish, and iterate on apps with AI assistance.
+    Each project is tracked, versioned, and built with repeatable processes.
+  </p>
+</section>
+
+<hr class="divider" />
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-box">
+    <h3>Get in Touch</h3>
+    <p>Interested in collaborating or learning about T00?<br />Reach out via email or GitHub.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:j6016086@gmail.com">✉️ Email</a>
+      <a class="contact-link" href="https://github.com/maysunai" target="_blank">🐙 GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 maySunAI · Jason · <a href="https://maysuns.uk">maysuns.uk</a></p>
+</footer>
+
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+    if (html.getAttribute('data-theme') === 'dark') {
+      html.setAttribute('data-theme', 'light');
+      btn.textContent = '🌙 Dark';
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      btn.textContent = '☀️ Light';
+    }
+  }
+</script>
+
+</body>
+</html>
