@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>maySunAI — AI-Powered Apps by Jason</title>
-  <meta name="description" content="Jason's personal brand. AI-powered apps for everyone — MD Reader, and more." />
+  <title>Jason Gao — Software Engineer &amp; AI Builder (maySunAI)</title>
+  <meta name="description" content="Jason Gao: 25 years of enterprise software engineering in Japan, now building generative AI products under the maySunAI brand. Open to AI engineering roles, collaboration, and investment conversations." />
   <style>
     [data-theme="dark"] {
       --bg: #0f0f0f;
@@ -13,6 +13,7 @@
       --border: #2a2a2a;
       --accent: #60a5fa;
       --accent2: #34d399;
+      --accent3: #f0b429;
       --text: #e0e0e0;
       --muted: #888;
       --theme-btn-bg: #2a2a2a;
@@ -25,6 +26,7 @@
       --border: #e0e0e0;
       --accent: #2563eb;
       --accent2: #059669;
+      --accent3: #b45309;
       --text: #1a1a1a;
       --muted: #666;
       --theme-btn-bg: #e4e4e7;
@@ -36,10 +38,10 @@
     a:hover { text-decoration: underline; }
 
     /* NAV */
-    nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; transition: background 0.25s; }
+    nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; transition: background 0.25s; flex-wrap: wrap; gap: 10px; }
     .nav-logo { font-weight: bold; font-size: 1.1em; color: var(--accent); }
-    .nav-right { display: flex; align-items: center; gap: 20px; }
-    .nav-links { display: flex; gap: 20px; font-size: 0.9em; }
+    .nav-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .nav-links { display: flex; gap: 16px; font-size: 0.88em; flex-wrap: wrap; }
     .nav-links a { color: var(--muted); }
     .nav-links a:hover { color: var(--text); text-decoration: none; }
 
@@ -48,42 +50,66 @@
     .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
     /* HERO */
-    .hero { padding: 80px 24px 60px; text-align: center; max-width: 700px; margin: 0 auto; }
-    .hero h1 { font-size: clamp(2em, 5vw, 3.2em); font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+    .hero { padding: 70px 24px 40px; text-align: center; max-width: 760px; margin: 0 auto; }
+    .hero .eyebrow { color: var(--muted); font-size: 0.9em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px; }
+    .hero h1 { font-size: clamp(2em, 5vw, 3em); font-weight: 800; line-height: 1.25; margin-bottom: 16px; }
     .hero h1 span { color: var(--accent); }
-    .hero p { font-size: 1.1em; color: var(--muted); margin-bottom: 32px; }
-    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn { padding: 12px 24px; border-radius: 8px; font-size: 0.95em; font-weight: 600; cursor: pointer; border: none; }
+    .hero p { font-size: 1.08em; color: var(--muted); margin-bottom: 28px; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .btn { padding: 12px 22px; border-radius: 8px; font-size: 0.95em; font-weight: 600; cursor: pointer; border: none; display: inline-block; }
     .btn-primary { background: var(--accent); color: #fff; }
     .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
-    .btn:hover { opacity: 0.85; }
+    .btn:hover { opacity: 0.85; text-decoration: none; }
+
+    /* AUDIENCE QUICK LINKS */
+    .audience-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; font-size: 0.85em; }
+    .audience-pill { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); color: var(--muted); background: var(--bg2); }
+    .audience-pill:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
 
     /* SECTION */
-    section { padding: 60px 24px; max-width: 900px; margin: 0 auto; }
+    section { padding: 56px 24px; max-width: 900px; margin: 0 auto; }
     section h2 { font-size: 1.6em; font-weight: 700; margin-bottom: 8px; }
-    .section-sub { color: var(--muted); margin-bottom: 36px; font-size: 0.95em; }
+    .section-sub { color: var(--muted); margin-bottom: 32px; font-size: 0.95em; }
+    section p.body-text { color: var(--text); margin-bottom: 14px; font-size: 0.98em; }
+    section p.body-text.muted { color: var(--muted); }
 
-    /* PRODUCTS */
+    /* TIMELINE */
+    .timeline { list-style: none; border-left: 2px solid var(--border); padding-left: 20px; margin-top: 20px; }
+    .timeline li { position: relative; margin-bottom: 16px; font-size: 0.92em; color: var(--text); }
+    .timeline li::before { content: ""; position: absolute; left: -26px; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .timeline .t-when { color: var(--accent); font-weight: 600; margin-right: 6px; }
+
+    /* PRODUCTS / PORTFOLIO */
+    .portfolio-group { margin-bottom: 32px; }
+    .portfolio-group h3 { font-size: 1.05em; color: var(--muted); font-weight: 600; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.03em; font-size: 0.85em; }
     .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
     .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: border-color 0.2s, background 0.25s; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
     .product-card:hover { border-color: var(--accent); }
-    .product-icon { font-size: 2.4em; margin-bottom: 12px; }
-    .product-card h3 { font-size: 1.1em; margin-bottom: 6px; }
+    .product-icon { font-size: 2.2em; margin-bottom: 12px; }
+    .product-card h3 { font-size: 1.05em; margin-bottom: 6px; text-transform: none; letter-spacing: normal; color: var(--text); }
     .product-card p { color: var(--muted); font-size: 0.9em; line-height: 1.5; margin-bottom: 16px; }
     .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75em; font-weight: 600; }
     .badge-live { background: #064e3b; color: var(--accent2); }
     .badge-review { background: #1e3a5f; color: var(--accent); }
+    .badge-dev { background: #4a3418; color: var(--accent3); }
     [data-theme="light"] .badge-live { background: #d1fae5; color: #065f46; }
     [data-theme="light"] .badge-review { background: #dbeafe; color: #1d4ed8; }
+    [data-theme="light"] .badge-dev { background: #fef3c7; color: #92400e; }
     .product-link { display: inline-block; margin-top: 12px; font-size: 0.85em; color: var(--accent); }
 
-    /* ABOUT T00 */
+    /* ABOUT T00 stat grid */
     .about-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
     .about-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; transition: background 0.25s; }
-    .about-item .num { font-size: 2em; font-weight: 800; color: var(--accent); }
+    .about-item .num { font-size: 1.8em; font-weight: 800; color: var(--accent); }
     .about-item p { color: var(--muted); font-size: 0.9em; margin-top: 4px; }
 
-    /* CONTACT */
+    /* AUDIENCE CTA BOX (recruiters / investors) */
+    .cta-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: background 0.25s; }
+    .cta-box h3 { font-size: 1.15em; margin-bottom: 10px; }
+    .cta-box p { color: var(--muted); margin-bottom: 16px; font-size: 0.95em; }
+    .cta-box .btn { margin-right: 10px; }
+
+    /* CONTACT / FOLLOW */
     .contact-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; transition: background 0.25s; }
     .contact-box h3 { font-size: 1.3em; margin-bottom: 8px; }
     .contact-box p { color: var(--muted); margin-bottom: 20px; font-size: 0.95em; }
@@ -102,8 +128,11 @@
   <span class="nav-logo">☀️ maySunAI</span>
   <div class="nav-right">
     <div class="nav-links">
-      <a href="#products">Products</a>
-      <a href="#about">About T00</a>
+      <a href="#about">About</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#recruiters">For Recruiters</a>
+      <a href="#investors">For Investors</a>
+      <a href="#follow">Follow</a>
       <a href="#contact">Contact</a>
     </div>
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
@@ -111,75 +140,233 @@
 </nav>
 
 <div class="hero">
-  <h1>AI-Powered Apps<br /><span>Built for Everyone</span></h1>
-  <p>Simple, useful apps powered by AI — for mobile, desktop, and the web.<br />Made with the T00 AI development framework.</p>
+  <div class="eyebrow">Jason Gao · maySunAI</div>
+  <h1>25 Years an Enterprise Engineer.<br /><span>Now Building With AI.</span></h1>
+  <p>
+    Senior software engineer based in Tokyo — Oracle/DB2 migrations, AWS cloud migration, and team leadership across
+    a 25+ year career. Since late 2023 I've been self-teaching generative AI and agent engineering, one working
+    project at a time, under the <strong>maySunAI</strong> brand.
+  </p>
   <div class="hero-btns">
-    <a href="#products"><button class="btn btn-primary">View Products</button></a>
-    <a href="#about"><button class="btn btn-outline">About T00</button></a>
+    <a href="#portfolio"><button class="btn btn-primary">View My Work</button></a>
+    <a href="#contact"><button class="btn btn-outline">Get in Touch</button></a>
+  </div>
+  <div class="audience-row">
+    <a class="audience-pill" href="#recruiters">🧑‍💼 Hiring? Start here</a>
+    <a class="audience-pill" href="#investors">💡 Investor / collaborator? Start here</a>
+    <a class="audience-pill" href="#follow">📣 Just following along? Start here</a>
   </div>
 </div>
 
 <hr class="divider" />
 
-<!-- PRODUCTS -->
-<section id="products">
-  <h2>Products</h2>
-  <p class="section-sub">Apps developed and published under the maySunAI brand</p>
-  <div class="products">
+<!-- ABOUT -->
+<section id="about">
+  <h2>About Me</h2>
+  <p class="section-sub">25 years of enterprise engineering, plus an honest, ongoing journey into generative AI</p>
 
-    <div class="product-card">
-      <div class="product-icon">📄</div>
-      <h3>MD Markdown Reader</h3>
-      <p>A clean, fast Markdown file reader for Android. Supports drag &amp; drop, search, and multiple encodings including Shift-JIS.</p>
-      <span class="badge badge-review">Google Play — Under Review</span>
-      <br /><a class="product-link" href="#" title="Coming soon">View on Google Play →</a>
+  <p class="body-text">
+    I'm Jason Gao (高嵩) — a software engineer with 25+ years building enterprise systems for the Japanese market:
+    large-scale Oracle/DB2 database migrations, on-premises-to-AWS cloud migration, and leading teams of up to
+    5 engineers (PMP and OCP certified). I'm trilingual — Japanese (JLPT N1), English, and native Chinese.
+  </p>
+  <p class="body-text">
+    Starting in late 2023, on my own time, I began learning Python and generative AI from scratch, and kept at it
+    steadily. This is the same trait that's carried me through 25 years of enterprise work: steady, unglamorous
+    persistence, applied to something new.
+  </p>
+
+  <ul class="timeline">
+    <li><span class="t-when">Dec 2023</span> — Started self-teaching Python; sat the Python 3 Engineer Certification (Fundamentals) exam.</li>
+    <li><span class="t-when">Feb 2025</span> — Self-studied local LLM tooling: DeepSeek + Ollama + Docker setup.</li>
+    <li><span class="t-when">Mar 2025</span> — Passed the Python 3 Engineer Certification (Fundamentals).</li>
+    <li><span class="t-when">Aug 2025</span> — Passed the Python 3 Engineer Certification (Data Analysis).</li>
+    <li><span class="t-when">Jan 2026</span> — Took several courses on generative AI fundamentals and prompt engineering.</li>
+    <li><span class="t-when">May 2026</span> — Designed and built "Memory Assistant," my own spaced-repetition study app — rebuilding an old Excel/VBA macro tool as a modern web app.</li>
+    <li><span class="t-when">Jun 2026 – present</span> — Running an intensive sprint building RAG pipelines, AI agent platforms, and a live email-driven automation agent, inside my own project framework, <strong>T00</strong>.</li>
+  </ul>
+
+  <p class="body-text muted" style="margin-top:20px;">
+    I'm not presenting myself as an AI expert with a decade of research experience — I'm a senior engineer who,
+    over about two and a half years of part-time, self-directed effort, has built a real, working portfolio of
+    generative AI projects on top of a long enterprise career.
+  </p>
+</section>
+
+<hr class="divider" />
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <h2>Portfolio</h2>
+  <p class="section-sub">What I've actually built and shipped — grouped by type</p>
+
+  <div class="portfolio-group">
+    <h3>AI &amp; Agent Engineering</h3>
+    <div class="products">
+      <div class="product-card">
+        <div class="product-icon">🔎</div>
+        <h3>Local RAG Knowledge-Chat App</h3>
+        <p>Electron desktop app with a fully offline local-RAG mode: custom chunking, local embeddings (Ollama), vector search, and local LLM answer generation. Also re-implemented on LangChain.js for a direct framework comparison.</p>
+        <span class="badge badge-live">Working / Verified</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">🤖</div>
+        <h3>Personal AI Agent Platform</h3>
+        <p>Plugin-based agent architecture with multi-LLM routing (Claude / OpenAI / Gemini), Google OAuth, push notifications, and an event- and time-driven reminder system.</p>
+        <span class="badge badge-dev">In Progress</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">📧</div>
+        <h3>Email-Driven Task Agent</h3>
+        <p>A live automation agent: send it an instruction by Gmail, it runs the task on my home machine and replies with the result. In daily personal use, not a demo.</p>
+        <span class="badge badge-live">Live / Daily Use</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">🧠</div>
+        <h3>Memory Assistant</h3>
+        <p>A spaced-repetition study tool based on the Ebbinghaus forgetting curve — a modern rebuild of an old personal Excel/VBA macro tool, designed with AI-assisted tech-stack planning.</p>
+        <span class="badge badge-dev">Personal Use</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">📱</div>
+        <h3>MyAI — Personal AI Assistant Platform</h3>
+        <p>A mobile-first personal AI assistant and open plugin platform — think "VSCode for your phone." React/Vite front end, Cloudflare Workers back end, with memory, reminders, and a growing plugin registry.</p>
+        <span class="badge badge-dev">In Progress</span>
+      </div>
     </div>
+  </div>
 
-    <div class="product-card">
-      <div class="product-icon">📚</div>
-      <h3>KDP E-Book</h3>
-      <p>A practical guide to AI-assisted development with the T00 framework. Available on Amazon KDP Japan.</p>
-      <span class="badge badge-review">Amazon KDP — Submitted</span>
+  <div class="portfolio-group">
+    <h3>Published &amp; Shipped</h3>
+    <div class="products">
+      <div class="product-card">
+        <div class="product-icon">📄</div>
+        <h3>MD Markdown Reader</h3>
+        <p>A clean, fast Markdown file reader. Supports drag &amp; drop, search, and multiple encodings including Shift-JIS. Live on the web now; Android app is pending Google Play submission.</p>
+        <span class="badge badge-live">Live (Web)</span>
+        <a class="btn btn-outline" style="margin-top:10px;" href="https://reader.maysuns.uk" target="_blank" rel="noopener">Visit reader.maysuns.uk →</a>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">💊</div>
+        <h3>Medication Reminder App</h3>
+        <p>A simple, focused reminder app to help people take medication on schedule.</p>
+        <span class="badge badge-dev">In Development</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">📚</div>
+        <h3>KDP E-Books</h3>
+        <p>A concept-to-publication pipeline covering 9+ titles, including a practical guide to AI-assisted development with the T00 framework, submitted to Amazon KDP Japan.</p>
+        <span class="badge badge-review">Amazon KDP — Submitted</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">🐍</div>
+        <h3>Web Game — Snake</h3>
+        <p>A classic snake game built as a single HTML file. Works on both mobile and desktop, no install needed.</p>
+        <span class="badge badge-live">Live</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">🛒</div>
+        <h3>Product Shop Platform</h3>
+        <p>A live e-commerce platform selling AI-generated digital knowledge products, with real Stripe checkout, in Japanese/English/Chinese.</p>
+        <span class="badge badge-live">Live</span>
+        <a class="btn btn-outline" style="margin-top:10px;" href="https://shop.maysuns.uk" target="_blank" rel="noopener">Visit shop.maysuns.uk →</a>
+      </div>
     </div>
-
-    <div class="product-card">
-      <div class="product-icon">🐍</div>
-      <h3>Web Game — Snake</h3>
-      <p>A classic snake game built as a single HTML file. Works on both mobile and desktop, no install needed.</p>
-      <span class="badge badge-live">Live</span>
-    </div>
-
   </div>
 </section>
 
 <hr class="divider" />
 
 <!-- ABOUT T00 -->
-<section id="about">
-  <h2>About T00</h2>
-  <p class="section-sub">T00 is a personal AI development framework — a system for building real products fast using Claude AI</p>
+<section id="framework">
+  <h2>The T00 Framework</h2>
+  <p class="section-sub">The system behind everything above</p>
   <div class="about-grid">
     <div class="about-item">
-      <div class="num">44+</div>
-      <p>Projects created with the T00 framework</p>
+      <div class="num">Solo</div>
+      <p>Built and run by one person, with an AI coding assistant (Claude) as the primary collaborator</p>
     </div>
     <div class="about-item">
       <div class="num">AI</div>
-      <p>Claude-powered — from design to deployment</p>
+      <p>Every project designed, built, and iterated with Claude — real, hands-on prompt/context engineering practice</p>
     </div>
     <div class="about-item">
       <div class="num">🌏</div>
-      <p>Targeting Japan, China, and global markets</p>
+      <p>Projects targeting Japan, China, and global markets</p>
     </div>
     <div class="about-item">
       <div class="num">⚡</div>
-      <p>Fast iteration — idea to published app in days</p>
+      <p>Fast iteration — idea to a working prototype in days, not months</p>
     </div>
   </div>
   <p style="margin-top:24px; color:var(--muted); font-size:0.9em;">
-    T00 is a structured workflow for solo developers to build, publish, and iterate on apps with AI assistance.
-    Each project is tracked, versioned, and built with repeatable processes.
+    T00 is a structured, personal workflow for building, publishing, and iterating on software with AI assistance —
+    every project tracked, versioned, and documented with a consistent process.
   </p>
+</section>
+
+<hr class="divider" />
+
+<!-- FOR RECRUITERS -->
+<section id="recruiters">
+  <h2>For Recruiters &amp; Hiring Managers</h2>
+  <p class="section-sub">Looking for a generative AI / AI agent engineer with real enterprise depth</p>
+  <div class="cta-box">
+    <h3>What I'm looking for</h3>
+    <p>
+      I'm currently exploring generative AI and AI agent engineering roles in Japan (and open to remote/international
+      opportunities). I bring 25 years of enterprise delivery discipline — Oracle/DB2 migrations, AWS cloud
+      migration, PMP/OCP certifications, team leadership — combined with about two and a half years of hands-on,
+      self-directed generative AI practice: RAG pipelines, AI agent architecture, and a live email-driven automation
+      agent. I'm bilingual in Japanese (JLPT N1) and English, with Chinese as my native language.
+    </p>
+    <p>
+      I'm happy to share a detailed résumé, walk through any project's code, or discuss fit for a specific role.
+    </p>
+    <a class="btn btn-primary" href="mailto:gao616188@gmail.com?subject=Hello%20from%20a%20recruiter">Request My Résumé</a>
+    <a class="btn btn-outline" href="https://www.linkedin.com/in/jason00514/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- FOR INVESTORS -->
+<section id="investors">
+  <h2>For Investors &amp; Collaborators</h2>
+  <p class="section-sub">An honest, modest pitch — not a hyper-growth startup story</p>
+  <div class="cta-box">
+    <h3>What this is (and isn't)</h3>
+    <p>
+      Alongside exploring employment, I'm also looking for a collaborator, advisor, or small early-stage investor to
+      help take one or more of my personal products — the Markdown reader app, the medication reminder app, or the
+      broader T00 toolset — to real users. I'm not pitching a fast-growing startup with traction metrics. I'm a
+      senior engineer with a real, working portfolio, looking for the right partner to help me take the next step.
+    </p>
+    <p>
+      No specific investment size or terms are set yet — I'd welcome an initial conversation before anything formal.
+    </p>
+    <a class="btn btn-primary" href="mailto:j6016086@gmail.com?subject=Investor%20%2F%20Collaboration%20Inquiry">Start a Conversation</a>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- FOLLOW -->
+<section id="follow">
+  <h2>Follow the Journey</h2>
+  <p class="section-sub">Building in public — the wins, the setbacks, and the process</p>
+  <div class="cta-box">
+    <p>
+      I write about what it's actually like to shift into generative AI engineering after 25 years in enterprise
+      software — including the parts that don't usually make it into a résumé, like the slow, unglamorous grind of
+      self-teaching Python starting in 2023. If that's interesting to you, follow along.
+    </p>
+    <div class="contact-links" style="justify-content:flex-start; margin-top:16px;">
+      <a class="contact-link" href="https://www.linkedin.com/in/jason00514/" target="_blank" rel="noopener">💼 LinkedIn</a>
+      <a class="contact-link" href="https://github.com/maysunai" target="_blank" rel="noopener">🐙 GitHub</a>
+      <a class="contact-link" href="https://shop.maysuns.uk" target="_blank" rel="noopener">🛒 Shop</a>
+    </div>
+  </div>
 </section>
 
 <hr class="divider" />
@@ -188,16 +375,17 @@
 <section id="contact">
   <div class="contact-box">
     <h3>Get in Touch</h3>
-    <p>Interested in collaborating or learning about T00?<br />Reach out via email or GitHub.</p>
+    <p>Recruiter, investor, collaborator, or just curious — reach out any time.</p>
     <div class="contact-links">
-      <a class="contact-link" href="mailto:j6016086@gmail.com">✉️ Email</a>
-      <a class="contact-link" href="https://github.com/maysunai" target="_blank">🐙 GitHub</a>
+      <a class="contact-link" href="mailto:gao616188@gmail.com">✉️ Email</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/jason00514/" target="_blank" rel="noopener">💼 LinkedIn</a>
+      <a class="contact-link" href="https://github.com/maysunai" target="_blank" rel="noopener">🐙 GitHub</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>© 2026 maySunAI · Jason · <a href="https://maysuns.uk">maysuns.uk</a></p>
+  <p>© 2026 maySunAI · Jason Gao · <a href="https://maysuns.uk">maysuns.uk</a></p>
 </footer>
 
 <script>
