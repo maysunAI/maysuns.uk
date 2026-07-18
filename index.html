@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jason Gao — Software Engineer &amp; AI Builder (maySunAI)</title>
-  <meta name="description" content="Jason Gao: 25 years of enterprise software engineering in Japan, now building generative AI products under the maySunAI brand. Open to AI engineering roles, collaboration, and investment conversations." />
+  <title data-i18n="page_title">Jason Gao — Software Engineer &amp; AI Builder (maySunAI)</title>
+  <meta id="metaDescription" name="description" content="maySunAI — a growing set of live, working AI-built products by Jason Gao, built solo with an AI coding assistant. Explore the portfolio, or read more about the 25-year enterprise engineering background behind it." />
   <style>
     [data-theme="dark"] {
       --bg: #0f0f0f;
@@ -49,11 +49,17 @@
     .theme-toggle { background: var(--theme-btn-bg); color: var(--theme-btn-color); border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px; font-size: 0.82em; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
     .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
+    /* LANGUAGE SWITCH */
+    .lang-switch { display: flex; gap: 4px; background: var(--theme-btn-bg); border: 1px solid var(--border); border-radius: 20px; padding: 3px; }
+    .lang-btn { background: transparent; color: var(--theme-btn-color); border: none; border-radius: 16px; padding: 4px 10px; font-size: 0.8em; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+    .lang-btn:hover { color: var(--accent); }
+    .lang-btn.active { background: var(--accent); color: #fff; }
+
     /* HERO */
     .hero { padding: 70px 24px 40px; text-align: center; max-width: 760px; margin: 0 auto; }
     .hero .eyebrow { color: var(--muted); font-size: 0.9em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px; }
     .hero h1 { font-size: clamp(2em, 5vw, 3em); font-weight: 800; line-height: 1.25; margin-bottom: 16px; }
-    .hero h1 span { color: var(--accent); }
+    .hero h1 .accent { color: var(--accent); }
     .hero p { font-size: 1.08em; color: var(--muted); margin-bottom: 28px; }
     .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
     .btn { padding: 12px 22px; border-radius: 8px; font-size: 0.95em; font-weight: 600; cursor: pointer; border: none; display: inline-block; }
@@ -128,178 +134,169 @@
   <span class="nav-logo">☀️ maySunAI</span>
   <div class="nav-right">
     <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#recruiters">For Recruiters</a>
-      <a href="#investors">For Investors</a>
-      <a href="#follow">Follow</a>
-      <a href="#contact">Contact</a>
+      <a href="#portfolio" data-i18n="nav_portfolio">Portfolio</a>
+      <a href="#about" data-i18n="nav_about">About</a>
+      <a href="#recruiters" data-i18n="nav_recruiters">For Recruiters</a>
+      <a href="#investors" data-i18n="nav_investors">For Investors</a>
+      <a href="#follow" data-i18n="nav_follow">Follow</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
+    </div>
+    <div class="lang-switch" id="langSwitch">
+      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
     </div>
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
   </div>
 </nav>
 
 <div class="hero">
-  <div class="eyebrow">Jason Gao · maySunAI</div>
-  <h1>25 Years an Enterprise Engineer.<br /><span>Now Building With AI.</span></h1>
-  <p>
-    Senior software engineer based in Tokyo — Oracle/DB2 migrations, AWS cloud migration, and team leadership across
-    a 25+ year career. Since late 2023 I've been self-teaching generative AI and agent engineering, one working
-    project at a time, under the <strong>maySunAI</strong> brand.
+  <div class="eyebrow">maySunAI</div>
+  <h1><span data-i18n="hero_h1_1">AI-Built Products.</span><br /><span class="accent" data-i18n="hero_h1_2">Live, Working, Real.</span></h1>
+  <p data-i18n="hero_p">
+    A growing set of AI-powered apps and tools, built solo with an AI coding assistant as my primary engineering
+    partner. Explore what's live below.
   </p>
   <div class="hero-btns">
-    <a href="#portfolio"><button class="btn btn-primary">View My Work</button></a>
-    <a href="#contact"><button class="btn btn-outline">Get in Touch</button></a>
+    <a href="#portfolio"><button class="btn btn-primary" data-i18n="hero_btn_work">View My Work</button></a>
+    <a href="#contact"><button class="btn btn-outline" data-i18n="hero_btn_contact">Get in Touch</button></a>
   </div>
   <div class="audience-row">
-    <a class="audience-pill" href="#recruiters">🧑‍💼 Hiring? Start here</a>
-    <a class="audience-pill" href="#investors">💡 Investor / collaborator? Start here</a>
-    <a class="audience-pill" href="#follow">📣 Just following along? Start here</a>
+    <a class="audience-pill" href="#recruiters" data-i18n="pill_recruiters">🧑‍💼 Hiring? Start here</a>
+    <a class="audience-pill" href="#investors" data-i18n="pill_investors">💡 Investor / collaborator? Start here</a>
+    <a class="audience-pill" href="#follow" data-i18n="pill_follow">📣 Just following along? Start here</a>
   </div>
 </div>
 
 <hr class="divider" />
 
-<!-- ABOUT -->
-<section id="about">
-  <h2>About Me</h2>
-  <p class="section-sub">25 years of enterprise engineering, plus an honest, ongoing journey into generative AI</p>
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <h2 data-i18n="portfolio_h2">Portfolio</h2>
+  <p class="section-sub" data-i18n="portfolio_sub">What I've actually built and shipped — grouped by type</p>
 
-  <p class="body-text">
-    I'm Jason Gao (高嵩) — a software engineer with 25+ years building enterprise systems for the Japanese market:
-    large-scale Oracle/DB2 database migrations, on-premises-to-AWS cloud migration, and leading teams of up to
-    5 engineers (PMP and OCP certified). I'm trilingual — Japanese (JLPT N1), English, and native Chinese.
-  </p>
-  <p class="body-text">
-    Starting in late 2023, on my own time, I began learning Python and generative AI from scratch, and kept at it
-    steadily. This is the same trait that's carried me through 25 years of enterprise work: steady, unglamorous
-    persistence, applied to something new.
-  </p>
+  <div class="portfolio-group">
+    <h3 data-i18n="group_ai_title">AI &amp; Agent Engineering</h3>
+    <div class="products">
+      <div class="product-card">
+        <div class="product-icon">🔎</div>
+        <h3 data-i18n="c1_title">Local RAG Knowledge-Chat App</h3>
+        <p data-i18n="c1_desc">Electron desktop app with a fully offline local-RAG mode: custom chunking, local embeddings (Ollama), vector search, and local LLM answer generation. Also re-implemented on LangChain.js for a direct framework comparison.</p>
+        <span class="badge badge-live" data-i18n="c1_badge">Working / Verified</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">🤖</div>
+        <h3 data-i18n="c2_title">Personal AI Agent Platform</h3>
+        <p data-i18n="c2_desc">Plugin-based agent architecture with multi-LLM routing (Claude / OpenAI / Gemini), Google OAuth, push notifications, and an event- and time-driven reminder system.</p>
+        <span class="badge badge-dev" data-i18n="c2_badge">In Progress</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">📧</div>
+        <h3 data-i18n="c3_title">Email-Driven Task Agent</h3>
+        <p data-i18n="c3_desc">A live automation agent: send it an instruction by Gmail, it runs the task on my home machine and replies with the result. In daily personal use, not a demo.</p>
+        <span class="badge badge-live" data-i18n="c3_badge">Live / Daily Use</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">🧠</div>
+        <h3 data-i18n="c4_title">Memory Assistant</h3>
+        <p data-i18n="c4_desc">A spaced-repetition study tool based on the Ebbinghaus forgetting curve — a modern rebuild of an old personal Excel/VBA macro tool, designed with AI-assisted tech-stack planning.</p>
+        <span class="badge badge-dev" data-i18n="c4_badge">Personal Use</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">📱</div>
+        <h3 data-i18n="c5_title">MyAI — Personal AI Assistant Platform</h3>
+        <p data-i18n="c5_desc">A mobile-first personal AI assistant and open plugin platform — think "VSCode for your phone." React/Vite front end, Cloudflare Workers back end, with memory, reminders, and a growing plugin registry.</p>
+        <span class="badge badge-dev" data-i18n="c5_badge">In Progress</span>
+      </div>
+    </div>
+  </div>
 
-  <ul class="timeline">
-    <li><span class="t-when">Dec 2023</span> — Started self-teaching Python; sat the Python 3 Engineer Certification (Fundamentals) exam.</li>
-    <li><span class="t-when">Feb 2025</span> — Self-studied local LLM tooling: DeepSeek + Ollama + Docker setup.</li>
-    <li><span class="t-when">Mar 2025</span> — Passed the Python 3 Engineer Certification (Fundamentals).</li>
-    <li><span class="t-when">Aug 2025</span> — Passed the Python 3 Engineer Certification (Data Analysis).</li>
-    <li><span class="t-when">Jan 2026</span> — Took several courses on generative AI fundamentals and prompt engineering.</li>
-    <li><span class="t-when">May 2026</span> — Designed and built "Memory Assistant," my own spaced-repetition study app — rebuilding an old Excel/VBA macro tool as a modern web app.</li>
-    <li><span class="t-when">Jun 2026 – present</span> — Running an intensive sprint building RAG pipelines, AI agent platforms, and a live email-driven automation agent, inside my own project framework, <strong>T00</strong>.</li>
-  </ul>
-
-  <p class="body-text muted" style="margin-top:20px;">
-    I'm not presenting myself as an AI expert with a decade of research experience — I'm a senior engineer who,
-    over about two and a half years of part-time, self-directed effort, has built a real, working portfolio of
-    generative AI projects on top of a long enterprise career.
-  </p>
+  <div class="portfolio-group">
+    <h3 data-i18n="group_shipped_title">Published &amp; Shipped</h3>
+    <div class="products">
+      <div class="product-card">
+        <div class="product-icon">📄</div>
+        <h3 data-i18n="c6_title">MD Markdown Reader</h3>
+        <p data-i18n="c6_desc">A clean, fast Markdown file reader. Supports drag &amp; drop, search, and multiple encodings including Shift-JIS. Live on the web now; Android app is pending Google Play submission.</p>
+        <span class="badge badge-live" data-i18n="c6_badge">Live (Web)</span>
+        <a class="btn btn-outline" style="margin-top:10px;" href="https://reader.maysuns.uk" target="_blank" rel="noopener" data-i18n="c6_link">Visit reader.maysuns.uk →</a>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">💊</div>
+        <h3 data-i18n="c7_title">Medication Reminder App</h3>
+        <p data-i18n="c7_desc">A simple, focused reminder app to help people take medication on schedule.</p>
+        <span class="badge badge-dev" data-i18n="c7_badge">In Development</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">📚</div>
+        <h3 data-i18n="c8_title">KDP E-Books</h3>
+        <p data-i18n="c8_desc">A concept-to-publication pipeline covering 9+ titles, including a practical guide to AI-assisted development with the T00 framework, submitted to Amazon KDP Japan.</p>
+        <span class="badge badge-review" data-i18n="c8_badge">Amazon KDP — Submitted</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">🐍</div>
+        <h3 data-i18n="c9_title">Web Game — Snake</h3>
+        <p data-i18n="c9_desc">A classic snake game built as a single HTML file. Works on both mobile and desktop, no install needed.</p>
+        <span class="badge badge-live" data-i18n="c9_badge">Live</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">🛒</div>
+        <h3 data-i18n="c10_title">Product Shop Platform</h3>
+        <p data-i18n="c10_desc">A live e-commerce platform selling AI-generated digital knowledge products, with real Stripe checkout, in Japanese/English/Chinese.</p>
+        <span class="badge badge-live" data-i18n="c10_badge">Live</span>
+        <a class="btn btn-outline" style="margin-top:10px;" href="https://shop.maysuns.uk" target="_blank" rel="noopener" data-i18n="c10_link">Visit shop.maysuns.uk →</a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <hr class="divider" />
 
-<!-- PORTFOLIO -->
-<section id="portfolio">
-  <h2>Portfolio</h2>
-  <p class="section-sub">What I've actually built and shipped — grouped by type</p>
+<!-- ABOUT -->
+<section id="about">
+  <h2 data-i18n="about_h2">About Me</h2>
+  <p class="section-sub" data-i18n="about_sub">25 years of enterprise engineering, plus an honest, ongoing journey into generative AI</p>
 
-  <div class="portfolio-group">
-    <h3>AI &amp; Agent Engineering</h3>
-    <div class="products">
-      <div class="product-card">
-        <div class="product-icon">🔎</div>
-        <h3>Local RAG Knowledge-Chat App</h3>
-        <p>Electron desktop app with a fully offline local-RAG mode: custom chunking, local embeddings (Ollama), vector search, and local LLM answer generation. Also re-implemented on LangChain.js for a direct framework comparison.</p>
-        <span class="badge badge-live">Working / Verified</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">🤖</div>
-        <h3>Personal AI Agent Platform</h3>
-        <p>Plugin-based agent architecture with multi-LLM routing (Claude / OpenAI / Gemini), Google OAuth, push notifications, and an event- and time-driven reminder system.</p>
-        <span class="badge badge-dev">In Progress</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">📧</div>
-        <h3>Email-Driven Task Agent</h3>
-        <p>A live automation agent: send it an instruction by Gmail, it runs the task on my home machine and replies with the result. In daily personal use, not a demo.</p>
-        <span class="badge badge-live">Live / Daily Use</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">🧠</div>
-        <h3>Memory Assistant</h3>
-        <p>A spaced-repetition study tool based on the Ebbinghaus forgetting curve — a modern rebuild of an old personal Excel/VBA macro tool, designed with AI-assisted tech-stack planning.</p>
-        <span class="badge badge-dev">Personal Use</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">📱</div>
-        <h3>MyAI — Personal AI Assistant Platform</h3>
-        <p>A mobile-first personal AI assistant and open plugin platform — think "VSCode for your phone." React/Vite front end, Cloudflare Workers back end, with memory, reminders, and a growing plugin registry.</p>
-        <span class="badge badge-dev">In Progress</span>
-      </div>
-    </div>
-  </div>
+  <p class="body-text" data-i18n="about_p1">
+    I'm Jason Gao (高嵩) — 25+ years building enterprise systems for the Japanese market (Oracle/DB2 and AWS
+    migrations, PMP/OCP certified), trilingual in Japanese (JLPT N1), English, and Chinese. Since late 2023
+    I've been self-teaching Python and generative AI in my own time — not a decade-long AI researcher, but a
+    senior engineer with a real, working portfolio built over about two and a half years of self-directed practice.
+  </p>
 
-  <div class="portfolio-group">
-    <h3>Published &amp; Shipped</h3>
-    <div class="products">
-      <div class="product-card">
-        <div class="product-icon">📄</div>
-        <h3>MD Markdown Reader</h3>
-        <p>A clean, fast Markdown file reader. Supports drag &amp; drop, search, and multiple encodings including Shift-JIS. Live on the web now; Android app is pending Google Play submission.</p>
-        <span class="badge badge-live">Live (Web)</span>
-        <a class="btn btn-outline" style="margin-top:10px;" href="https://reader.maysuns.uk" target="_blank" rel="noopener">Visit reader.maysuns.uk →</a>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">💊</div>
-        <h3>Medication Reminder App</h3>
-        <p>A simple, focused reminder app to help people take medication on schedule.</p>
-        <span class="badge badge-dev">In Development</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">📚</div>
-        <h3>KDP E-Books</h3>
-        <p>A concept-to-publication pipeline covering 9+ titles, including a practical guide to AI-assisted development with the T00 framework, submitted to Amazon KDP Japan.</p>
-        <span class="badge badge-review">Amazon KDP — Submitted</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">🐍</div>
-        <h3>Web Game — Snake</h3>
-        <p>A classic snake game built as a single HTML file. Works on both mobile and desktop, no install needed.</p>
-        <span class="badge badge-live">Live</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">🛒</div>
-        <h3>Product Shop Platform</h3>
-        <p>A live e-commerce platform selling AI-generated digital knowledge products, with real Stripe checkout, in Japanese/English/Chinese.</p>
-        <span class="badge badge-live">Live</span>
-        <a class="btn btn-outline" style="margin-top:10px;" href="https://shop.maysuns.uk" target="_blank" rel="noopener">Visit shop.maysuns.uk →</a>
-      </div>
-    </div>
-  </div>
+  <ul class="timeline">
+    <li><span class="t-when" data-i18n="t1_when">Dec 2023</span> — <span data-i18n="t1_text">Started self-teaching Python</span></li>
+    <li><span class="t-when" data-i18n="t2_when">2025</span> — <span data-i18n="t2_text">Passed the Python 3 Engineer Certification (Fundamentals &amp; Data Analysis)</span></li>
+    <li><span class="t-when" data-i18n="t3_when">Early 2026</span> — <span data-i18n="t3_text">Designed and built "Memory Assistant," a self-directed spaced-repetition study app</span></li>
+    <li><span class="t-when" data-i18n="t4_when">Jun 2026 – present</span> — <span data-i18n="t4_text">Building RAG pipelines, AI agent platforms, and a live email-driven automation agent under my own framework, T00</span></li>
+  </ul>
 </section>
 
 <hr class="divider" />
 
 <!-- ABOUT T00 -->
 <section id="framework">
-  <h2>The T00 Framework</h2>
-  <p class="section-sub">The system behind everything above</p>
+  <h2 data-i18n="fw_h2">The T00 Framework</h2>
+  <p class="section-sub" data-i18n="fw_sub">The system behind everything above</p>
   <div class="about-grid">
     <div class="about-item">
-      <div class="num">Solo</div>
-      <p>Built and run by one person, with an AI coding assistant (Claude) as the primary collaborator</p>
+      <div class="num" data-i18n="fw_item1_num">Solo</div>
+      <p data-i18n="fw_item1_text">Built and run by one person, with an AI coding assistant (Claude) as the primary collaborator</p>
     </div>
     <div class="about-item">
       <div class="num">AI</div>
-      <p>Every project designed, built, and iterated with Claude — real, hands-on prompt/context engineering practice</p>
+      <p data-i18n="fw_item2_text">Every project designed, built, and iterated with Claude — real, hands-on prompt/context engineering practice</p>
     </div>
     <div class="about-item">
       <div class="num">🌏</div>
-      <p>Projects targeting Japan, China, and global markets</p>
+      <p data-i18n="fw_item3_text">Projects targeting Japan, China, and global markets</p>
     </div>
     <div class="about-item">
       <div class="num">⚡</div>
-      <p>Fast iteration — idea to a working prototype in days, not months</p>
+      <p data-i18n="fw_item4_text">Fast iteration — idea to a working prototype in days, not months</p>
     </div>
   </div>
-  <p style="margin-top:24px; color:var(--muted); font-size:0.9em;">
+  <p style="margin-top:24px; color:var(--muted); font-size:0.9em;" data-i18n="fw_closing">
     T00 is a structured, personal workflow for building, publishing, and iterating on software with AI assistance —
     every project tracked, versioned, and documented with a consistent process.
   </p>
@@ -309,22 +306,22 @@
 
 <!-- FOR RECRUITERS -->
 <section id="recruiters">
-  <h2>For Recruiters &amp; Hiring Managers</h2>
-  <p class="section-sub">Looking for a generative AI / AI agent engineer with real enterprise depth</p>
+  <h2 data-i18n="rec_h2">For Recruiters &amp; Hiring Managers</h2>
+  <p class="section-sub" data-i18n="rec_sub">Looking for a generative AI / AI agent engineer with real enterprise depth</p>
   <div class="cta-box">
-    <h3>What I'm looking for</h3>
-    <p>
+    <h3 data-i18n="rec_h3">What I'm looking for</h3>
+    <p data-i18n="rec_p1">
       I'm currently exploring generative AI and AI agent engineering roles in Japan (and open to remote/international
       opportunities). I bring 25 years of enterprise delivery discipline — Oracle/DB2 migrations, AWS cloud
       migration, PMP/OCP certifications, team leadership — combined with about two and a half years of hands-on,
       self-directed generative AI practice: RAG pipelines, AI agent architecture, and a live email-driven automation
       agent. I'm bilingual in Japanese (JLPT N1) and English, with Chinese as my native language.
     </p>
-    <p>
+    <p data-i18n="rec_p2">
       I'm happy to share a detailed résumé, walk through any project's code, or discuss fit for a specific role.
     </p>
-    <a class="btn btn-primary" href="mailto:j6016086@gmail.com?subject=Hello%20from%20a%20recruiter">Request My Résumé</a>
-    <a class="btn btn-outline" href="https://www.linkedin.com/in/jason00514/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+    <a class="btn btn-primary" href="mailto:j6016086@gmail.com?subject=Hello%20from%20a%20recruiter" data-i18n="rec_btn1">Request My Résumé</a>
+    <a class="btn btn-outline" href="https://www.linkedin.com/in/jason00514/" target="_blank" rel="noopener" data-i18n="rec_btn2">Connect on LinkedIn</a>
   </div>
 </section>
 
@@ -332,20 +329,20 @@
 
 <!-- FOR INVESTORS -->
 <section id="investors">
-  <h2>For Investors &amp; Collaborators</h2>
-  <p class="section-sub">An honest, modest pitch — not a hyper-growth startup story</p>
+  <h2 data-i18n="inv_h2">For Investors &amp; Collaborators</h2>
+  <p class="section-sub" data-i18n="inv_sub">An honest, modest pitch — not a hyper-growth startup story</p>
   <div class="cta-box">
-    <h3>What this is (and isn't)</h3>
-    <p>
+    <h3 data-i18n="inv_h3">What this is (and isn't)</h3>
+    <p data-i18n="inv_p1">
       Alongside exploring employment, I'm also looking for a collaborator, advisor, or small early-stage investor to
       help take one or more of my personal products — the Markdown reader app, the medication reminder app, or the
       broader T00 toolset — to real users. I'm not pitching a fast-growing startup with traction metrics. I'm a
       senior engineer with a real, working portfolio, looking for the right partner to help me take the next step.
     </p>
-    <p>
+    <p data-i18n="inv_p2">
       No specific investment size or terms are set yet — I'd welcome an initial conversation before anything formal.
     </p>
-    <a class="btn btn-primary" href="mailto:j6016086@gmail.com?subject=Investor%20%2F%20Collaboration%20Inquiry">Start a Conversation</a>
+    <a class="btn btn-primary" href="mailto:j6016086@gmail.com?subject=Investor%20%2F%20Collaboration%20Inquiry" data-i18n="inv_btn">Start a Conversation</a>
   </div>
 </section>
 
@@ -353,10 +350,10 @@
 
 <!-- FOLLOW -->
 <section id="follow">
-  <h2>Follow the Journey</h2>
-  <p class="section-sub">Building in public — the wins, the setbacks, and the process</p>
+  <h2 data-i18n="follow_h2">Follow the Journey</h2>
+  <p class="section-sub" data-i18n="follow_sub">Building in public — the wins, the setbacks, and the process</p>
   <div class="cta-box">
-    <p>
+    <p data-i18n="follow_p">
       I write about what it's actually like to shift into generative AI engineering after 25 years in enterprise
       software — including the parts that don't usually make it into a résumé, like the slow, unglamorous grind of
       self-teaching Python starting in 2023. If that's interesting to you, follow along.
@@ -374,8 +371,8 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-box">
-    <h3>Get in Touch</h3>
-    <p>Recruiter, investor, collaborator, or just curious — reach out any time.</p>
+    <h3 data-i18n="contact_h3">Get in Touch</h3>
+    <p data-i18n="contact_p">Recruiter, investor, collaborator, or just curious — reach out any time.</p>
     <div class="contact-links">
       <a class="contact-link" href="mailto:j6016086@gmail.com">✉️ Email</a>
       <a class="contact-link" href="https://www.linkedin.com/in/jason00514/" target="_blank" rel="noopener">💼 LinkedIn</a>
@@ -389,17 +386,205 @@
 </footer>
 
 <script>
-  function toggleTheme() {
-    const html = document.documentElement;
-    const btn = document.getElementById('themeBtn');
-    if (html.getAttribute('data-theme') === 'dark') {
-      html.setAttribute('data-theme', 'light');
-      btn.textContent = '🌙 Dark';
-    } else {
-      html.setAttribute('data-theme', 'dark');
-      btn.textContent = '☀️ Light';
+  var translations = {
+    en: {
+      page_title: "Jason Gao — Software Engineer & AI Builder (maySunAI)",
+      meta_description: "maySunAI — a growing set of live, working AI-built products by Jason Gao, built solo with an AI coding assistant. Explore the portfolio, or read more about the 25-year enterprise engineering background behind it.",
+      nav_portfolio: "Portfolio", nav_about: "About", nav_recruiters: "For Recruiters", nav_investors: "For Investors", nav_follow: "Follow", nav_contact: "Contact",
+      theme_light: "☀️ Light", theme_dark: "🌙 Dark",
+      hero_h1_1: "AI-Built Products.", hero_h1_2: "Live, Working, Real.",
+      hero_p: "A growing set of AI-powered apps and tools, built solo with an AI coding assistant as my primary engineering partner. Explore what's live below.",
+      hero_btn_work: "View My Work", hero_btn_contact: "Get in Touch",
+      pill_recruiters: "🧑‍💼 Hiring? Start here", pill_investors: "💡 Investor / collaborator? Start here", pill_follow: "📣 Just following along? Start here",
+      portfolio_h2: "Portfolio", portfolio_sub: "What I've actually built and shipped — grouped by type",
+      group_ai_title: "AI & Agent Engineering", group_shipped_title: "Published & Shipped",
+      c1_title: "Local RAG Knowledge-Chat App", c1_desc: "Electron desktop app with a fully offline local-RAG mode: custom chunking, local embeddings (Ollama), vector search, and local LLM answer generation. Also re-implemented on LangChain.js for a direct framework comparison.", c1_badge: "Working / Verified",
+      c2_title: "Personal AI Agent Platform", c2_desc: "Plugin-based agent architecture with multi-LLM routing (Claude / OpenAI / Gemini), Google OAuth, push notifications, and an event- and time-driven reminder system.", c2_badge: "In Progress",
+      c3_title: "Email-Driven Task Agent", c3_desc: "A live automation agent: send it an instruction by Gmail, it runs the task on my home machine and replies with the result. In daily personal use, not a demo.", c3_badge: "Live / Daily Use",
+      c4_title: "Memory Assistant", c4_desc: "A spaced-repetition study tool based on the Ebbinghaus forgetting curve — a modern rebuild of an old personal Excel/VBA macro tool, designed with AI-assisted tech-stack planning.", c4_badge: "Personal Use",
+      c5_title: "MyAI — Personal AI Assistant Platform", c5_desc: "A mobile-first personal AI assistant and open plugin platform — think \"VSCode for your phone.\" React/Vite front end, Cloudflare Workers back end, with memory, reminders, and a growing plugin registry.", c5_badge: "In Progress",
+      c6_title: "MD Markdown Reader", c6_desc: "A clean, fast Markdown file reader. Supports drag & drop, search, and multiple encodings including Shift-JIS. Live on the web now; Android app is pending Google Play submission.", c6_badge: "Live (Web)", c6_link: "Visit reader.maysuns.uk →",
+      c7_title: "Medication Reminder App", c7_desc: "A simple, focused reminder app to help people take medication on schedule.", c7_badge: "In Development",
+      c8_title: "KDP E-Books", c8_desc: "A concept-to-publication pipeline covering 9+ titles, including a practical guide to AI-assisted development with the T00 framework, submitted to Amazon KDP Japan.", c8_badge: "Amazon KDP — Submitted",
+      c9_title: "Web Game — Snake", c9_desc: "A classic snake game built as a single HTML file. Works on both mobile and desktop, no install needed.", c9_badge: "Live",
+      c10_title: "Product Shop Platform", c10_desc: "A live e-commerce platform selling AI-generated digital knowledge products, with real Stripe checkout, in Japanese/English/Chinese.", c10_badge: "Live", c10_link: "Visit shop.maysuns.uk →",
+      about_h2: "About Me", about_sub: "25 years of enterprise engineering, plus an honest, ongoing journey into generative AI",
+      about_p1: "I'm Jason Gao (高嵩) — 25+ years building enterprise systems for the Japanese market (Oracle/DB2 and AWS migrations, PMP/OCP certified), trilingual in Japanese (JLPT N1), English, and Chinese. Since late 2023 I've been self-teaching Python and generative AI in my own time — not a decade-long AI researcher, but a senior engineer with a real, working portfolio built over about two and a half years of self-directed practice.",
+      t1_when: "Dec 2023", t1_text: "Started self-teaching Python",
+      t2_when: "2025", t2_text: "Passed the Python 3 Engineer Certification (Fundamentals & Data Analysis)",
+      t3_when: "Early 2026", t3_text: "Designed and built \"Memory Assistant,\" a self-directed spaced-repetition study app",
+      t4_when: "Jun 2026 – present", t4_text: "Building RAG pipelines, AI agent platforms, and a live email-driven automation agent under my own framework, T00",
+      fw_h2: "The T00 Framework", fw_sub: "The system behind everything above",
+      fw_item1_num: "Solo", fw_item1_text: "Built and run by one person, with an AI coding assistant (Claude) as the primary collaborator",
+      fw_item2_text: "Every project designed, built, and iterated with Claude — real, hands-on prompt/context engineering practice",
+      fw_item3_text: "Projects targeting Japan, China, and global markets",
+      fw_item4_text: "Fast iteration — idea to a working prototype in days, not months",
+      fw_closing: "T00 is a structured, personal workflow for building, publishing, and iterating on software with AI assistance — every project tracked, versioned, and documented with a consistent process.",
+      rec_h2: "For Recruiters & Hiring Managers", rec_sub: "Looking for a generative AI / AI agent engineer with real enterprise depth",
+      rec_h3: "What I'm looking for",
+      rec_p1: "I'm currently exploring generative AI and AI agent engineering roles in Japan (and open to remote/international opportunities). I bring 25 years of enterprise delivery discipline — Oracle/DB2 migrations, AWS cloud migration, PMP/OCP certifications, team leadership — combined with about two and a half years of hands-on, self-directed generative AI practice: RAG pipelines, AI agent architecture, and a live email-driven automation agent. I'm bilingual in Japanese (JLPT N1) and English, with Chinese as my native language.",
+      rec_p2: "I'm happy to share a detailed résumé, walk through any project's code, or discuss fit for a specific role.",
+      rec_btn1: "Request My Résumé", rec_btn2: "Connect on LinkedIn",
+      inv_h2: "For Investors & Collaborators", inv_sub: "An honest, modest pitch — not a hyper-growth startup story",
+      inv_h3: "What this is (and isn't)",
+      inv_p1: "Alongside exploring employment, I'm also looking for a collaborator, advisor, or small early-stage investor to help take one or more of my personal products — the Markdown reader app, the medication reminder app, or the broader T00 toolset — to real users. I'm not pitching a fast-growing startup with traction metrics. I'm a senior engineer with a real, working portfolio, looking for the right partner to help me take the next step.",
+      inv_p2: "No specific investment size or terms are set yet — I'd welcome an initial conversation before anything formal.",
+      inv_btn: "Start a Conversation",
+      follow_h2: "Follow the Journey", follow_sub: "Building in public — the wins, the setbacks, and the process",
+      follow_p: "I write about what it's actually like to shift into generative AI engineering after 25 years in enterprise software — including the parts that don't usually make it into a résumé, like the slow, unglamorous grind of self-teaching Python starting in 2023. If that's interesting to you, follow along.",
+      contact_h3: "Get in Touch", contact_p: "Recruiter, investor, collaborator, or just curious — reach out any time."
+    },
+    zh: {
+      page_title: "高嵩（Jason Gao）— 软件工程师 / AI产品开发者（maySunAI）",
+      meta_description: "maySunAI —— 高嵩（Jason Gao）用AI编程助手独立打造的一系列真实上线产品。查看作品集，或了解这背后25年企业级开发经验。",
+      nav_portfolio: "作品集", nav_about: "关于我", nav_recruiters: "招聘方专区", nav_investors: "投资方专区", nav_follow: "关注动态", nav_contact: "联系方式",
+      theme_light: "☀️ 浅色", theme_dark: "🌙 深色",
+      hero_h1_1: "AI创造的产品。", hero_h1_2: "真实上线，切实可用。",
+      hero_p: "由AI编程助手作为主力搭档，独自打造的一系列AI应用和工具，数量持续增加。往下看看已经上线的产品。",
+      hero_btn_work: "查看作品", hero_btn_contact: "联系我",
+      pill_recruiters: "🧑‍💼 招聘方，从这里开始", pill_investors: "💡 投资人/合作伙伴，从这里开始", pill_follow: "📣 只是路过看看，从这里开始",
+      portfolio_h2: "作品集", portfolio_sub: "真正做出来并上线的东西——按类型分组",
+      group_ai_title: "AI与智能体工程", group_shipped_title: "已发布上线",
+      c1_title: "本地RAG知识问答应用", c1_desc: "Electron桌面应用，支持完全离线的本地RAG模式：自定义文本分块、本地向量嵌入（Ollama）、向量检索、本地LLM生成回答。另外用LangChain.js重新实现了一版，用于框架对比。", c1_badge: "已验证可用",
+      c2_title: "个人AI Agent平台", c2_desc: "插件化Agent架构，支持多LLM路由（Claude/OpenAI/Gemini）、Google OAuth登录、推送通知，以及事件与时间双驱动的提醒系统。", c2_badge: "开发中",
+      c3_title: "邮件驱动任务Agent", c3_desc: "真实运行中的自动化Agent：通过Gmail发送指令，它会在我家里的电脑上执行任务并回复结果。日常在用，不是demo。", c3_badge: "日常使用中",
+      c4_title: "记忆助手", c4_desc: "基于艾宾浩斯遗忘曲线的间隔重复学习工具——把我以前的Excel/VBA宏工具用AI辅助规划技术栈后重新做成了现代Web应用。", c4_badge: "个人使用中",
+      c5_title: "MyAI — 个人AI助手平台", c5_desc: "移动优先的个人AI助手与开放插件平台——可以理解成「手机版VSCode」。React/Vite前端，Cloudflare Workers后端，支持记忆、提醒，插件库还在持续增加。", c5_badge: "开发中",
+      c6_title: "MD Markdown阅读器", c6_desc: "简洁快速的Markdown文件阅读器，支持拖拽打开、搜索，以及包括Shift-JIS在内的多种编码。网页版已上线，Android版正在提交Google Play。", c6_badge: "网页版已上线", c6_link: "访问 reader.maysuns.uk →",
+      c7_title: "吃药提醒App", c7_desc: "一个简单专注的提醒应用，帮助用户按时服药。", c7_badge: "开发中",
+      c8_title: "KDP电子书", c8_desc: "从选题到出版的完整流程，已覆盖9本以上书籍，包括一本讲T00框架AI辅助开发的实战指南，已提交Amazon KDP日本站。", c8_badge: "已提交Amazon KDP",
+      c9_title: "网页小游戏 — 贪吃蛇", c9_desc: "单文件HTML实现的经典贪吃蛇游戏，手机电脑都能玩，无需安装。", c9_badge: "已上线",
+      c10_title: "电商直销平台", c10_desc: "真实上线运营的电商平台，销售AI生成的数字知识产品，接入真实Stripe支付，支持日/英/中三语。", c10_badge: "已上线", c10_link: "访问 shop.maysuns.uk →",
+      about_h2: "关于我", about_sub: "25年企业级开发经验，加上一段仍在进行中的生成式AI自学历程",
+      about_p1: "我是高嵩（Jason Gao）——在日本市场做了25年以上企业系统开发（Oracle/DB2、AWS迁移，持有PMP/OCP认证），精通中日英三语（日语JLPT N1）。2023年底起，我利用业余时间自学Python和生成式AI——不是十年经验的AI研究员，而是一名用约两年半自主学习打造出真实产品组合的资深工程师。",
+      t1_when: "2023年12月", t1_text: "开始自学Python",
+      t2_when: "2025年", t2_text: "通过Python 3工程师认证（基础+数据分析）",
+      t3_when: "2026年初", t3_text: "独立设计开发「记忆助手」间隔重复学习App",
+      t4_when: "2026年6月至今", t4_text: "在自建框架T00下，构建RAG检索管线、AI Agent平台，以及一个真实运行的邮件驱动自动化Agent",
+      fw_h2: "T00框架", fw_sub: "上面所有产品背后的方法体系",
+      fw_item1_num: "独立完成", fw_item1_text: "由一个人构建和运营，AI编程助手（Claude）是主要协作伙伴",
+      fw_item2_text: "每个项目都与Claude共同设计、开发、迭代——真实的Prompt/上下文工程实践",
+      fw_item3_text: "面向日本、中国及全球市场的项目",
+      fw_item4_text: "快速迭代——从想法到可用原型只需几天，而不是几个月",
+      fw_closing: "T00是我个人的一套结构化工作流程，用于借助AI进行软件的开发、发布与迭代——每个项目都有统一的追踪、版本管理和文档记录方式。",
+      rec_h2: "致招聘方与用人经理", rec_sub: "寻找具备真实企业级经验的生成式AI/AI Agent工程师",
+      rec_h3: "我在找什么样的机会",
+      rec_p1: "我目前正在寻找日本国内的生成式AI/AI Agent工程师岗位（也欢迎远程/海外机会）。我具备25年企业级交付经验——Oracle/DB2迁移、AWS云迁移、PMP/OCP认证、团队管理，加上约两年半自主学习并动手实践的生成式AI经验：RAG管线、AI Agent架构，以及一个真实运行的邮件驱动自动化Agent。日语（JLPT N1）和英语都能work，中文是母语。",
+      rec_p2: "欢迎索取详细简历，或者直接聊聊某个项目的代码细节，也可以讨论具体岗位的匹配度。",
+      rec_btn1: "索取我的简历", rec_btn2: "LinkedIn上联系我",
+      inv_h2: "致投资方与合作伙伴", inv_sub: "一份坦诚、克制的介绍——不是高速增长的创业故事",
+      inv_h3: "这是什么，又不是什么",
+      inv_p1: "在找工作的同时，我也在寻找合作伙伴、顾问，或愿意早期小额投资的人，帮助我把手上的产品——Markdown阅读器、吃药提醒App，或更广义的T00工具集——真正推向用户。我不是在讲一个高速增长、有各种增长指标的创业故事，我是一名有真实可用产品组合的资深工程师，在找对的伙伴一起走下一步。",
+      inv_p2: "目前还没有设定具体的投资金额或条款——欢迎先随意聊聊，再考虑是否要正式推进。",
+      inv_btn: "开始聊聊",
+      follow_h2: "关注这段旅程", follow_sub: "公开构建的过程——成功、挫折与全过程",
+      follow_p: "我会分享25年企业软件经验之后转向生成式AI工程的真实过程——包括那些通常不会写进简历里的部分，比如2023年开始自学Python那段不算光鲜的日常。如果这些内容对你有意思，欢迎关注。",
+      contact_h3: "联系我", contact_p: "无论你是招聘方、投资人、合作伙伴，还是单纯好奇——随时欢迎联系。"
+    },
+    ja: {
+      page_title: "高嵩（Jason Gao）— ソフトウェアエンジニア / AIプロダクト開発者（maySunAI）",
+      meta_description: "maySunAI —— 高嵩（Jason Gao）がAIコーディングアシスタントと共に一人で開発している、実際に動くプロダクト群です。ポートフォリオをご覧いただくか、その背景にある25年の企業システム開発経験についてもご紹介しています。",
+      nav_portfolio: "ポートフォリオ", nav_about: "私について", nav_recruiters: "採用担当者の方へ", nav_investors: "投資家の方へ", nav_follow: "フォローする", nav_contact: "お問い合わせ",
+      theme_light: "☀️ ライト", theme_dark: "🌙 ダーク",
+      hero_h1_1: "AIが創った、動くプロダクト。", hero_h1_2: "本当に動いている、リアルなプロダクト。",
+      hero_p: "AIコーディングアシスタントを主要なパートナーとして、一人で開発を続けているAIプロダクト群です。下から実際に動いているものをご覧ください。",
+      hero_btn_work: "作品を見る", hero_btn_contact: "お問い合わせ",
+      pill_recruiters: "🧑‍💼 採用担当者の方はこちら", pill_investors: "💡 投資家・協業希望の方はこちら", pill_follow: "📣 応援・フォローしたい方はこちら",
+      portfolio_h2: "ポートフォリオ", portfolio_sub: "実際に作って公開したものを種類別に紹介します",
+      group_ai_title: "AI・エージェント開発", group_shipped_title: "公開・リリース済み",
+      c1_title: "ローカルRAGナレッジチャットアプリ", c1_desc: "完全オフラインのローカルRAGモードを備えたElectronデスクトップアプリ。独自のチャンク分割、ローカル埋め込み（Ollama）、ベクトル検索、ローカルLLMによる回答生成を実装。LangChain.jsでも再実装し、フレームワーク比較を実施。", c1_badge: "動作確認済み",
+      c2_title: "パーソナルAIエージェントプラットフォーム", c2_desc: "プラグイン型のエージェントアーキテクチャ。マルチLLMルーティング（Claude/OpenAI/Gemini）、Google OAuth、プッシュ通知、イベント・時刻トリガー両対応のリマインダー機能を搭載。", c2_badge: "開発中",
+      c3_title: "メール駆動タスクエージェント", c3_desc: "実運用中の自動化エージェント。Gmailで指示を送ると自宅PC上でタスクを実行し、結果を返信してくれます。デモではなく日常的に使用中。", c3_badge: "日常使用中",
+      c4_title: "Memory Assistant（記憶アシスタント）", c4_desc: "エビングハウスの忘却曲線に基づく間隔反復学習ツール。以前自作していたExcel/VBAマクロツールを、AIと技術選定しながら現代的なWebアプリとして作り直しました。", c4_badge: "個人使用中",
+      c5_title: "MyAI — パーソナルAIアシスタントプラットフォーム", c5_desc: "モバイルファーストのAIアシスタント兼オープンプラグイン基盤——「スマホ版VSCode」のようなイメージです。React/Viteのフロントエンド、Cloudflare Workersのバックエンドで、メモリ機能・リマインダー・拡張中のプラグインレジストリを搭載。", c5_badge: "開発中",
+      c6_title: "MD Markdownリーダー", c6_desc: "シンプルで高速なMarkdownファイルリーダー。ドラッグ&ドロップ、検索、Shift-JISを含む複数のエンコーディングに対応。Web版は公開中、Android版はGoogle Play申請準備中。", c6_badge: "Web版公開中", c6_link: "reader.maysuns.uk へ →",
+      c7_title: "服薬リマインダーアプリ", c7_desc: "服薬時間を守れるようサポートする、シンプルなリマインダーアプリ。", c7_badge: "開発中",
+      c8_title: "KDP電子書籍", c8_desc: "企画から出版までを一貫して手がけたシリーズで、9冊以上を制作。T00フレームワークを使ったAI活用開発の実践ガイドを含み、Amazon KDP日本に申請済み。", c8_badge: "Amazon KDP申請中",
+      c9_title: "Webゲーム — スネークゲーム", c9_desc: "単一HTMLファイルで作った定番のスネークゲーム。スマホ・PCどちらでもインストール不要で遊べます。", c9_badge: "公開中",
+      c10_title: "ECショッププラットフォーム", c10_desc: "AI生成のデジタル知識コンテンツを販売する実運用中のECサイト。Stripe決済に対応し、日本語/英語/中国語で展開。", c10_badge: "公開中", c10_link: "shop.maysuns.uk へ →",
+      about_h2: "私について", about_sub: "25年間の企業システム開発経験と、現在進行形の生成AI学習の記録",
+      about_p1: "高嵩（Jason Gao）と申します。日本市場向けの企業システム開発に25年以上携わってきました（Oracle/DB2、AWSクラウド移行、PMP/OCP資格保有）。日本語（JLPT N1）・英語・中国語のトライリンガルです。2023年末から独学で生成AIとPythonを学習中——AI研究者としての十年選手ではなく、約2年半の自主学習で実際に動くプロダクト群を作ってきたシニアエンジニアです。",
+      t1_when: "2023年12月", t1_text: "Python独学開始",
+      t2_when: "2025年", t2_text: "Python 3エンジニア認定試験（基礎+データ分析）合格",
+      t3_when: "2026年初め", t3_text: "間隔反復学習アプリ「Memory Assistant」を自作",
+      t4_when: "2026年6月〜現在", t4_text: "自作フレームワークT00のもとで、RAGパイプライン、AIエージェント基盤、実運用中のメール駆動自動化エージェントを構築中",
+      fw_h2: "T00フレームワーク", fw_sub: "これまで紹介したすべての土台となる仕組み",
+      fw_item1_num: "個人開発", fw_item1_text: "AIコーディングアシスタント（Claude）を主なパートナーとして、一人で開発・運営",
+      fw_item2_text: "すべてのプロジェクトをClaudeと共に設計・開発・改善——実践的なプロンプト/コンテキストエンジニアリング",
+      fw_item3_text: "日本・中国・グローバル市場を見据えたプロジェクト展開",
+      fw_item4_text: "スピーディな開発サイクル——アイデアから動くプロトタイプまで数か月ではなく数日",
+      fw_closing: "T00は、AIの力を借りてソフトウェアを開発・公開・改善していくための、私個人の構造化されたワークフローです。すべてのプロジェクトを一貫した方法で管理・バージョン管理・ドキュメント化しています。",
+      rec_h2: "採用担当者・人事の方へ", rec_sub: "企業システム開発の実務経験を持つ、生成AI・AIエージェントエンジニアを探されている方へ",
+      rec_h3: "希望している仕事内容",
+      rec_p1: "現在、日本国内での生成AI・AIエージェントエンジニアのポジションを探しています（リモート・海外案件も歓迎）。Oracle/DB2の大規模移行、AWSクラウド移行、PMP/OCP資格、チームリードなど25年の企業システム開発の実務経験に加え、約2年半にわたり独学で実践してきた生成AI経験があります：RAGパイプライン構築、AIエージェント設計、実運用中のメール駆動自動化エージェントなど。日本語（JLPT N1）・英語ともにビジネスレベル、中国語は母語です。",
+      rec_p2: "詳しい職務経歴書の共有や、プロジェクトのコード説明、具体的なポジションとのマッチングについてのご相談も歓迎します。",
+      rec_btn1: "職務経歴書をリクエスト", rec_btn2: "LinkedInでつながる",
+      inv_h2: "投資家・協業パートナーの方へ", inv_sub: "誇張のない、率直なご紹介——急成長スタートアップの物語ではありません",
+      inv_h3: "これは何か（そして何でないか）",
+      inv_p1: "求職活動と並行して、Markdownリーダーアプリ、服薬リマインダーアプリ、あるいはT00ツール群全体を実際のユーザーに届けるための協業パートナー、アドバイザー、または少額のアーリーステージ投資をしてくださる方を探しています。急成長中のトラクション指標を売り込むピッチではありません。実際に動くプロダクト群を持つシニアエンジニアとして、次のステップを一緒に踏み出せる相手を探しています。",
+      inv_p2: "投資額や条件はまだ具体的に決めていません。正式な話をする前に、まずは気軽にお話しできれば嬉しいです。",
+      inv_btn: "まずはお話ししましょう",
+      follow_h2: "この歩みをフォローする", follow_sub: "オープンに公開しながら開発中——成功も失敗も、そのプロセスすべて",
+      follow_p: "25年間の企業ソフトウェア開発を経て生成AIエンジニアリングへ転向していく、リアルな過程を発信しています。職務経歴書には載らないような、2023年から始めた地道なPython独学の日々なども含めて。興味があればぜひフォローしてください。",
+      contact_h3: "お問い合わせ", contact_p: "採用担当の方、投資家の方、協業をご検討の方、あるいは単なる興味からでも——いつでもお気軽にご連絡ください。"
     }
+  };
+
+  var langCodeMap = { en: 'en', zh: 'zh-CN', ja: 'ja' };
+  var currentLang = 'en';
+
+  function detectDefaultLang() {
+    var saved = localStorage.getItem('lang');
+    if (saved && translations[saved]) return saved;
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('zh') === 0) return 'zh';
+    if (nav.indexOf('ja') === 0) return 'ja';
+    return 'en';
   }
+
+  function applyLanguage(lang) {
+    if (!translations[lang]) lang = 'en';
+    currentLang = lang;
+    document.documentElement.lang = langCodeMap[lang] || 'en';
+
+    var dict = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) {
+        el.textContent = dict[key];
+      }
+    });
+
+    var metaEl = document.getElementById('metaDescription');
+    if (metaEl) metaEl.setAttribute('content', dict.meta_description);
+
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    updateThemeButtonLabel();
+    localStorage.setItem('lang', lang);
+  }
+
+  function setLanguage(lang) {
+    applyLanguage(lang);
+  }
+
+  function updateThemeButtonLabel() {
+    var html = document.documentElement;
+    var btn = document.getElementById('themeBtn');
+    var dict = translations[currentLang] || translations.en;
+    btn.textContent = html.getAttribute('data-theme') === 'dark' ? dict.theme_light : dict.theme_dark;
+  }
+
+  function toggleTheme() {
+    var html = document.documentElement;
+    var newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    updateThemeButtonLabel();
+  }
+
+  applyLanguage(detectDefaultLang());
 </script>
 
 </body>

@@ -51,6 +51,37 @@
 - **"不要暴露核心做法"**：新增的两张卡片延续原有卡片风格，只写产品定位/技术栈名称（React/Vite、Cloudflare Workers、Stripe等已公开的技术选型），不涉及任何prompt设计、AI协作方法论、T00内部工作流细节。
 - **⚠️ "放在pj23服务器上"这一条本次未执行**：PJ50目前的实际托管是GitHub Pages + Cloudflare DNS（`maysuns.uk`），跟PJ23生产服务器（Vultr `167.179.106.32`，nginx+pm2，已跑着真实付费商城`shop.maysuns.uk`）是两套完全独立的基础设施。把主页迁移/追加到PJ23那台生产服务器上，涉及登录生产服务器改nginx配置（可能还要买一个新子域名或复用现有域名），这会影响到已经在正常服务真实付费客户的生产环境——按照"改动共享生产设施前先确认"的原则，这一步本次没有直接执行，留给用户确认后再做（内容已经准备好，随时可以部署）。
 
+## 2026-07-18 更新（邮箱订阅入口用邮箱）
+
+用户提供了用于"邮箱订阅/联系入口"功能的邮箱：**主：`j6016086@gmail.com`，备用：`gaosong0514@outlook.com`**。
+
+**冲突已解决**：用户明确决定，以后 `j6016086@gmail.com` 就是 maysunAI 品牌专用邮箱（`gao616188@gmail.com` 邮件太多容易看漏消息，不适合当品牌联系邮箱）。核实后发现 `index.html` 里实际使用的一直就是 `j6016086@gmail.com`（第326/348/380行），跟"2026-07-08"那条记录里写的"改成`gao616188@gmail.com`"不一致——**当时的文档记录有误或后续被覆盖过，实际代码从未改成`gao616188`**。现在用户的决定正好和现状一致，不需要改代码，只需要更新这份文档记录，以`j6016086@gmail.com`为准。`gaosong0514@outlook.com`暂时只记录备用，未展示到网站上。
+
+## 2026-07-18 更新（首屏改版：产品优先，个人信息移到About）
+
+用户实际打开`maysuns.uk`确认后反馈"下面显示的还是老的个人信息"，要求首屏改成产品优先、个人介绍移到About区块，"马上改"。
+
+- **首屏(Hero)重写**：原来的标题"25 Years an Enterprise Engineer. Now Building With AI."+个人背景段落，改成产品导向的"AI-Built Products. Live, Working, Real."+简短说明，不再是第一屏看到的内容
+- **区块顺序调整**：Portfolio（产品展示）移到Hero之后、About之前——访客现在滚动一屏就能看到产品，而不是先看一大段个人履历。原有的完整About内容（25年经验+时间线+谦逊说明）**完整保留**，只是挪到Portfolio后面，内容一字未改
+- **导航栏顺序**同步调整为"Portfolio → About → ..."，跟内容顺序一致
+- **meta description**同步改成产品导向的描述（原来也是"25 years..."开头，SEO/链接预览也会显示老信息，一并改了）
+- **"每个页面能回到主页"**：给已经部署上线的两个子产品加了返回`maysuns.uk`的链接，并重新构建+部署：
+  - `games.maysuns.uk`（PJ27）：大厅页顶部加了"← maysuns.uk"链接，静态HTML直接scp到服务器生效
+  - `reader.maysuns.uk`（PJ25）：header里加了"← maysuns.uk"链接（`src/App.jsx`），`npm run build`后部署到服务器，新JS bundle hash已更新确认生效
+  - **`shop.maysuns.uk`（PJ23）这次未动**：真实在跑Stripe付费交易的生产电商站点，风险和敏感度更高，这次没有主动改，需要的话请明确说一声再处理
+
+## 2026-07-18 更新（中/日/英三语言切换）
+
+用户原话："maysuns.uk 需要中日英。介绍我的，可以少一点。或者放一起。"
+
+- **三语言切换实现**：不引入任何框架/构建步骤，延续"单文件HTML"技术路线。用 `data-i18n="key"` 属性标记全部需要翻译的文本节点（导航栏、Hero、Portfolio全部10张产品卡片、About、T00 Framework、Recruiters、Investors、Follow、Contact、`<title>`、meta description），配合内联 `<script>` 里的 `translations = { en: {...}, zh: {...}, ja: {...} }` 字典对象，`applyLanguage(lang)` 函数遍历 `[data-i18n]` 节点替换文本。
+- **语言切换器位置**：导航栏右侧，主题切换按钮左边，三个小按钮「中文 / 日本語 / EN」，当前语言高亮显示（`.lang-btn.active`）。
+- **默认语言判定**：`detectDefaultLang()` — 优先读 `localStorage.getItem('lang')`（记住用户上次选择）；否则用 `navigator.language` 前缀判断（`zh*`→中文，`ja*`→日语，其余→英文默认）。切换语言后立即写回 `localStorage`，刷新页面保留选择。
+- **`<html lang="">` 属性同步**：切换语言时同步更新为对应的 `en` / `zh-CN` / `ja`，便于浏览器/搜索引擎正确识别页面语言。
+- **中文/日文文案非机器直译**：Hero、About、Recruiters、Investors、Follow等营销向文案均按目标语言的表达习惯重新组织语序和措辞（例如英文的"start here"系列口语化短句在日语版改为更礼貌的敬语表达，中文版保留口语化但符合中文招聘/投资语境的说法），不是逐词翻译。
+- **About区块精简**（本次同批次处理"介绍我的可以少一点"要求）：原来两段独立段落（① 25年经验+资质，② AI自学心路历程，合计约108词）合并压缩为**一段**（约70词，压缩约35%），删除了"团队规模最多5人""这份支撑我走过25年的踏实劲头"等可省略的修饰性表述，保留核心事实（25年经验、Oracle/DB2/AWS迁移、PMP/OCP认证、三语能力、2023年底起自学AI、约两年半自主实践）。三语言版本（en/zh/ja）都做了同等程度的压缩，时间线（4条bullet）保留不变——精简的是段落散文，不是关键节点信息。完整的25年经验细节仍完整保留在 For Recruiters 区块（`rec_p1`），About区块现在只是"精简版引子"。
+- **本地语法校验**：用 `node --check` 提取并校验了内联 `<script>` 块，语法通过；HTML `<section>`/`<div>` 标签开闭数量一致（各自7对/46对）。
+
 ## 交叉引用
 
 - 时间线/背景数据来源：`F:\T00\PJ53_job_search_appeal\draft_resume_ai_focused.md`（本次同批次修订，详见其 `PROGRESS.md`）
