@@ -131,7 +131,7 @@
 <body>
 
 <nav>
-  <span class="nav-logo">☀️ maySunAI</span>
+  <a href="#" class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="text-decoration:none;">☀️ maySunAI</a>
   <div class="nav-right">
     <div class="nav-links">
       <a href="#portfolio" data-i18n="nav_portfolio">Portfolio</a>
@@ -162,9 +162,11 @@
     <a href="#contact"><button class="btn btn-outline" data-i18n="hero_btn_contact">Get in Touch</button></a>
   </div>
   <div class="audience-row">
-    <a class="audience-pill" href="#recruiters" data-i18n="pill_recruiters">🧑‍💼 Hiring? Start here</a>
-    <a class="audience-pill" href="#investors" data-i18n="pill_investors">💡 Investor / collaborator? Start here</a>
-    <a class="audience-pill" href="#follow" data-i18n="pill_follow">📣 Just following along? Start here</a>
+    <a class="audience-pill" href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="cat_games">🎮 Game Hall</a>
+    <a class="audience-pill" href="https://shop.maysuns.uk" target="_blank" rel="noopener" data-i18n="cat_shop">🛒 Shop</a>
+    <a class="audience-pill" href="#portfolio" data-i18n="cat_kdp">📚 KDP E-Books</a>
+    <a class="audience-pill" href="https://reader.maysuns.uk" target="_blank" rel="noopener" data-i18n="cat_reader">📄 MD Reader</a>
+    <a class="audience-pill" href="#portfolio" data-i18n="cat_ai">🤖 AI Work</a>
   </div>
 </div>
 
@@ -230,8 +232,9 @@
       <div class="product-card">
         <div class="product-icon">📚</div>
         <h3 data-i18n="c8_title">KDP E-Books</h3>
-        <p data-i18n="c8_desc">A concept-to-publication pipeline covering 9+ titles, including a practical guide to AI-assisted development with the T00 framework, submitted to Amazon KDP Japan.</p>
-        <span class="badge badge-review" data-i18n="c8_badge">Amazon KDP — Submitted</span>
+        <p data-i18n="c8_desc">A concept-to-publication pipeline covering 11+ titles on AI-assisted development and practical AI use. 2 titles already live and on sale on Amazon KDP Japan, more in progress.</p>
+        <span class="badge badge-live" data-i18n="c8_badge">Amazon KDP — 2 Live</span>
+        <a class="btn btn-outline" style="margin-top:10px;" href="https://www.amazon.co.jp/dp/B0H58YVPSL" target="_blank" rel="noopener" data-i18n="c8_link">View on Amazon →</a>
       </div>
       <div class="product-card">
         <div class="product-icon">🐍</div>
@@ -396,6 +399,7 @@
       hero_p: "A growing set of AI-powered apps and tools, built solo with an AI coding assistant as my primary engineering partner. Explore what's live below.",
       hero_btn_work: "View My Work", hero_btn_contact: "Get in Touch",
       pill_recruiters: "🧑‍💼 Hiring? Start here", pill_investors: "💡 Investor / collaborator? Start here", pill_follow: "📣 Just following along? Start here",
+      cat_games: "🎮 Game Hall", cat_shop: "🛒 Shop", cat_kdp: "📚 KDP E-Books", cat_reader: "📄 MD Reader", cat_ai: "🤖 AI Work",
       portfolio_h2: "Portfolio", portfolio_sub: "What I've actually built and shipped — grouped by type",
       group_ai_title: "AI & Agent Engineering", group_shipped_title: "Published & Shipped",
       c1_title: "Local RAG Knowledge-Chat App", c1_desc: "Electron desktop app with a fully offline local-RAG mode: custom chunking, local embeddings (Ollama), vector search, and local LLM answer generation. Also re-implemented on LangChain.js for a direct framework comparison.", c1_badge: "Working / Verified",
@@ -405,7 +409,7 @@
       c5_title: "MyAI — Personal AI Assistant Platform", c5_desc: "A mobile-first personal AI assistant and open plugin platform — think \"VSCode for your phone.\" React/Vite front end, Cloudflare Workers back end, with memory, reminders, and a growing plugin registry.", c5_badge: "In Progress",
       c6_title: "MD Markdown Reader", c6_desc: "A clean, fast Markdown file reader. Supports drag & drop, search, and multiple encodings including Shift-JIS. Live on the web now; Android app is pending Google Play submission.", c6_badge: "Live (Web)", c6_link: "Visit reader.maysuns.uk →",
       c7_title: "Medication Reminder App", c7_desc: "A simple, focused reminder app to help people take medication on schedule.", c7_badge: "In Development",
-      c8_title: "KDP E-Books", c8_desc: "A concept-to-publication pipeline covering 9+ titles, including a practical guide to AI-assisted development with the T00 framework, submitted to Amazon KDP Japan.", c8_badge: "Amazon KDP — Submitted",
+      c8_title: "KDP E-Books", c8_desc: "A concept-to-publication pipeline covering 11+ titles on AI-assisted development and practical AI use. 2 titles already live and on sale on Amazon KDP Japan, more in progress.", c8_badge: "Amazon KDP — 2 Live", c8_link: "View on Amazon →",
       c9_title: "Web Game — Snake", c9_desc: "A classic snake game built as a single HTML file. Works on both mobile and desktop, no install needed.", c9_badge: "Live",
       c10_title: "Product Shop Platform", c10_desc: "A live e-commerce platform selling AI-generated digital knowledge products, with real Stripe checkout, in Japanese/English/Chinese.", c10_badge: "Live", c10_link: "Visit shop.maysuns.uk →",
       about_h2: "About Me", about_sub: "25 years of enterprise engineering, plus an honest, ongoing journey into generative AI",
@@ -443,6 +447,7 @@
       hero_p: "由AI编程助手作为主力搭档，独自打造的一系列AI应用和工具，数量持续增加。往下看看已经上线的产品。",
       hero_btn_work: "查看作品", hero_btn_contact: "联系我",
       pill_recruiters: "🧑‍💼 招聘方，从这里开始", pill_investors: "💡 投资人/合作伙伴，从这里开始", pill_follow: "📣 只是路过看看，从这里开始",
+      cat_games: "🎮 游戏大厅", cat_shop: "🛒 电商直销", cat_kdp: "📚 KDP电子书", cat_reader: "📄 MD阅读器", cat_ai: "🤖 AI作品",
       portfolio_h2: "作品集", portfolio_sub: "真正做出来并上线的东西——按类型分组",
       group_ai_title: "AI与智能体工程", group_shipped_title: "已发布上线",
       c1_title: "本地RAG知识问答应用", c1_desc: "Electron桌面应用，支持完全离线的本地RAG模式：自定义文本分块、本地向量嵌入（Ollama）、向量检索、本地LLM生成回答。另外用LangChain.js重新实现了一版，用于框架对比。", c1_badge: "已验证可用",
@@ -452,7 +457,7 @@
       c5_title: "MyAI — 个人AI助手平台", c5_desc: "移动优先的个人AI助手与开放插件平台——可以理解成「手机版VSCode」。React/Vite前端，Cloudflare Workers后端，支持记忆、提醒，插件库还在持续增加。", c5_badge: "开发中",
       c6_title: "MD Markdown阅读器", c6_desc: "简洁快速的Markdown文件阅读器，支持拖拽打开、搜索，以及包括Shift-JIS在内的多种编码。网页版已上线，Android版正在提交Google Play。", c6_badge: "网页版已上线", c6_link: "访问 reader.maysuns.uk →",
       c7_title: "吃药提醒App", c7_desc: "一个简单专注的提醒应用，帮助用户按时服药。", c7_badge: "开发中",
-      c8_title: "KDP电子书", c8_desc: "从选题到出版的完整流程，已覆盖9本以上书籍，包括一本讲T00框架AI辅助开发的实战指南，已提交Amazon KDP日本站。", c8_badge: "已提交Amazon KDP",
+      c8_title: "KDP电子书", c8_desc: "从选题到出版的完整流程，已覆盖11本以上书籍，主题围绕AI辅助开发与AI实用技巧。其中2本已在Amazon KDP日本站正式上架销售，更多正在推进。", c8_badge: "Amazon KDP — 已上架2本", c8_link: "在Amazon查看 →",
       c9_title: "网页小游戏 — 贪吃蛇", c9_desc: "单文件HTML实现的经典贪吃蛇游戏，手机电脑都能玩，无需安装。", c9_badge: "已上线",
       c10_title: "电商直销平台", c10_desc: "真实上线运营的电商平台，销售AI生成的数字知识产品，接入真实Stripe支付，支持日/英/中三语。", c10_badge: "已上线", c10_link: "访问 shop.maysuns.uk →",
       about_h2: "关于我", about_sub: "25年企业级开发经验，加上一段仍在进行中的生成式AI自学历程",
@@ -490,6 +495,7 @@
       hero_p: "AIコーディングアシスタントを主要なパートナーとして、一人で開発を続けているAIプロダクト群です。下から実際に動いているものをご覧ください。",
       hero_btn_work: "作品を見る", hero_btn_contact: "お問い合わせ",
       pill_recruiters: "🧑‍💼 採用担当者の方はこちら", pill_investors: "💡 投資家・協業希望の方はこちら", pill_follow: "📣 応援・フォローしたい方はこちら",
+      cat_games: "🎮 ゲームホール", cat_shop: "🛒 ショップ", cat_kdp: "📚 KDP電子書籍", cat_reader: "📄 MDリーダー", cat_ai: "🤖 AI作品",
       portfolio_h2: "ポートフォリオ", portfolio_sub: "実際に作って公開したものを種類別に紹介します",
       group_ai_title: "AI・エージェント開発", group_shipped_title: "公開・リリース済み",
       c1_title: "ローカルRAGナレッジチャットアプリ", c1_desc: "完全オフラインのローカルRAGモードを備えたElectronデスクトップアプリ。独自のチャンク分割、ローカル埋め込み（Ollama）、ベクトル検索、ローカルLLMによる回答生成を実装。LangChain.jsでも再実装し、フレームワーク比較を実施。", c1_badge: "動作確認済み",
@@ -499,7 +505,7 @@
       c5_title: "MyAI — パーソナルAIアシスタントプラットフォーム", c5_desc: "モバイルファーストのAIアシスタント兼オープンプラグイン基盤——「スマホ版VSCode」のようなイメージです。React/Viteのフロントエンド、Cloudflare Workersのバックエンドで、メモリ機能・リマインダー・拡張中のプラグインレジストリを搭載。", c5_badge: "開発中",
       c6_title: "MD Markdownリーダー", c6_desc: "シンプルで高速なMarkdownファイルリーダー。ドラッグ&ドロップ、検索、Shift-JISを含む複数のエンコーディングに対応。Web版は公開中、Android版はGoogle Play申請準備中。", c6_badge: "Web版公開中", c6_link: "reader.maysuns.uk へ →",
       c7_title: "服薬リマインダーアプリ", c7_desc: "服薬時間を守れるようサポートする、シンプルなリマインダーアプリ。", c7_badge: "開発中",
-      c8_title: "KDP電子書籍", c8_desc: "企画から出版までを一貫して手がけたシリーズで、9冊以上を制作。T00フレームワークを使ったAI活用開発の実践ガイドを含み、Amazon KDP日本に申請済み。", c8_badge: "Amazon KDP申請中",
+      c8_title: "KDP電子書籍", c8_desc: "企画から出版までを一貫して手がけたシリーズで、11冊以上を制作。AI活用開発とAI実践術がテーマ。すでに2冊がAmazon KDP日本で正式に販売中、その他も準備中。", c8_badge: "Amazon KDP — 2冊販売中", c8_link: "Amazonで見る →",
       c9_title: "Webゲーム — スネークゲーム", c9_desc: "単一HTMLファイルで作った定番のスネークゲーム。スマホ・PCどちらでもインストール不要で遊べます。", c9_badge: "公開中",
       c10_title: "ECショッププラットフォーム", c10_desc: "AI生成のデジタル知識コンテンツを販売する実運用中のECサイト。Stripe決済に対応し、日本語/英語/中国語で展開。", c10_badge: "公開中", c10_link: "shop.maysuns.uk へ →",
       about_h2: "私について", about_sub: "25年間の企業システム開発経験と、現在進行形の生成AI学習の記録",
