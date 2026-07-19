@@ -4,6 +4,22 @@
 
 maysuns.uk 个人品牌网站，Vultr服务器 + Cloudflare DNS托管（2026-07-19从GitHub Pages迁移过来，见下方"部署迁移"一节）。2026-07-18 完成一次大改版：从"单文件单页站"改造为"多页静态站"，定位从"求职简历"彻底转向"产品门户 + 投资人/合作伙伴门面"。2026-07-19 完成第二次改版：从"产品卡片堆砌"改为"讲故事型展示"（菜单分层+3个Featured Story+信任指标）。
 
+## 2026-07-20 续2：今天全部改动已部署到线上 + 找到并修复了"看起来像bug"的真正根因（缓存）
+
+**背景**：用户发现`https://maysuns.uk/index.html`还是老版本，问是不是地址错了——不是地址问题，是今天一整天的改动只存在于本地`F:\T00\PJ50_personal_website`和本地`python -m http.server`预览，从未commit/push/部署到线上。
+
+**部署动作**：
+- `git add -A && git commit && git push` 到 `github.com/maysunAI/maysuns.uk`（此前一直是未提交状态）
+- `scp`全部html文件+`assets/i18n.js`+`assets/site.css`+`assets/main.js`到Vultr服务器`/var/www/pj50-website/`
+- 用`curl`+Playwright在真实`https://maysuns.uk/`域名上验证，确认线上已经是今天的最终版本（21个html文件，跟本地一致）
+
+**顺带定位到今天反复出现的"语言切不回来/页面显示老内容"这个bug的真正原因——不是代码逻辑问题，是缓存**：
+用Playwright在真实域名上测试时，浏览器把老版本的`assets/i18n.js`缓存住了，即使刷新了HTML页面本身，浏览器仍然复用缓存的旧JS文件（里面没有今天新加的翻译key），导致部分文字翻译不出来、显示英文原文/老文字，看起来就像"语言切换坏了"——直接用`fetch`+加时间戳参数重新拉取验证，确认服务器上的文件其实一直是对的，问题100%出在浏览器缓存这一层。
+
+**修复**：给全部21个html文件里的`assets/site.css`/`assets/i18n.js`/`assets/main.js`引用都加上`?v=20260720`版本号参数（例如`assets/i18n.js?v=20260720`）。以后每次真正改了这几个共享文件并重新部署时，把这个版本号改掉（比如改成部署日期），浏览器会把它当成一个新地址重新下载，不会再用旧缓存——这是标准的cache busting做法，一次性根治，不需要每次都提醒用户手动强制刷新。
+
+**已验证**：修复前用同一个Playwright浏览器实测复现了问题（`window.SITE_I18N.zh.nav_updates_label`是`undefined`，页面英文中文混杂）；加了版本号参数+重新部署后，同一个浏览器（没清缓存）刷新即恢复正常，`nav_updates_label`能正确读到。
+
 ## 2026-07-20 续：portfolio.html精简为纯AI作品集 + 未来展望删除高考例子改成外语学习/RAG
 
 **背景**：用户明确要求`portfolio.html`（"作品集"）不要再显示MD阅读器/游戏大厅/电商直销平台/吃药提醒/KDP/记忆助手这6项——这几项要么已有独立顶级导航（游戏大厅/Maysun商店），要么已经在`products-general.html`（记忆助手/MD阅读器/吃药提醒）。
