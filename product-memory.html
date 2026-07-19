@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="prod_memory_page_title">Memory Assistant — maySunAI</title>
+  <meta id="metaDescription" name="description" data-i18n-desc="prod_memory_meta_description" content="" />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="about.html" data-i18n="nav_about">About</a>
+      <a href="mailto:j6016086@gmail.com" data-i18n="nav_contact">Contact</a>
+    </div>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </div>
+</nav>
+
+<div class="back-link"><a href="index.html#portfolio" data-i18n="back_home">← Back to all products</a></div>
+
+<div class="product-hero">
+  <div class="product-icon">🧠</div>
+  <h1 data-i18n="prod_memory_title">Memory Assistant</h1>
+  <p class="tagline" data-i18n="prod_memory_tagline">Spaced-repetition study tool based on the Ebbinghaus forgetting curve</p>
+  <div class="status-row"><span class="badge badge-dev" data-i18n="prod_memory_badge">Personal Use</span></div>
+</div>
+
+<section>
+  <p class="body-text" data-i18n="prod_memory_p1">A modern rebuild of an old personal Excel/VBA macro tool.</p>
+  <p class="body-text" data-i18n="prod_memory_p2">Implements spaced-repetition scheduling based on the Ebbinghaus forgetting curve.</p>
+  <div class="tech-list">
+    <span class="tech-chip">Spaced Repetition</span>
+    <span class="tech-chip">Web App</span>
+    <span class="tech-chip">AI-Assisted Planning</span>
+  </div>
+</section>
+
+<footer>
+  <p data-i18n="footer_line">© 2026 maySunAI · Jason Gao</p>
+  <div class="footer-links">
+    <a href="mailto:j6016086@gmail.com" data-i18n="footer_contact">✉️ Email</a>
+    <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>
+  </div>
+</footer>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>
