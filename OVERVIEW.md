@@ -2,7 +2,22 @@
 
 ## 这个项目是做什么的
 
-maysuns.uk 个人品牌网站，GitHub Pages + Cloudflare 托管。2026-07-18 完成一次大改版：从"单文件单页站"改造为"多页静态站"，定位从"求职简历"彻底转向"产品门户 + 投资人/合作伙伴门面"。2026-07-19 完成第二次改版：从"产品卡片堆砌"改为"讲故事型展示"（菜单分层+3个Featured Story+信任指标）。
+maysuns.uk 个人品牌网站，Vultr服务器 + Cloudflare DNS托管（2026-07-19从GitHub Pages迁移过来，见下方"部署迁移"一节）。2026-07-18 完成一次大改版：从"单文件单页站"改造为"多页静态站"，定位从"求职简历"彻底转向"产品门户 + 投资人/合作伙伴门面"。2026-07-19 完成第二次改版：从"产品卡片堆砌"改为"讲故事型展示"（菜单分层+3个Featured Story+信任指标）。
+
+## 2026-07-19 部署迁移：GitHub Pages → Vultr服务器
+
+**原因**：用户其他项目（report/shop/memo/reader/games.maysuns.uk）都在同一台Vultr服务器（167.179.106.32），PJ50单独留在GitHub Pages不好统一管理；顺带解决了一个真实bug（GitHub Pages给自定义域名提供的是`*.github.io`通用证书，不是`maysuns.uk`专属证书，浏览器会有安全警告）。
+
+**做了什么**：
+- 文件上传到 `/var/www/pj50-website`（纯静态HTML，无需构建）
+- nginx配置 `/etc/nginx/sites-enabled/maysuns.uk`
+- `certbot`申请Let's Encrypt证书，已验证`https://maysuns.uk/`证书是`CN=maysuns.uk`专属证书（到期2026-10-17，自动续期）
+- Cloudflare DNS：删除原本指向GitHub Pages的4条A记录（185.199.108/109/110/111.153），新增1条A记录指向`167.179.106.32`（跟其他maysuns.uk子站一致的配置方式）
+- 已实测验证：`https://maysuns.uk/`和`about.html`等页面均返回200，证书正确
+
+**以后怎么部署改动**：本地改完 `git commit+push`（保留版本历史）→ `scp`上传改动文件到服务器 → nginx立即生效，不需要重新构建。详见本项目`CLAUDE.md`"部署步骤"一节。
+
+**已知限制**：GitHub Pages托管本身没有关闭（只是DNS不再指向它），是历史遗留但不影响现状；MX邮件路由记录（`route1/2/3.mx.cloudflare.net`）本次未改动，邮箱转发不受影响。
 
 ## 2026-07-19 改版：菜单重构 + 讲故事型主页
 

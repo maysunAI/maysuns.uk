@@ -5,7 +5,7 @@ window.SITE_I18N = {
 
   /* ========================= JAPANESE ========================= */
   ja: {
-    nav_home: "ホーム", nav_about: "私について", nav_contact: "お問い合わせ",
+    nav_home: "ホーム", nav_portfolio: "実績一覧", nav_about: "私について", nav_contact: "お問い合わせ",
     nav_why: "Maysun AIとは？", nav_stories: "注目のストーリー", nav_resources: "リソース",
     nav_story1: "ワンクリックでウェブサイト生成", nav_story1_sub: "アイデアから公開まで5分",
     nav_story2: "自宅からAIを指揮", nav_story2_sub: "メール自動化システム",
@@ -29,19 +29,19 @@ window.SITE_I18N = {
 
     story1_eyebrow: "ストーリー 1", story1_title: "アイデアからライブへ：5分でウェブサイト生成",
     story1_desc: "あなたは素敵なアイデアを持っています。それをWebサイトで展示したい。でも通常は2〜3時間のHTML/CSS作業、もしくは開発者に$500〜2000払う必要があります。もっと良い方法があるはずです。",
-    story1_pt1: "⏱️ 5分、5時間じゃなく", story1_pt2: "💰 高額な開発費なし", story1_pt3: "📝 コード完全編集可能", story1_pt4: "🎨 テーマ・カラー自由にカスタマイズ", story1_pt5: "📱 モバイル対応",
+    story1_pt1: "5分、5時間じゃなく", story1_pt2: "高額な開発費なし", story1_pt3: "コード完全編集可能", story1_pt4: "🎨 テーマ・カラー自由にカスタマイズ", story1_pt5: "📱 モバイル対応",
     story1_stat1_num: "8分", story1_stat1_label: "平均生成時間", story1_stat2_num: "100%", story1_stat2_label: "編集可能なコード",
     story1_cta: "🎉 無料で生成を始める",
 
     story2_eyebrow: "ストーリー 2", story2_title: "AIコマンドセンター：メール自動化システム",
     story2_desc: "毎日100通以上のメール。スパム、顧客質問、請求書、購読通知がぐちゃぐちゃ。手動分類と返信は疲れます。一度ルール設定して、あとはAIに任せてみませんか。",
-    story2_pt1: "🧠 インテリジェント分類", story2_pt2: "⚡ メール作業を大幅削減", story2_pt3: "🔒 プライバシー第一（ローカル処理）", story2_pt4: "📋 カスタムルール", story2_pt5: "🔄 複数メールアカウント対応",
+    story2_pt1: "インテリジェント分類", story2_pt2: "メール作業を大幅削減", story2_pt3: "プライバシー第一（ローカル処理）", story2_pt4: "📋 カスタムルール", story2_pt5: "🔄 複数メールアカウント対応",
     story2_stat1_num: "80%", story2_stat1_label: "処理時間削減", story2_stat2_num: "24/7", story2_stat2_label: "自動監視",
     story2_cta: "⚙️ メールシステムを見る",
 
     story3_eyebrow: "ストーリー 3", story3_title: "T00フレームワーク：AIパターンを再利用可能に",
     story3_desc: "AI Webサイトジェネレータを作った後、次は自動化ツールを作りたい。でもアーキテクチャが違えば、また一から始めることになります。だからこそフレームワークが必要です。",
-    story3_pt1: "📚 再利用可能な思考パターン", story3_pt2: "🔌 モジュール構成", story3_pt3: "📖 完全ドキュメント + サンプル", story3_pt4: "🌐 4つ以上の実プロジェクトで実戦済み", story3_pt5: "🤝 オープンソース",
+    story3_pt1: "再利用可能な思考パターン", story3_pt2: "モジュール構成", story3_pt3: "完全ドキュメント + サンプル", story3_pt4: "🌐 4つ以上の実プロジェクトで実戦済み", story3_pt5: "🤝 オープンソース",
     story3_stat1_num: "10倍", story3_stat1_label: "2番目のプロジェクトの速度", story3_stat2_num: "4+", story3_stat2_label: "実運用プロジェクト",
     story3_cta: "📖 ドキュメントを読む",
 
@@ -54,8 +54,9 @@ window.SITE_I18N = {
     trust4_num: "3", trust4_label: "対応言語（日本語・英語・中国語）",
 
     bottom_cta_title: "始める準備はできましたか？",
-    bottom_cta_btn1: "🚀 今すぐ始める", bottom_cta_btn2: "📚 ドキュメントを見る", bottom_cta_btn3: "💬 お問い合わせ",
+    bottom_cta_btn1: "今すぐ始める", bottom_cta_btn2: "すべてのプロジェクトを見る", bottom_cta_btn3: "お問い合わせ",
 
+    portfolio_page_title: "実績一覧 — maySunAI",
     home_portfolio_h2: "ポートフォリオ",
     home_portfolio_sub: "実際に開発し公開したものを種類別に紹介します。各プロジェクトをクリックすると詳細ページに移動します。",
     home_group_ai_title: "AI・エージェント開発",
@@ -201,7 +202,7 @@ window.SITE_I18N = {
 
   /* ========================= ENGLISH ========================= */
   en: {
-    nav_home: "Home", nav_about: "About", nav_contact: "Contact",
+    nav_home: "Home", nav_portfolio: "Portfolio", nav_about: "About", nav_contact: "Contact",
     nav_why: "Why Maysun AI?", nav_stories: "Featured Stories", nav_resources: "Resources",
     nav_story1: "One-Click Website Generation", nav_story1_sub: "Idea to live in 5 minutes",
     nav_story2: "AI Command Center", nav_story2_sub: "Email automation system",
@@ -225,19 +226,19 @@ window.SITE_I18N = {
 
     story1_eyebrow: "Story 1", story1_title: "Idea to Live: Generate Websites in 5 Minutes",
     story1_desc: "You have a concept. You want a page to test it with real users. Usually that's 2-3 hours of HTML/CSS, or $500-2000 to hire a developer. There's a better way.",
-    story1_pt1: "⏱️ 5 minutes, not 5 hours", story1_pt2: "💰 No $500+ dev bills", story1_pt3: "📝 Fully editable code", story1_pt4: "🎨 Customizable themes & colors", story1_pt5: "📱 Mobile-ready out of the box",
+    story1_pt1: "5 minutes, not 5 hours", story1_pt2: "No $500+ dev bills", story1_pt3: "Fully editable code", story1_pt4: "🎨 Customizable themes & colors", story1_pt5: "📱 Mobile-ready out of the box",
     story1_stat1_num: "8 min", story1_stat1_label: "Average build time", story1_stat2_num: "100%", story1_stat2_label: "Editable code",
     story1_cta: "🎉 Start Generating Free",
 
     story2_eyebrow: "Story 2", story2_title: "AI Command Center: Email Automation at Home",
     story2_desc: "You get 100+ emails daily — spam, customer questions, invoices, newsletters, all mixed together. Manual sorting drains your energy. Set rules once, let AI handle the rest.",
-    story2_pt1: "🧠 Intelligent categorization", story2_pt2: "⚡ Major time saved on email", story2_pt3: "🔒 Privacy-first (local processing)", story2_pt4: "📋 Custom rules", story2_pt5: "🔄 Multi-account support",
+    story2_pt1: "Intelligent categorization", story2_pt2: "Major time saved on email", story2_pt3: "Privacy-first (local processing)", story2_pt4: "📋 Custom rules", story2_pt5: "🔄 Multi-account support",
     story2_stat1_num: "80%", story2_stat1_label: "Time saved", story2_stat2_num: "24/7", story2_stat2_label: "Automated monitoring",
     story2_cta: "⚙️ See the Email System",
 
     story3_eyebrow: "Story 3", story3_title: "T00 Framework: Reusable AI Patterns",
     story3_desc: "You built an AI website generator. It works great. Now you want an automation tool — but the architecture is different, prompts need rewriting. Starting from scratch, again. That's why frameworks matter.",
-    story3_pt1: "📚 Reusable thinking patterns", story3_pt2: "🔌 Modular architecture", story3_pt3: "📖 Full docs + working examples", story3_pt4: "🌐 Battle-tested in 4+ live projects", story3_pt5: "🤝 Open-source",
+    story3_pt1: "Reusable thinking patterns", story3_pt2: "Modular architecture", story3_pt3: "Full docs + working examples", story3_pt4: "🌐 Battle-tested in 4+ live projects", story3_pt5: "🤝 Open-source",
     story3_stat1_num: "10x", story3_stat1_label: "Faster on second project", story3_stat2_num: "4+", story3_stat2_label: "Live projects using it",
     story3_cta: "📖 Read the Docs",
 
@@ -250,8 +251,9 @@ window.SITE_I18N = {
     trust4_num: "3", trust4_label: "Languages supported (JA/EN/ZH)",
 
     bottom_cta_title: "Ready to Get Started?",
-    bottom_cta_btn1: "🚀 Start Now", bottom_cta_btn2: "📚 View Docs", bottom_cta_btn3: "💬 Contact Us",
+    bottom_cta_btn1: "Start Now", bottom_cta_btn2: "View All Projects", bottom_cta_btn3: "Contact Us",
 
+    portfolio_page_title: "Portfolio — maySunAI",
     home_portfolio_h2: "Portfolio",
     home_portfolio_sub: "What I've actually built and shipped — grouped by type. Click any project for details.",
     home_group_ai_title: "AI & Agent Engineering",
@@ -397,7 +399,7 @@ window.SITE_I18N = {
 
   /* ========================= CHINESE ========================= */
   zh: {
-    nav_home: "首页", nav_about: "关于我", nav_contact: "联系我",
+    nav_home: "首页", nav_portfolio: "全部作品", nav_about: "关于我", nav_contact: "联系我",
     nav_why: "为什么选择Maysun AI？", nav_stories: "核心故事", nav_resources: "资源",
     nav_story1: "一键生成网页", nav_story1_sub: "从想法到上线仅需5分钟",
     nav_story2: "家里指挥AI", nav_story2_sub: "邮件自动化系统",
@@ -421,19 +423,19 @@ window.SITE_I18N = {
 
     story1_eyebrow: "故事一", story1_title: "从想法到上线——5分钟生成网页",
     story1_desc: "你有个想法，想做成网页给用户看看。通常需要2-3小时写HTML/CSS，或者花$500-2000外包给开发者。其实有更好的办法。",
-    story1_pt1: "⏱️ 5分钟而不是5小时", story1_pt2: "💰 省去高额外包费用", story1_pt3: "📝 生成的代码完全可改", story1_pt4: "🎨 支持自定义主题和样式", story1_pt5: "📱 自动适配手机屏幕",
+    story1_pt1: "5分钟而不是5小时", story1_pt2: "省去高额外包费用", story1_pt3: "生成的代码完全可改", story1_pt4: "🎨 支持自定义主题和样式", story1_pt5: "📱 自动适配手机屏幕",
     story1_stat1_num: "8分钟", story1_stat1_label: "平均生成时间", story1_stat2_num: "100%", story1_stat2_label: "代码可编辑",
     story1_cta: "🎉 开始免费生成",
 
     story2_eyebrow: "故事二", story2_title: "家里指挥AI——邮件系统自动处理",
     story2_desc: "每天收到100多封邮件，垃圾邮件、客户问题、账单、订阅通知全混在一起。手工分类太累。设一次规则，剩下交给AI。",
-    story2_pt1: "🧠 智能分类（不是简单过滤）", story2_pt2: "⚡ 大幅节省邮件处理时间", story2_pt3: "🔒 隐私优先（本地处理）", story2_pt4: "📋 自定义规则", story2_pt5: "🔄 支持多个邮箱",
+    story2_pt1: "智能分类（不是简单过滤）", story2_pt2: "大幅节省邮件处理时间", story2_pt3: "隐私优先（本地处理）", story2_pt4: "📋 自定义规则", story2_pt5: "🔄 支持多个邮箱",
     story2_stat1_num: "80%", story2_stat1_label: "处理时间节省", story2_stat2_num: "24/7", story2_stat2_label: "自动监控",
     story2_cta: "⚙️ 查看邮件系统",
 
     story3_eyebrow: "故事三", story3_title: "T00框架——如何复用AI思路到每个项目",
     story3_desc: "你做了一个AI网页生成器，效果很好。现在想做自动化工具，但架构不一样，提示词得重写。又是从头开始。这就是为什么需要框架。",
-    story3_pt1: "📚 可复用的思路模板", story3_pt2: "🔌 模块化架构", story3_pt3: "📖 完整文档+代码示例", story3_pt4: "🌐 已在4个以上真实项目中验证", story3_pt5: "🤝 开源社区",
+    story3_pt1: "可复用的思路模板", story3_pt2: "模块化架构", story3_pt3: "完整文档+代码示例", story3_pt4: "🌐 已在4个以上真实项目中验证", story3_pt5: "🤝 开源社区",
     story3_stat1_num: "10倍", story3_stat1_label: "第二个项目开发速度", story3_stat2_num: "4+", story3_stat2_label: "实际应用项目数",
     story3_cta: "📖 查看文档",
 
@@ -446,8 +448,9 @@ window.SITE_I18N = {
     trust4_num: "3", trust4_label: "支持语言（中/日/英）",
 
     bottom_cta_title: "准备好了吗？",
-    bottom_cta_btn1: "🚀 立即开始", bottom_cta_btn2: "📚 查看文档", bottom_cta_btn3: "💬 联系我们",
+    bottom_cta_btn1: "立即开始", bottom_cta_btn2: "查看全部项目", bottom_cta_btn3: "联系我们",
 
+    portfolio_page_title: "全部作品 — maySunAI",
     home_portfolio_h2: "作品集",
     home_portfolio_sub: "真正做出来并上线的东西——按类型分组。点击任意项目查看详情。",
     home_group_ai_title: "AI与智能体工程",

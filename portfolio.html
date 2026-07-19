@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="portfolio_page_title">Portfolio — maySunAI</title>
+  <meta id="metaDescription" name="description" data-i18n-desc="home_portfolio_sub" content="What I've actually built and shipped — grouped by type. Click any project for details." />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="portfolio.html" class="nav-current" data-i18n="nav_portfolio">Portfolio</a>
+      <a href="about.html" data-i18n="nav_about">About</a>
+      <a href="mailto:j6016086@gmail.com" data-i18n="nav_contact">Contact</a>
+    </div>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </div>
+</nav>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <h2 data-i18n="home_portfolio_h2">Portfolio</h2>
+  <p class="section-sub" data-i18n="home_portfolio_sub">What I've actually built and shipped — grouped by type. Click any project for details.</p>
+
+  <div class="portfolio-group">
+    <h3 data-i18n="home_group_ai_title">AI &amp; Agent Engineering</h3>
+    <div class="products">
+      <a class="product-card" href="product-rag.html">
+        <div class="product-icon">🔎</div>
+        <h3 data-i18n="card_rag_title">Local RAG Knowledge-Chat App</h3>
+        <p data-i18n="card_rag_desc">Electron desktop app with a fully offline local-RAG pipeline.</p>
+        <span class="badge badge-live" data-i18n="card_rag_badge">Working / Verified</span>
+        <div class="product-more" data-i18n="card_more">View details →</div>
+      </a>
+      <a class="product-card" href="product-agent-platform.html">
+        <div class="product-icon">🤖</div>
+        <h3 data-i18n="card_agent_title">Personal AI Agent Platform</h3>
+        <p data-i18n="card_agent_desc">Plugin-based agent architecture with multi-LLM routing.</p>
+        <span class="badge badge-dev" data-i18n="card_agent_badge">In Progress</span>
+        <div class="product-more" data-i18n="card_more">View details →</div>
+      </a>
+      <a class="product-card" href="product-email-agent.html">
+        <div class="product-icon">📧</div>
+        <h3 data-i18n="card_email_title">Email-Driven Task Agent</h3>
+        <p data-i18n="card_email_desc">Send it an instruction by Gmail — it runs the task and replies.</p>
+        <span class="badge badge-live" data-i18n="card_email_badge">Live / Daily Use</span>
+        <div class="product-more" data-i18n="card_more">View details →</div>
+      </a>
+      <a class="product-card" href="product-memory.html">
+        <div class="product-icon">🧠</div>
+        <h3 data-i18n="card_memory_title">Memory Assistant</h3>
+        <p data-i18n="card_memory_desc">A spaced-repetition study tool based on the Ebbinghaus forgetting curve.</p>
+        <span class="badge badge-dev" data-i18n="card_memory_badge">Personal Use</span>
+        <div class="product-more" data-i18n="card_more">View details →</div>
+      </a>
+      <a class="product-card" href="product-myai.html">
+        <div class="product-icon">📱</div>
+        <h3 data-i18n="card_myai_title">MyAI — Personal AI Assistant Platform</h3>
+        <p data-i18n="card_myai_desc">A mobile-first personal AI assistant and open plugin platform.</p>
+        <span class="badge badge-dev" data-i18n="card_myai_badge">In Progress</span>
+        <div class="product-more" data-i18n="card_more">View details →</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="portfolio-group">
+    <h3 data-i18n="home_group_shipped_title">Published &amp; Shipped</h3>
+    <div class="products">
+      <a class="product-card" href="product-reader.html">
+        <div class="product-icon">📄</div>
+        <h3 data-i18n="card_reader_title">MD Markdown Reader</h3>
+        <p data-i18n="card_reader_desc">A clean, fast Markdown file reader with drag &amp; drop and multi-encoding support.</p>
+        <span class="badge badge-live" data-i18n="card_reader_badge">Live (Web)</span>
+        <div class="product-more" data-i18n="card_more">View details →</div>
+      </a>
+      <a class="product-card" href="product-medication.html">
+        <div class="product-icon">💊</div>
+        <h3 data-i18n="card_medication_title">Medication Reminder App</h3>
+        <p data-i18n="card_medication_desc">A focused reminder app to help people take medication on schedule.</p>
+        <span class="badge badge-dev" data-i18n="card_medication_badge">In Development</span>
+        <div class="product-more" data-i18n="card_more">View details →</div>
+      </a>
+      <a class="product-card" href="product-kdp.html">
+        <div class="product-icon">📚</div>
+        <h3 data-i18n="card_kdp_title">KDP E-Books</h3>
+        <p data-i18n="card_kdp_desc">A concept-to-publication pipeline on AI-assisted development. 2 titles live on Amazon KDP.</p>
+        <span class="badge badge-live" data-i18n="card_kdp_badge">Amazon KDP — 2 Live</span>
+        <div class="product-more" data-i18n="card_more">View details →</div>
+      </a>
+      <a class="product-card" href="product-games.html">
+        <div class="product-icon">🐍</div>
+        <h3 data-i18n="card_games_title">Game Hall</h3>
+        <p data-i18n="card_games_desc">Small, single-file web games — play instantly, no install.</p>
+        <span class="badge badge-live" data-i18n="card_games_badge">Live</span>
+        <div class="product-more" data-i18n="card_more">View details →</div>
+      </a>
+      <a class="product-card" href="product-shop.html">
+        <div class="product-icon">🛒</div>
+        <h3 data-i18n="card_shop_title">Product Shop Platform</h3>
+        <p data-i18n="card_shop_desc">A live e-commerce platform with real Stripe checkout.</p>
+        <span class="badge badge-live" data-i18n="card_shop_badge">Live</span>
+        <div class="product-more" data-i18n="card_more">View details →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p data-i18n="footer_line">© 2026 maySunAI · Jason Gao</p>
+  <div class="footer-links">
+    <a href="mailto:j6016086@gmail.com" data-i18n="footer_contact">✉️ Email</a>
+    <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>
+  </div>
+</footer>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>
