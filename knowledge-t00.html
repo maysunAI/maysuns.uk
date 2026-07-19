@@ -13,6 +13,12 @@
     .kb-section { max-width: min(1100px, 92vw); margin: 0 auto; padding: 20px clamp(24px, 6vw, 120px) 56px; }
     .kb-section p { line-height: 1.7; font-size: 0.96em; margin-bottom: 16px; }
     .kb-cta { margin-top: 8px; }
+    .kb-articles { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; margin: 20px 0 36px; }
+    .kb-article { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; }
+    .kb-article h3 { font-size: 1.02em; font-weight: 700; margin-bottom: 8px; }
+    .kb-article p { font-size: 0.9em; color: var(--muted); line-height: 1.6; margin-bottom: 10px; flex-grow: 1; }
+    .kb-article .kb-article-note { font-size: 0.85em; color: var(--muted); font-style: italic; margin-bottom: 12px; }
+    .kb-article-link { font-size: 0.88em; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -27,7 +33,7 @@
         <div class="nav-dropdown-menu">
           <a href="knowledge-t00.html" class="nav-current"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
           <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
-          <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Coming soon</small></a>
+          <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Git, Vue, Node, Python, Flask basics</small></a>
         </div>
       </div>
       <div class="nav-dropdown" tabindex="0">
@@ -95,7 +101,42 @@
     </div>
   </div>
 
-  <p style="margin-top:24px;" data-i18n="kt00_p5">Speaking of Markdown: reading a folder full of loose .md files in a normal file browser is a chore — that's part of why I also built a dedicated reader for it.</p>
+  <h2 style="font-size:1.05em; font-weight:800; margin:8px 0 6px;" data-i18n="kt00_articles_h2">Five T00 concepts, explained</h2>
+  <p style="margin-bottom:0;" data-i18n="kt00_articles_sub">These describe the general mechanism, not this site's private working files — each one is a reusable idea you could adopt in your own AI workflow.</p>
+  <div class="kb-articles">
+    <div class="kb-article">
+      <h3 data-i18n="kt00_a1_h">The req/reply communication protocol</h3>
+      <p data-i18n="kt00_a1_p">A convention for keeping AI collaboration organized: substantive answers get written into a persistent reply log rather than only spoken in the terminal, while the terminal itself stays terse — short confirmations only. That way a session spanning hours or days can be picked back up without re-reading a wall of scrollback.</p>
+      <p class="kb-article-note" data-i18n="kt00_a1_note">Why it matters for T00: it's the backbone that keeps long, multi-project sessions traceable instead of scattered across chat history.</p>
+      <a class="kb-cta kb-article-link" href="kb-docs/t00-req-reply-protocol.md" target="_blank" rel="noopener" data-i18n="kt00_a1_link">Read the full guide (.md) →</a>
+    </div>
+    <div class="kb-article">
+      <h3 data-i18n="kt00_a2_h">Trust levels for AI-assisted changes</h3>
+      <p data-i18n="kt00_a2_p">A high / medium / low tagging convention that tells an AI assistant how freely it can change something. High-trust areas need a heads-up before changes; low-trust areas can be edited boldly; untagged code defaults to a sensible middle ground.</p>
+      <p class="kb-article-note" data-i18n="kt00_a2_note">Why it matters for T00: it stops an eager AI from silently rewriting something that was deliberately built a certain way.</p>
+      <a class="kb-cta kb-article-link" href="kb-docs/t00-trust-levels.md" target="_blank" rel="noopener" data-i18n="kt00_a2_link">Read the full guide (.md) →</a>
+    </div>
+    <div class="kb-article">
+      <h3 data-i18n="kt00_a3_h">Persistent memory across sessions</h3>
+      <p data-i18n="kt00_a3_p">The idea of giving an AI assistant a small, durable memory file — preferences, conventions, recurring feedback — that carries forward between separate conversations, so context doesn't need to be re-explained from scratch every time.</p>
+      <p class="kb-article-note" data-i18n="kt00_a3_note">Deliberately minimal: not a full transcript, just the handful of durable facts worth remembering.</p>
+      <a class="kb-cta kb-article-link" href="kb-docs/t00-persistent-memory.md" target="_blank" rel="noopener" data-i18n="kt00_a3_link">Read the full guide (.md) →</a>
+    </div>
+    <div class="kb-article">
+      <h3 data-i18n="kt00_a4_h">Custom slash commands</h3>
+      <p data-i18n="kt00_a4_p">Packaging a repeatable multi-step workflow — like "estimate this task" or "publish this build" — into a single reusable command instead of re-typing the same instructions every time.</p>
+      <p class="kb-article-note" data-i18n="kt00_a4_note">Turns a recurring multi-paragraph instruction into a one-word trigger, keeping repetitive workflows consistent.</p>
+      <a class="kb-cta kb-article-link" href="kb-docs/t00-slash-commands.md" target="_blank" rel="noopener" data-i18n="kt00_a4_link">Read the full guide (.md) →</a>
+    </div>
+    <div class="kb-article">
+      <h3 data-i18n="kt00_a5_h">Skills: on-demand instruction sets</h3>
+      <p data-i18n="kt00_a5_p">A way of packaging specialized instructions so an AI assistant only loads them when actually relevant, instead of every conversation carrying the full weight of every capability it might ever need.</p>
+      <p class="kb-article-note" data-i18n="kt00_a5_note">Keeps day-to-day interactions lighter while still making deep, specialized knowledge available the moment it's needed.</p>
+      <a class="kb-cta kb-article-link" href="kb-docs/t00-skills.md" target="_blank" rel="noopener" data-i18n="kt00_a5_link">Read the full guide (.md) →</a>
+    </div>
+  </div>
+
+  <p style="margin-top:8px;" data-i18n="kt00_p5">Speaking of Markdown: reading a folder full of loose .md files in a normal file browser is a chore — that's part of why I also built a dedicated reader for it.</p>
   <a class="kb-cta" href="product-reader.html" data-i18n="kt00_reader_cta">Try the MD Reader →</a>
   <br />
   <a class="kb-cta" style="margin-top:10px; display:inline-block;" href="about.html#framework" data-i18n="kt00_link">See the person behind it →</a>
@@ -109,7 +150,7 @@
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=20260720"></script>
+<script src="assets/i18n.js?v=20260720c"></script>
 <script src="assets/main.js?v=20260720"></script>
 </body>
 </html>
