@@ -82,7 +82,7 @@ nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 1
 .audience-pill:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
 
 /* SECTION */
-section { padding: 56px 24px; max-width: 900px; margin: 0 auto; }
+section { padding: 56px clamp(24px, 6vw, 140px); max-width: min(1200px, 94vw); margin: 0 auto; }
 section h2 { font-size: 1.6em; font-weight: 700; margin-bottom: 8px; }
 .section-sub { color: var(--muted); margin-bottom: 32px; font-size: 0.95em; }
 section p.body-text { color: var(--text); margin-bottom: 14px; font-size: 0.98em; }
@@ -113,8 +113,8 @@ section p.body-text.muted { color: var(--muted); }
 .product-more { display: inline-block; margin-top: 10px; font-size: 0.85em; color: var(--accent); }
 
 /* PRODUCT DETAIL PAGE */
-.back-link { display: inline-block; padding: 20px 24px 0; max-width: 900px; margin: 0 auto; font-size: 0.9em; color: var(--muted); }
-.product-hero { padding: 48px 24px 24px; max-width: 800px; margin: 0 auto; }
+.back-link { display: block; padding: 20px clamp(24px, 6vw, 140px) 0; max-width: min(1200px, 94vw); margin: 0 auto; font-size: 0.9em; color: var(--muted); }
+.product-hero { padding: 48px clamp(24px, 6vw, 140px) 24px; max-width: min(1200px, 94vw); margin: 0 auto; }
 .product-hero .product-icon { font-size: 2.6em; margin-bottom: 10px; }
 .product-hero h1 { font-size: clamp(1.7em, 4vw, 2.3em); font-weight: 800; margin-bottom: 10px; }
 .product-hero .tagline { color: var(--muted); font-size: 1.05em; margin-bottom: 16px; }
