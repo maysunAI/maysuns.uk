@@ -3,9 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="prod_memory_page_title">Memory Assistant — maySunAI</title>
-  <meta id="metaDescription" name="description" data-i18n-desc="prod_memory_meta_description" content="" />
+  <title data-i18n="upd_page_title">Updates — maySunAI</title>
+  <meta id="metaDescription" name="description" data-i18n-desc="upd_meta_description" content="AI industry news and a real changelog of what's shipped on this site." />
   <link rel="stylesheet" href="assets/site.css" />
+  <style>
+    .upd-hero { padding: 48px clamp(24px, 6vw, 120px) 8px; max-width: 900px; margin: 0 auto; }
+    .upd-hero h1 { font-size: clamp(1.3em, 3vw, 1.7em); font-weight: 800; margin-bottom: 8px; }
+    .upd-hero p { color: var(--muted); }
+    .upd-section { max-width: 900px; margin: 0 auto; padding: 24px clamp(24px, 6vw, 120px); }
+    .upd-section h2 { font-size: 1.15em; font-weight: 800; margin-bottom: 12px; }
+    .upd-placeholder { border: 1px dashed var(--border); border-radius: 12px; padding: 20px; color: var(--muted); font-size: 0.92em; line-height: 1.6; }
+    .upd-log { list-style: none; padding: 0; margin: 0; }
+    .upd-log li { display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .upd-log li:last-child { border-bottom: none; }
+    .upd-log .when { color: var(--muted); font-size: 0.85em; white-space: nowrap; min-width: 92px; }
+    .upd-log .text { font-size: 0.94em; line-height: 1.5; }
+    .upd-news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+    .upd-news-cat h3 { font-size: 0.92em; font-weight: 700; margin-bottom: 8px; }
+    .upd-news-cat .upd-placeholder { padding: 14px 16px; font-size: 0.86em; }
+  </style>
 </head>
 <body>
 
@@ -23,7 +39,7 @@
         </div>
       </div>
       <div class="nav-dropdown" tabindex="0">
-        <span class="nav-dropdown-label" data-i18n="nav_updates_label">Updates ▾</span>
+        <span class="nav-dropdown-label nav-current" data-i18n="nav_updates_label">Updates ▾</span>
         <div class="nav-dropdown-menu">
           <a href="updates.html#news" data-i18n="nav_updates_news">AI Industry News</a>
           <a href="updates.html#changelog" data-i18n="nav_updates_changelog">Changelog</a>
@@ -56,24 +72,42 @@
   </div>
 </nav>
 
-<div class="back-link"><a href="products-general.html" data-i18n="back_home">← Back to all products</a></div>
-
-<div class="product-hero">
-  <div class="product-icon">🧠</div>
-  <h1 data-i18n="prod_memory_title">Memory Assistant</h1>
-  <p class="tagline" data-i18n="prod_memory_tagline">Spaced-repetition study tool based on the Ebbinghaus forgetting curve</p>
-  <div class="status-row"><span class="badge badge-dev" data-i18n="prod_memory_badge">Personal Use</span></div>
+<div class="upd-hero">
+  <h1 data-i18n="upd_h1">Updates</h1>
+  <p data-i18n="upd_sub">What's happening in AI, and what's actually changed on this site.</p>
 </div>
 
-<section>
-  <p class="body-text" data-i18n="prod_memory_p1">A modern rebuild of an old personal Excel/VBA macro tool.</p>
-  <p class="body-text" data-i18n="prod_memory_p2">Implements spaced-repetition scheduling based on the Ebbinghaus forgetting curve.</p>
-  <div class="tech-list">
-    <span class="tech-chip">Spaced Repetition</span>
-    <span class="tech-chip">Web App</span>
-    <span class="tech-chip">AI-Assisted Planning</span>
+<div class="upd-section" id="news">
+  <h2 data-i18n="upd_news_h2">AI Industry News</h2>
+  <div class="upd-news-grid">
+    <div class="upd-news-cat">
+      <h3 data-i18n="upd_news_claude_h3">Claude</h3>
+      <div class="upd-placeholder" data-i18n="upd_news_claude_placeholder">Coming soon.</div>
+    </div>
+    <div class="upd-news-cat">
+      <h3 data-i18n="upd_news_codex_h3">Codex</h3>
+      <div class="upd-placeholder" data-i18n="upd_news_codex_placeholder">Coming soon.</div>
+    </div>
+    <div class="upd-news-cat">
+      <h3 data-i18n="upd_news_othercoding_h3">Other AI Coding Tools</h3>
+      <div class="upd-placeholder" data-i18n="upd_news_othercoding_placeholder">Coming soon.</div>
+    </div>
+    <div class="upd-news-cat">
+      <h3 data-i18n="upd_news_otherai_h3">Other AI News</h3>
+      <div class="upd-placeholder" data-i18n="upd_news_otherai_placeholder">Coming soon.</div>
+    </div>
   </div>
-</section>
+</div>
+
+<div class="upd-section" id="changelog">
+  <h2 data-i18n="upd_changelog_h2">Changelog</h2>
+  <ul class="upd-log">
+    <li><span class="when" data-i18n="upd_log1_when">2026-07-19</span><span class="text" data-i18n="upd_log1_text">Nav restructure.</span></li>
+    <li><span class="when" data-i18n="upd_log2_when">2026-07-19</span><span class="text" data-i18n="upd_log2_text">Story-driven redesign.</span></li>
+    <li><span class="when" data-i18n="upd_log3_when">2026-07-19</span><span class="text" data-i18n="upd_log3_text">Vultr migration.</span></li>
+    <li><span class="when" data-i18n="upd_log4_when">2026-07-18</span><span class="text" data-i18n="upd_log4_text">Multi-page rebuild.</span></li>
+  </ul>
+</div>
 
 <footer>
   <p data-i18n="footer_line">© 2026 maySunAI</p>

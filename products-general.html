@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="prod_memory_page_title">Memory Assistant — maySunAI</title>
-  <meta id="metaDescription" name="description" data-i18n-desc="prod_memory_meta_description" content="" />
+  <title data-i18n="pgen_page_title">General Tools — maySunAI</title>
+  <meta id="metaDescription" name="description" data-i18n-desc="pgen_meta_description" content="Everyday personal tools — not AI agents, just useful software." />
   <link rel="stylesheet" href="assets/site.css" />
 </head>
 <body>
@@ -30,10 +30,10 @@
         </div>
       </div>
       <div class="nav-dropdown" tabindex="0">
-        <span class="nav-dropdown-label" data-i18n="nav_aiproducts_label">AI Products ▾</span>
+        <span class="nav-dropdown-label nav-current" data-i18n="nav_aiproducts_label">AI Products ▾</span>
         <div class="nav-dropdown-menu">
           <a href="portfolio.html#ai-tools" data-i18n="nav_aiproducts_tools">AI Tools</a>
-          <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
+          <a href="products-general.html" class="nav-current" data-i18n="nav_aiproducts_general">General Tools</a>
         </div>
       </div>
       <a href="product-games.html" data-i18n="nav_games">Game Hall</a>
@@ -56,22 +56,32 @@
   </div>
 </nav>
 
-<div class="back-link"><a href="products-general.html" data-i18n="back_home">← Back to all products</a></div>
+<section id="general-tools">
+  <h2 data-i18n="pgen_h1">General Tools</h2>
+  <p class="section-sub" data-i18n="pgen_sub">Smaller, everyday tools — not AI agents, just useful software built for daily use.</p>
 
-<div class="product-hero">
-  <div class="product-icon">🧠</div>
-  <h1 data-i18n="prod_memory_title">Memory Assistant</h1>
-  <p class="tagline" data-i18n="prod_memory_tagline">Spaced-repetition study tool based on the Ebbinghaus forgetting curve</p>
-  <div class="status-row"><span class="badge badge-dev" data-i18n="prod_memory_badge">Personal Use</span></div>
-</div>
-
-<section>
-  <p class="body-text" data-i18n="prod_memory_p1">A modern rebuild of an old personal Excel/VBA macro tool.</p>
-  <p class="body-text" data-i18n="prod_memory_p2">Implements spaced-repetition scheduling based on the Ebbinghaus forgetting curve.</p>
-  <div class="tech-list">
-    <span class="tech-chip">Spaced Repetition</span>
-    <span class="tech-chip">Web App</span>
-    <span class="tech-chip">AI-Assisted Planning</span>
+  <div class="products">
+    <a class="product-card" href="product-memory.html">
+      <div class="product-icon">🧠</div>
+      <h3 data-i18n="card_memory_title">Memory Assistant</h3>
+      <p data-i18n="card_memory_desc">A spaced-repetition study tool based on the Ebbinghaus forgetting curve.</p>
+      <span class="badge badge-dev" data-i18n="card_memory_badge">Personal Use</span>
+      <div class="product-more" data-i18n="card_more">View details →</div>
+    </a>
+    <a class="product-card" href="product-reader.html">
+      <div class="product-icon">📄</div>
+      <h3 data-i18n="card_reader_title">MD Markdown Reader</h3>
+      <p data-i18n="card_reader_desc">A clean, fast Markdown file reader with drag &amp; drop and multi-encoding support.</p>
+      <span class="badge badge-live" data-i18n="card_reader_badge">Live (Web)</span>
+      <div class="product-more" data-i18n="card_more">View details →</div>
+    </a>
+    <a class="product-card" href="product-medication.html">
+      <div class="product-icon">💊</div>
+      <h3 data-i18n="card_medication_title">Medication Reminder App</h3>
+      <p data-i18n="card_medication_desc">A focused reminder app to help people take medication on schedule.</p>
+      <span class="badge badge-dev" data-i18n="card_medication_badge">In Development</span>
+      <div class="product-more" data-i18n="card_more">View details →</div>
+    </a>
   </div>
 </section>
 

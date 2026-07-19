@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="prod_memory_page_title">Memory Assistant — maySunAI</title>
-  <meta id="metaDescription" name="description" data-i18n-desc="prod_memory_meta_description" content="" />
+  <title data-i18n="krag_page_title">RAG Knowledge Base — maySunAI</title>
+  <meta id="metaDescription" name="description" data-i18n-desc="krag_meta_description" content="What Retrieval-Augmented Generation (RAG) is, and a real local implementation." />
   <link rel="stylesheet" href="assets/site.css" />
+  <style>
+    .kb-hero { padding: 48px clamp(24px, 6vw, 120px) 8px; max-width: 780px; margin: 0 auto; }
+    .kb-hero h1 { font-size: clamp(1.3em, 3vw, 1.7em); font-weight: 800; margin-bottom: 8px; }
+    .kb-hero p.sub { color: var(--muted); }
+    .kb-section { max-width: 780px; margin: 0 auto; padding: 20px clamp(24px, 6vw, 120px) 56px; }
+    .kb-section p { line-height: 1.7; font-size: 0.96em; margin-bottom: 16px; }
+    .kb-cta { margin-top: 8px; }
+  </style>
 </head>
 <body>
 
@@ -15,10 +23,10 @@
     <div class="nav-links">
       <a href="index.html" data-i18n="nav_home">Home</a>
       <div class="nav-dropdown" tabindex="0">
-        <span class="nav-dropdown-label" data-i18n="nav_aiknowledge_label">AI Knowledge ▾</span>
+        <span class="nav-dropdown-label nav-current" data-i18n="nav_aiknowledge_label">AI Knowledge ▾</span>
         <div class="nav-dropdown-menu">
           <a href="knowledge-t00.html"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
-          <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
+          <a href="knowledge-rag.html" class="nav-current"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
           <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Coming soon</small></a>
         </div>
       </div>
@@ -56,24 +64,16 @@
   </div>
 </nav>
 
-<div class="back-link"><a href="products-general.html" data-i18n="back_home">← Back to all products</a></div>
-
-<div class="product-hero">
-  <div class="product-icon">🧠</div>
-  <h1 data-i18n="prod_memory_title">Memory Assistant</h1>
-  <p class="tagline" data-i18n="prod_memory_tagline">Spaced-repetition study tool based on the Ebbinghaus forgetting curve</p>
-  <div class="status-row"><span class="badge badge-dev" data-i18n="prod_memory_badge">Personal Use</span></div>
+<div class="kb-hero">
+  <h1 data-i18n="krag_h1">RAG Knowledge Base</h1>
+  <p class="sub" data-i18n="krag_sub">Retrieval-Augmented Generation, explained simply</p>
 </div>
 
-<section>
-  <p class="body-text" data-i18n="prod_memory_p1">A modern rebuild of an old personal Excel/VBA macro tool.</p>
-  <p class="body-text" data-i18n="prod_memory_p2">Implements spaced-repetition scheduling based on the Ebbinghaus forgetting curve.</p>
-  <div class="tech-list">
-    <span class="tech-chip">Spaced Repetition</span>
-    <span class="tech-chip">Web App</span>
-    <span class="tech-chip">AI-Assisted Planning</span>
-  </div>
-</section>
+<div class="kb-section">
+  <p data-i18n="krag_p1">RAG (Retrieval-Augmented Generation) is a technique for making an AI model answer using your own documents.</p>
+  <p data-i18n="krag_p2">It matters because it lets an AI stay accurate about information it was never trained on.</p>
+  <a class="kb-cta" href="product-rag.html" data-i18n="krag_cta">See a real local RAG implementation →</a>
+</div>
 
 <footer>
   <p data-i18n="footer_line">© 2026 maySunAI</p>

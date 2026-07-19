@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="next_page_title">What's Next — maySunAI</title>
+  <meta id="metaDescription" name="description" data-i18n-desc="next_meta_description" content="Where this is headed, and how to follow along." />
+  <link rel="stylesheet" href="assets/site.css" />
+  <style>
+    .next-hero { padding: 48px clamp(24px, 6vw, 120px) 8px; max-width: 780px; margin: 0 auto; }
+    .next-hero h1 { font-size: clamp(1.3em, 3vw, 1.7em); font-weight: 800; margin-bottom: 8px; }
+    .next-hero p.sub { color: var(--muted); margin-bottom: 18px; }
+    .next-hero p.intro { line-height: 1.7; font-size: 0.98em; }
+    .next-section { max-width: 900px; margin: 0 auto; padding: 20px clamp(24px, 6vw, 120px) 56px; }
+    .next-section h2 { font-size: 1.15em; font-weight: 800; margin-bottom: 16px; }
+    .next-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .next-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .next-card h3 { font-size: 1em; margin-bottom: 8px; }
+    .next-card p { color: var(--muted); font-size: 0.86em; line-height: 1.5; margin-bottom: 10px; }
+    .next-status { display: inline-block; font-size: 0.76em; padding: 3px 9px; border-radius: 10px; background: rgba(240,180,41,0.15); color: #f0b429; margin-left: 6px; }
+    .wechat-placeholder { width: 100%; aspect-ratio: 1 / 1; max-width: 160px; border: 1px dashed var(--border); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1.6em; margin-bottom: 10px; }
+    .next-form { display: flex; flex-direction: column; gap: 8px; }
+    .next-form input { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; color: var(--text); font: inherit; font-size: 0.9em; }
+    .next-form button { margin-top: 4px; }
+    .next-github a { text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiknowledge_label">AI Knowledge ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="knowledge-t00.html"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
+          <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
+          <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Coming soon</small></a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_updates_label">Updates ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="updates.html#news" data-i18n="nav_updates_news">AI Industry News</a>
+          <a href="updates.html#changelog" data-i18n="nav_updates_changelog">Changelog</a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiproducts_label">AI Products ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="portfolio.html#ai-tools" data-i18n="nav_aiproducts_tools">AI Tools</a>
+          <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
+        </div>
+      </div>
+      <a href="product-games.html" data-i18n="nav_games">Game Hall</a>
+      <a href="product-shop.html" data-i18n="nav_shop">Maysun Shop</a>
+      <a href="whats-next.html" class="nav-current" data-i18n="nav_whatsnext">What's Next</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aboutme_label">About Me ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="stories.html"><span data-i18n="nav_aboutme_stories">Stories</span><small data-i18n="nav_aboutme_stories_sub">Real behind-the-scenes moments</small></a>
+          <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
+        </div>
+      </div>
+    </div>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </div>
+</nav>
+
+<div class="next-hero">
+  <h1 data-i18n="next_h1">What's Next</h1>
+  <p class="sub" data-i18n="next_sub">No fixed roadmap yet — just an honest look at where this is headed.</p>
+  <p class="intro" data-i18n="next_intro_p">I haven't fully decided the long-term plan yet.</p>
+</div>
+
+<div class="next-section">
+  <h2 data-i18n="next_join_h2">Join / Follow</h2>
+  <div class="next-grid">
+
+    <div class="next-card">
+      <h3><span data-i18n="next_line_label">Line Group</span><span class="next-status" data-i18n="next_line_status">(coming soon)</span></h3>
+      <p data-i18n="next_line_desc">A Line group for people who want to follow along closely.</p>
+      <!-- Placeholder link: no real Line group invite exists yet -->
+      <a href="#" onclick="return false;" aria-disabled="true" data-i18n="next_line_status">(coming soon)</a>
+    </div>
+
+    <div class="next-card">
+      <h3 data-i18n="next_wechat_label">WeChat Group</h3>
+      <div class="wechat-placeholder">🖼️</div>
+      <p data-i18n="next_wechat_caption">WeChat group QR code (placeholder — will be replaced with a real image)</p>
+    </div>
+
+    <div class="next-card">
+      <h3 data-i18n="next_email_label">Email</h3>
+      <p data-i18n="next_email_desc">Leave your name and email and I'll reach out when there's something worth sharing.</p>
+      <!--
+        Honest note: this form currently just opens the visitor's email client via a
+        mailto: action (method=post + enctype=text/plain is a widely-supported trick
+        for pre-filling a draft from form fields) as a functional fallback that works
+        today with zero external dependencies. A real newsletter/list tool (e.g. the
+        Buttondown free tier) could replace this later once an account is set up —
+        that integration does NOT exist yet and is not faked here.
+      -->
+      <form class="next-form" action="mailto:j6016086@gmail.com" method="post" enctype="text/plain">
+        <input type="text" name="name" data-i18n-placeholder="next_email_name_placeholder" placeholder="Your name" />
+        <input type="email" name="email" data-i18n-placeholder="next_email_email_placeholder" placeholder="Your email" required />
+        <button type="submit" class="btn btn-outline" data-i18n="next_email_submit">Notify Me</button>
+      </form>
+    </div>
+
+    <div class="next-card next-github">
+      <h3 data-i18n="next_github_label">Star / Watch on GitHub</h3>
+      <p data-i18n="next_github_desc">The real, existing GitHub org for this work.</p>
+      <a class="btn btn-outline" href="https://github.com/maysunai" target="_blank" rel="noopener">🐙 github.com/maysunai</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p data-i18n="footer_line">© 2026 maySunAI</p>
+  <div class="footer-links">
+    <a href="mailto:j6016086@gmail.com" data-i18n="footer_contact">✉️ Email</a>
+    <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>
+  </div>
+</footer>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/main.js"></script>
+<script>
+  // apply data-i18n-placeholder (small extension, main.js only handles text/desc/attr for content+meta)
+  document.addEventListener('DOMContentLoaded', function () {
+    function applyPlaceholders() {
+      var dict = window.SITE_I18N[document.documentElement.lang === 'ja' ? 'ja' : (document.documentElement.lang === 'zh-CN' ? 'zh' : 'en')];
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n-placeholder');
+        if (dict && dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
+      });
+    }
+    applyPlaceholders();
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { setTimeout(applyPlaceholders, 0); });
+    });
+  });
+</script>
+</body>
+</html>

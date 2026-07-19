@@ -14,9 +14,38 @@
   <div class="nav-right">
     <div class="nav-links">
       <a href="index.html" data-i18n="nav_home">Home</a>
-      <a href="portfolio.html" data-i18n="nav_portfolio">Portfolio</a>
-      <a href="about.html" data-i18n="nav_about">About</a>
-      <a href="mailto:j6016086@gmail.com" data-i18n="nav_contact">Contact</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiknowledge_label">AI Knowledge ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="knowledge-t00.html"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
+          <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
+          <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Coming soon</small></a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_updates_label">Updates ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="updates.html#news" data-i18n="nav_updates_news">AI Industry News</a>
+          <a href="updates.html#changelog" data-i18n="nav_updates_changelog">Changelog</a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiproducts_label">AI Products ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="portfolio.html#ai-tools" data-i18n="nav_aiproducts_tools">AI Tools</a>
+          <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
+        </div>
+      </div>
+      <a href="product-games.html" class="nav-current" data-i18n="nav_games">Game Hall</a>
+      <a href="product-shop.html" data-i18n="nav_shop">Maysun Shop</a>
+      <a href="whats-next.html" data-i18n="nav_whatsnext">What's Next</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aboutme_label">About Me ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="stories.html"><span data-i18n="nav_aboutme_stories">Stories</span><small data-i18n="nav_aboutme_stories_sub">Real behind-the-scenes moments</small></a>
+          <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
+        </div>
+      </div>
     </div>
     <div class="lang-switch">
       <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
@@ -27,7 +56,7 @@
   </div>
 </nav>
 
-<div class="back-link"><a href="portfolio.html" data-i18n="back_home">← Back to all products</a></div>
+<div class="back-link"><a href="index.html" data-i18n="back_home">← Back to all products</a></div>
 
 <div class="product-hero">
   <div class="product-icon">🐍</div>
@@ -48,7 +77,7 @@
 </section>
 
 <footer>
-  <p data-i18n="footer_line">© 2026 maySunAI · Jason Gao</p>
+  <p data-i18n="footer_line">© 2026 maySunAI</p>
   <div class="footer-links">
     <a href="mailto:j6016086@gmail.com" data-i18n="footer_contact">✉️ Email</a>
     <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>

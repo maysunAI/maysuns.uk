@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="kt00_page_title">T00 Knowledge Base — maySunAI</title>
+  <meta id="metaDescription" name="description" data-i18n-desc="kt00_meta_description" content="What T00 is — a personal AI-collaboration framework for working with Claude Code day to day." />
+  <link rel="stylesheet" href="assets/site.css" />
+  <style>
+    .kb-hero { padding: 48px clamp(24px, 6vw, 120px) 8px; max-width: 780px; margin: 0 auto; }
+    .kb-hero h1 { font-size: clamp(1.3em, 3vw, 1.7em); font-weight: 800; margin-bottom: 8px; }
+    .kb-hero p.sub { color: var(--muted); }
+    .kb-section { max-width: 780px; margin: 0 auto; padding: 20px clamp(24px, 6vw, 120px) 56px; }
+    .kb-section p { line-height: 1.7; font-size: 0.96em; margin-bottom: 16px; }
+    .kb-cta { margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label nav-current" data-i18n="nav_aiknowledge_label">AI Knowledge ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="knowledge-t00.html" class="nav-current"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
+          <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
+          <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Coming soon</small></a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_updates_label">Updates ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="updates.html#news" data-i18n="nav_updates_news">AI Industry News</a>
+          <a href="updates.html#changelog" data-i18n="nav_updates_changelog">Changelog</a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiproducts_label">AI Products ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="portfolio.html#ai-tools" data-i18n="nav_aiproducts_tools">AI Tools</a>
+          <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
+        </div>
+      </div>
+      <a href="product-games.html" data-i18n="nav_games">Game Hall</a>
+      <a href="product-shop.html" data-i18n="nav_shop">Maysun Shop</a>
+      <a href="whats-next.html" data-i18n="nav_whatsnext">What's Next</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aboutme_label">About Me ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="stories.html"><span data-i18n="nav_aboutme_stories">Stories</span><small data-i18n="nav_aboutme_stories_sub">Real behind-the-scenes moments</small></a>
+          <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
+        </div>
+      </div>
+    </div>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </div>
+</nav>
+
+<div class="kb-hero">
+  <h1 data-i18n="kt00_h1">T00 Knowledge Base</h1>
+  <p class="sub" data-i18n="kt00_sub">The working system behind every project on this site</p>
+</div>
+
+<div class="kb-section">
+  <p data-i18n="kt00_p1">T00 is a personal AI-collaboration framework.</p>
+  <p data-i18n="kt00_p2">At its core, T00 defines a communication protocol, memory rules, and project organization conventions.</p>
+  <p data-i18n="kt00_p3">It's a real, evolving personal system, not a polished framework for others to install.</p>
+  <p data-i18n="kt00_p4">It isn't one rulebook — it's a mix of a communication protocol, memory/context conventions, and a growing library of how-to guides, all written in plain Markdown.</p>
+
+  <h2 style="font-size:1.05em; font-weight:800; margin:28px 0 16px;" data-i18n="kt00_list_h2">What's inside</h2>
+  <div class="expertise-grid">
+    <div class="expertise-item">
+      <h4 data-i18n="kt00_item1_h">Communication protocol</h4>
+      <p data-i18n="kt00_item1_p">A structured request/reply format so context survives long sessions and several projects running in parallel.</p>
+    </div>
+    <div class="expertise-item">
+      <h4 data-i18n="kt00_item2_h">Project organization conventions</h4>
+      <p data-i18n="kt00_item2_p">A consistent folder and file structure so dozens of projects stay findable instead of turning into a junk drawer.</p>
+    </div>
+    <div class="expertise-item">
+      <h4 data-i18n="kt00_item3_h">Trust-level tagging</h4>
+      <p data-i18n="kt00_item3_p">Code and docs are labeled by how freely they can be changed — from "safe to edit freely" to "don't touch without asking" — so AI assistance doesn't silently break things that matter.</p>
+    </div>
+    <div class="expertise-item">
+      <h4 data-i18n="kt00_item4_h">A documentation habit</h4>
+      <p data-i18n="kt00_item4_p">How-to guides written in plain Markdown, growing over time as the system changes.</p>
+    </div>
+  </div>
+
+  <p style="margin-top:24px;" data-i18n="kt00_p5">Speaking of Markdown: reading a folder full of loose .md files in a normal file browser is a chore — that's part of why I also built a dedicated reader for it.</p>
+  <a class="kb-cta" href="product-reader.html" data-i18n="kt00_reader_cta">Try the MD Reader →</a>
+  <br />
+  <a class="kb-cta" style="margin-top:10px; display:inline-block;" href="about.html#framework" data-i18n="kt00_link">See the person behind it →</a>
+</div>
+
+<footer>
+  <p data-i18n="footer_line">© 2026 maySunAI</p>
+  <div class="footer-links">
+    <a href="mailto:j6016086@gmail.com" data-i18n="footer_contact">✉️ Email</a>
+    <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>
+  </div>
+</footer>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>

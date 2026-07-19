@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="about_page_title">About Jason Gao (maySunAI)</title>
+  <title data-i18n="about_page_title">About Me (maySunAI)</title>
   <meta id="metaDescription" name="description" data-i18n-desc="about_meta_description" content="25+ years of enterprise engineering, now building AI products." />
   <link rel="stylesheet" href="assets/site.css" />
 </head>
@@ -14,9 +14,38 @@
   <div class="nav-right">
     <div class="nav-links">
       <a href="index.html" data-i18n="nav_home">Home</a>
-      <a href="portfolio.html" data-i18n="nav_portfolio">Portfolio</a>
-      <a href="about.html" class="nav-current" data-i18n="nav_about">About</a>
-      <a href="mailto:j6016086@gmail.com" data-i18n="nav_contact">Contact</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiknowledge_label">AI Knowledge ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="knowledge-t00.html"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
+          <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
+          <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Coming soon</small></a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_updates_label">Updates ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="updates.html#news" data-i18n="nav_updates_news">AI Industry News</a>
+          <a href="updates.html#changelog" data-i18n="nav_updates_changelog">Changelog</a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiproducts_label">AI Products ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="portfolio.html#ai-tools" data-i18n="nav_aiproducts_tools">AI Tools</a>
+          <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
+        </div>
+      </div>
+      <a href="product-games.html" data-i18n="nav_games">Game Hall</a>
+      <a href="product-shop.html" data-i18n="nav_shop">Maysun Shop</a>
+      <a href="whats-next.html" data-i18n="nav_whatsnext">What's Next</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label nav-current" data-i18n="nav_aboutme_label">About Me ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="stories.html"><span data-i18n="nav_aboutme_stories">Stories</span><small data-i18n="nav_aboutme_stories_sub">Real behind-the-scenes moments</small></a>
+          <a href="about.html" class="nav-current" data-i18n="nav_aboutme_us">About Us</a>
+        </div>
+      </div>
     </div>
     <div class="lang-switch">
       <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
@@ -33,7 +62,7 @@
   <p class="section-sub" data-i18n="about_sub">25 years of enterprise engineering discipline, now applied to building AI products</p>
 
   <p class="body-text" data-i18n="about_intro_p">
-    I'm Jason Gao (高嵩) — an enterprise engineer with 25+ years delivering mission-critical business systems for the
+    An enterprise engineer with 25+ years delivering mission-critical business systems for the
     Japanese market, now applying that same engineering rigor to designing, building, and shipping AI products
     end-to-end.
   </p>
@@ -141,14 +170,21 @@
 <!-- FOR INVESTORS -->
 <section id="investors">
   <h2 data-i18n="inv_h2">For Investors &amp; Collaborators</h2>
-  <p class="section-sub" data-i18n="inv_sub">A grounded, evidence-based pitch — not a hyper-growth story</p>
+  <p class="section-sub" data-i18n="inv_sub">25 years of enterprise delivery discipline, now applied to shipping real AI products — a grounded pitch, not a hyper-growth story</p>
   <div class="cta-box">
     <h3 data-i18n="inv_h3">What this is (and isn't)</h3>
     <p data-i18n="inv_p1">
-      I'm looking for a collaborator, advisor, or early-stage investor to help take one or more of these products
-      further toward real users and revenue. This isn't a pitch built on projected metrics; it's backed by working
-      software already in front of real users.
+      I'm looking for a collaborator, advisor, or early-stage investor to help take this further toward real users
+      and revenue — grounded in 25 years of delivering mission-critical enterprise systems in Japan (logistics,
+      commerce, manufacturing, finance), now applied to shipping real AI products end-to-end. This isn't a pitch
+      built on projected metrics; it's backed by working software already in front of real users.
     </p>
+    <h4 style="font-size:0.98em; margin:18px 0 8px;" data-i18n="inv_proof_h">What's already proven</h4>
+    <ul class="story-points">
+      <li data-i18n="inv_proof1">A working memory system (Memory Assistant) — spaced-repetition based, built and used daily, not a demo.</li>
+      <li data-i18n="inv_proof2">Real knowledge-base infrastructure — a local RAG knowledge-chat app, plus a structured personal knowledge-management framework (T00) behind every project on this site.</li>
+      <li data-i18n="inv_proof3">Live automation in daily use — an email-driven AI task agent that runs real tasks today.</li>
+    </ul>
     <p data-i18n="inv_p2">
       No specific investment size or terms are set yet — happy to start with a conversation.
     </p>
@@ -157,7 +193,7 @@
 </section>
 
 <footer>
-  <p data-i18n="footer_line">© 2026 maySunAI · Jason Gao</p>
+  <p data-i18n="footer_line">© 2026 maySunAI</p>
   <div class="footer-links">
     <a href="mailto:j6016086@gmail.com" data-i18n="footer_contact">✉️ Email</a>
     <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>
