@@ -4,6 +4,36 @@
 
 maysuns.uk 个人品牌网站，Vultr服务器 + Cloudflare DNS托管（2026-07-19从GitHub Pages迁移过来，见下方"部署迁移"一节）。2026-07-18 完成一次大改版：从"单文件单页站"改造为"多页静态站"，定位从"求职简历"彻底转向"产品门户 + 投资人/合作伙伴门面"。2026-07-19 完成第二次改版：从"产品卡片堆砌"改为"讲故事型展示"（菜单分层+3个Featured Story+信任指标）。
 
+## 2026-07-20 续3：三个知识库页面从占位/短介绍扩充为15篇真实文章（每篇HTML卡片+对应.md指南）
+
+**背景**：`knowledge-t00.html`/`knowledge-rag.html`只有1-2段简短介绍，`knowledge-general.html`还是纯"内容制作中"占位（只列了Git/Python两个计划主题，没有实际内容）。本次任务是把三个页面各自扩充成至少5篇真实文章的迷你知识库。
+
+**做了什么（真实内容，非占位）**：
+- `knowledge-t00.html` +5篇：req/reply沟通协议、AI协作信任级别（trust: high/medium/low标注）、跨会话持久记忆、自定义斜杠命令、Skills按需加载指令集——**均为概念/机制层面的描述，未引用/未转述`temp01_req.md`/`temp03_reply.md`/`RESUME.md`/`AI00_Common/rules/`等私有文件的具体内容**，这是本次任务的硬性要求（今天早些时候刚发生过私有文件泄漏到公开GitHub仓库的真实事故，已修复，故这次内容克制处理）。
+- `knowledge-rag.html` +5篇：RAG（在原有2段基础上强化重写）、LangChain、MCP（Model Context Protocol）、AI Agent权限设计（通用软件安全话题，非本次会话具体权限配置的描述）、Playwright MCP——均为真实、准确的技术科普，未编造版本号/基准测试/具体集成等虚假细节。
+- `knowledge-general.html`：**移除占位**，新增5篇：Git基础、Vue基础、Node.js基础、Python基础、Flask & FastAPI基础。
+  - **"hero"歧义判断**：用户原话列的技术是"hero，vue，node.js，python，fastflask"——"hero"不对应任何真实技术，判断为语音输入/速记误差，未强行编造对应内容；"fastflask"拆分理解为Flask+FastAPI两个真实框架合并成一篇。第5个主题（原"hero"位置）选择了**Git基础**作为最合理的互补主题——是新手向"通用知识库"里最常被期待的内容，且未额外与官方需求冲突。
+- 每篇文章 = HTML卡片（复用已有的`.expertise-item`视觉语言、新增`.kb-article`卡片样式）+ 一个独立的`.md`完整版指南，卡片底部有"阅读完整指南（.md）→"链接。
+
+**新建文件**：`F:\T00\PJ50_personal_website\kb-docs\`下15个`.md`文件（`t00-req-reply-protocol.md`/`t00-trust-levels.md`/`t00-persistent-memory.md`/`t00-slash-commands.md`/`t00-skills.md`/`rag-explained.md`/`langchain-explained.md`/`mcp-explained.md`/`ai-agent-permissions.md`/`playwright-mcp-explained.md`/`git-basics.md`/`vue-basics.md`/`nodejs-basics.md`/`python-basics.md`/`flask-fastapi-basics.md`）——**全部用英文撰写**（作为最有把握准确写作的语言；网站本身页面卡片已有三语，.md完整版按要求可以只选一种语言，未额外做三语md）。
+
+**i18n**：`assets/i18n.js`新增/修改约90个三语（ja/en/zh）key（15篇文章的标题/正文/note/link各若干+两个页面小标题+`nav_aiknowledge_general_sub`导航副标题从"準備中/Coming soon/内容制作中"改成实际主题预览），脚本核对57组代表性新增/修改key在三语言块里各恰好出现3次；`kgen_placeholder`/`kgen_topics_label`/`kgen_topic1`/`kgen_topic2`四个废弃占位key已从三语块完整移除，grep确认HTML里无残留引用；`node --check assets/i18n.js`通过。
+
+**缓存版本号**：`assets/i18n.js?v=20260720`→`?v=20260720c`（沿用当天早些时候`site.css`已经bump到`b`的编号序列），全站21个html文件统一替换，grep确认无遗漏。
+
+**已验证**：
+- 本地复用已运行的`python -m http.server 8090`，Playwright在1440px中文版对三个页面截图（`help_screenshots/kb_t00_zh_1440.png`/`kb_rag_zh_1440.png`/`kb_general_zh_1440.png`），控制台0错误0警告
+- grep核对`kb-docs/*.md`的15个链接与`kb-docs/`目录下实际存在的15个文件完全一一对应，无死链
+- `git add -A && git commit && git push`到`github.com/maysunAI/maysuns.uk`（commit `9c99a71`）
+- `scp`部署21个html文件+`assets/i18n.js`+`kb-docs/`下15个md文件到Vultr服务器`/var/www/pj50-website/`（先建了`kb-docs`目录）
+- 用`curl`确认线上`assets/i18n.js?v=20260720c`已生效、三个knowledge页面含新增key、15个kb-docs md文件全部返回200
+- 用Playwright直接打开真实域名`https://maysuns.uk/knowledge-general.html`，验证`window.SITE_I18N.zh.kgen_a1_h`确实是"Git基础"（新内容），控制台0错误0警告——确认不是仅本地生效、线上是缓存旧版这种今天早些时候踩过的坑
+
+**已知限制**：
+1. `.md`完整版指南只写了英文一个语言版本（HTML卡片本身仍是三语），未做三语`.md`。
+2. "hero"主题按判断跳过未强行编造，如实标注在此记录（见上）。
+3. `knowledge-rag.html`原有的`krag_p1`/`krag_p2`两段简介保留未删，5篇新文章追加在其下方，未合并重写成单一叙事。
+
 ## 2026-07-20 续2：今天全部改动已部署到线上 + 找到并修复了"看起来像bug"的真正根因（缓存）
 
 **背景**：用户发现`https://maysuns.uk/index.html`还是老版本，问是不是地址错了——不是地址问题，是今天一整天的改动只存在于本地`F:\T00\PJ50_personal_website`和本地`python -m http.server`预览，从未commit/push/部署到线上。
