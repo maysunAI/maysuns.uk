@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="krag_page_title">RAG Knowledge Base — maySunAI</title>
-  <meta id="metaDescription" name="description" data-i18n-desc="krag_meta_description" content="What Retrieval-Augmented Generation (RAG) is, and a real local implementation." />
+  <title data-i18n="krag_page_title">AI Technology Knowledge Base — maySunAI</title>
+  <meta id="metaDescription" name="description" data-i18n-desc="krag_meta_description" content="RAG, LangChain, MCP, and other AI agent technology, explained simply with real examples." />
   <link rel="stylesheet" href="assets/site.css?v=20260720b" />
   <style>
     .kb-hero { padding: 48px clamp(24px, 6vw, 120px) 8px; max-width: min(1100px, 92vw); margin: 0 auto; }
@@ -19,6 +19,7 @@
     .kb-article p { font-size: 0.9em; color: var(--muted); line-height: 1.6; margin-bottom: 10px; flex-grow: 1; }
     .kb-article .kb-article-note { font-size: 0.85em; color: var(--muted); font-style: italic; margin-bottom: 12px; }
     .kb-article-link { font-size: 0.88em; font-weight: 600; }
+    .kb-group-h { font-size: 0.82em; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; margin: 28px 0 10px; }
   </style>
 </head>
 <body>
@@ -39,8 +40,8 @@
       <div class="nav-dropdown" tabindex="0">
         <span class="nav-dropdown-label" data-i18n="nav_updates_label">Updates ▾</span>
         <div class="nav-dropdown-menu">
-          <a href="updates.html#news" data-i18n="nav_updates_news">AI Industry News</a>
-          <a href="updates.html#changelog" data-i18n="nav_updates_changelog">Changelog</a>
+          <a href="updates-news.html" data-i18n="nav_updates_news">AI Industry News</a>
+          <a href="updates-changelog.html" data-i18n="nav_updates_changelog">Changelog</a>
         </div>
       </div>
       <div class="nav-dropdown" tabindex="0">
@@ -50,8 +51,9 @@
           <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
         </div>
       </div>
-      <a href="product-games.html" data-i18n="nav_games">Game Hall</a>
+      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Game Hall</a>
       <a href="product-shop.html" data-i18n="nav_shop">Maysun Shop</a>
+      <a href="ask-ai.html" data-i18n="nav_askai" style="color:var(--accent);font-weight:700;">✨ Ask AI</a>
       <a href="whats-next.html" data-i18n="nav_whatsnext">What's Next</a>
       <div class="nav-dropdown" tabindex="0">
         <span class="nav-dropdown-label" data-i18n="nav_aboutme_label">About Me ▾</span>
@@ -71,8 +73,8 @@
 </nav>
 
 <div class="kb-hero">
-  <h1 data-i18n="krag_h1">RAG Knowledge Base</h1>
-  <p class="sub" data-i18n="krag_sub">Retrieval-Augmented Generation, explained simply</p>
+  <h1 data-i18n="krag_h1">AI Technology Knowledge Base</h1>
+  <p class="sub" data-i18n="krag_sub">RAG, LangChain, MCP, and more — explained simply with real examples</p>
 </div>
 
 <div class="kb-section">
@@ -82,31 +84,41 @@
 
   <h2 style="font-size:1.05em; font-weight:800; margin:32px 0 6px;" data-i18n="krag_articles_h2">Five AI technologies, explained</h2>
   <p style="margin-bottom:0;" data-i18n="krag_articles_sub">Accurate, approachable explainers of real, widely-used technologies — not marketing claims.</p>
+
+  <h3 class="kb-group-h" data-i18n="krag_grp1_h">The foundation</h3>
   <div class="kb-articles">
     <div class="kb-article">
-      <h3 data-i18n="krag_a1_h">Retrieval-Augmented Generation (RAG)</h3>
-      <p data-i18n="krag_a1_p">RAG pairs a language model with a search step: it retrieves relevant chunks from a knowledge base (usually via vector similarity search over embeddings), then feeds those chunks to the model alongside the question — grounding the answer in real, checkable source material.</p>
-      <a class="kb-cta kb-article-link" href="kb-docs/rag-explained.md" target="_blank" rel="noopener" data-i18n="krag_a1_link">Read the full guide (.md) →</a>
+      <h3 data-i18n="krag_a4_h">LLMs (Large Language Models)</h3>
+      <p data-i18n="krag_a4_p">A neural network trained to predict the next word across huge amounts of text — which, done well at scale, is what lets it write, reason, and hold a conversation. Comes with real limits: a training knowledge cutoff, a finite context window, and no built-in fact-checking.</p>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=llm-explained.md" target="_blank" rel="noopener" data-i18n="krag_a4_link">Read the full guide →</a>
+    </div>
+  </div>
+
+  <h3 class="kb-group-h" data-i18n="krag_grp2_h">Applications — what you build with an LLM</h3>
+  <div class="kb-articles">
+    <div class="kb-article">
+      <h3 data-i18n="krag_a1_h">AI Agents</h3>
+      <p data-i18n="krag_a1_p">A model that plans a sequence of steps, uses tools to take real actions (edit files, run commands, call APIs), observes the results, and decides what to do next — repeating that loop until a task is done, not just answering one question at a time.</p>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=agent-explained.md" target="_blank" rel="noopener" data-i18n="krag_a1_link">Read the full guide →</a>
     </div>
     <div class="kb-article">
-      <h3 data-i18n="krag_a2_h">LangChain</h3>
-      <p data-i18n="krag_a2_p">An open-source framework for chaining together prompts, retrieval steps, tool calls, and memory into a single pipeline. Most useful when an app needs several moving parts working together; for a single simple prompt-response call, calling a model API directly is often simpler.</p>
-      <a class="kb-cta kb-article-link" href="kb-docs/langchain-explained.md" target="_blank" rel="noopener" data-i18n="krag_a2_link">Read the full guide (.md) →</a>
+      <h3 data-i18n="krag_a5_h">Local Knowledge Bases (RAG + LangChain)</h3>
+      <p data-i18n="krag_a5_p">How to give a model accurate answers about your own documents without retraining it: retrieve relevant chunks (RAG), then hand them to the model alongside your question. LangChain is the most common framework for building this kind of pipeline.</p>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=local-knowledge-base-explained.md" target="_blank" rel="noopener" data-i18n="krag_a5_link">Read the full guide →</a>
+    </div>
+  </div>
+
+  <h3 class="kb-group-h" data-i18n="krag_grp3_h">How Claude Code itself is extended</h3>
+  <div class="kb-articles">
+    <div class="kb-article">
+      <h3 data-i18n="krag_a2_h">Skills</h3>
+      <p data-i18n="krag_a2_p">A packaged, specialized instruction set that an AI agent loads only when actually relevant to the task at hand, instead of every conversation carrying the full weight of every capability it might ever need.</p>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=skill-explained.md" target="_blank" rel="noopener" data-i18n="krag_a2_link">Read the full guide →</a>
     </div>
     <div class="kb-article">
       <h3 data-i18n="krag_a3_h">MCP (Model Context Protocol)</h3>
       <p data-i18n="krag_a3_p">An open standard for connecting AI models to external tools and data — file systems, databases, browsers — through a common protocol instead of a custom integration per model/tool pair. Think USB for AI-to-tool connections.</p>
-      <a class="kb-cta kb-article-link" href="kb-docs/mcp-explained.md" target="_blank" rel="noopener" data-i18n="krag_a3_link">Read the full guide (.md) →</a>
-    </div>
-    <div class="kb-article">
-      <h3 data-i18n="krag_a4_h">AI agent permissions</h3>
-      <p data-i18n="krag_a4_p">Once an agent can actually take actions — edit files, run commands, call APIs — a real safety question follows: which actions can it take automatically, and which need a human to approve first? A general software-safety topic, scoped by risk and reversibility.</p>
-      <a class="kb-cta kb-article-link" href="kb-docs/ai-agent-permissions.md" target="_blank" rel="noopener" data-i18n="krag_a4_link">Read the full guide (.md) →</a>
-    </div>
-    <div class="kb-article">
-      <h3 data-i18n="krag_a5_h">Playwright MCP</h3>
-      <p data-i18n="krag_a5_p">Playwright is a browser automation and testing framework that can drive a real browser — clicking, typing, screenshots. Exposing it to an AI agent via MCP lets the agent verify a change actually renders correctly instead of only trusting that code compiled.</p>
-      <a class="kb-cta kb-article-link" href="kb-docs/playwright-mcp-explained.md" target="_blank" rel="noopener" data-i18n="krag_a5_link">Read the full guide (.md) →</a>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=mcp-explained.md" target="_blank" rel="noopener" data-i18n="krag_a3_link">Read the full guide →</a>
     </div>
   </div>
 </div>

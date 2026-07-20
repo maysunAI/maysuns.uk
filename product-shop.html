@@ -25,8 +25,8 @@
       <div class="nav-dropdown" tabindex="0">
         <span class="nav-dropdown-label" data-i18n="nav_updates_label">Updates ▾</span>
         <div class="nav-dropdown-menu">
-          <a href="updates.html#news" data-i18n="nav_updates_news">AI Industry News</a>
-          <a href="updates.html#changelog" data-i18n="nav_updates_changelog">Changelog</a>
+          <a href="updates-news.html" data-i18n="nav_updates_news">AI Industry News</a>
+          <a href="updates-changelog.html" data-i18n="nav_updates_changelog">Changelog</a>
         </div>
       </div>
       <div class="nav-dropdown" tabindex="0">
@@ -36,8 +36,9 @@
           <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
         </div>
       </div>
-      <a href="product-games.html" data-i18n="nav_games">Game Hall</a>
+      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Game Hall</a>
       <a href="product-shop.html" data-i18n="nav_shop">Maysun Shop</a>
+      <a href="ask-ai.html" data-i18n="nav_askai" style="color:var(--accent);font-weight:700;">✨ Ask AI</a>
       <a href="whats-next.html" data-i18n="nav_whatsnext">What's Next</a>
       <div class="nav-dropdown" tabindex="0">
         <span class="nav-dropdown-label" data-i18n="nav_aboutme_label">About Me ▾</span>
@@ -66,14 +67,39 @@
 </div>
 
 <section>
-  <p class="body-text" data-i18n="prod_shop_p1">A live e-commerce platform selling AI-generated digital knowledge products, with real Stripe payment processing.</p>
-  <p class="body-text" data-i18n="prod_shop_p2">Supports Japanese, English, and Chinese.</p>
-  <div class="tech-list">
-    <span class="tech-chip">Stripe</span>
-    <span class="tech-chip">i18n (JA/EN/ZH)</span>
-    <span class="tech-chip">E-commerce</span>
+  <p class="body-text" data-i18n="prod_shop_p1">Every place I actually sell something — live channels and channels still in progress.</p>
+  <div class="products" style="margin-top:20px;">
+    <a class="product-card" href="https://shop.maysuns.uk" target="_blank" rel="noopener">
+      <div class="product-icon">🛒</div>
+      <h3 data-i18n="shop_ch_web_title">Web Shop (Stripe checkout)</h3>
+      <p data-i18n="shop_ch_web_desc">AI-generated digital knowledge products, sold with real Stripe payment processing.</p>
+      <span class="badge badge-live" data-i18n="shop_ch_web_badge">Live</span>
+    </a>
+    <a class="product-card" href="product-kdp.html">
+      <div class="product-icon">📚</div>
+      <h3 data-i18n="shop_ch_kdp_title">Amazon KDP E-Books</h3>
+      <p data-i18n="shop_ch_kdp_desc">2 Claude Code guides live on Amazon KDP, 9 more titles in the pipeline.</p>
+      <span class="badge badge-live" data-i18n="shop_ch_kdp_badge">Live — 2 books</span>
+    </a>
+    <a class="product-card" href="product-reader.html">
+      <div class="product-icon">📱</div>
+      <h3 data-i18n="shop_ch_play_title">Google Play (MD Reader)</h3>
+      <p data-i18n="shop_ch_play_desc">The MD Reader Android app is being prepared for Google Play submission.</p>
+      <span class="badge badge-review" data-i18n="shop_ch_play_badge">Preparing submission</span>
+    </a>
+    <div class="product-card" style="cursor:default;">
+      <div class="product-icon">🍎</div>
+      <h3 data-i18n="shop_ch_apple_title">Apple App Store</h3>
+      <p data-i18n="shop_ch_apple_desc">Planned after the Google Play release is validated (needs a Mac + Apple Developer account).</p>
+      <span class="badge badge-dev" data-i18n="shop_ch_apple_badge">Not started</span>
+    </div>
+    <div class="product-card" style="cursor:default;">
+      <div class="product-icon">📄</div>
+      <h3 data-i18n="shop_ch_kb_title">AI Knowledge Base Guides (HTML downloads)</h3>
+      <p data-i18n="shop_ch_kb_desc">Downloadable tri-lingual guides distilled from the T00 framework.</p>
+      <span class="badge badge-dev" data-i18n="shop_ch_kb_badge">Coming soon</span>
+    </div>
   </div>
-  <a class="btn btn-outline" href="https://shop.maysuns.uk" target="_blank" rel="noopener" data-i18n="prod_shop_link">Visit shop.maysuns.uk →</a>
 </section>
 
 <footer>

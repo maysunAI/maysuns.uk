@@ -39,8 +39,8 @@
       <div class="nav-dropdown" tabindex="0">
         <span class="nav-dropdown-label" data-i18n="nav_updates_label">Updates ▾</span>
         <div class="nav-dropdown-menu">
-          <a href="updates.html#news" data-i18n="nav_updates_news">AI Industry News</a>
-          <a href="updates.html#changelog" data-i18n="nav_updates_changelog">Changelog</a>
+          <a href="updates-news.html" data-i18n="nav_updates_news">AI Industry News</a>
+          <a href="updates-changelog.html" data-i18n="nav_updates_changelog">Changelog</a>
         </div>
       </div>
       <div class="nav-dropdown" tabindex="0">
@@ -50,8 +50,9 @@
           <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
         </div>
       </div>
-      <a href="product-games.html" data-i18n="nav_games">Game Hall</a>
+      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Game Hall</a>
       <a href="product-shop.html" data-i18n="nav_shop">Maysun Shop</a>
+      <a href="ask-ai.html" data-i18n="nav_askai" style="color:var(--accent);font-weight:700;">✨ Ask AI</a>
       <a href="whats-next.html" data-i18n="nav_whatsnext">What's Next</a>
       <div class="nav-dropdown" tabindex="0">
         <span class="nav-dropdown-label" data-i18n="nav_aboutme_label">About Me ▾</span>
@@ -76,63 +77,58 @@
 </div>
 
 <div class="kb-section">
-  <p data-i18n="kt00_p1">T00 is a personal AI-collaboration framework.</p>
-  <p data-i18n="kt00_p2">At its core, T00 defines a communication protocol, memory rules, and project organization conventions.</p>
-  <p data-i18n="kt00_p3">It's a real, evolving personal system, not a polished framework for others to install.</p>
-  <p data-i18n="kt00_p4">It isn't one rulebook — it's a mix of a communication protocol, memory/context conventions, and a growing library of how-to guides, all written in plain Markdown.</p>
+  <p data-i18n="kt00_p1">T00 is a personal AI-collaboration framework I built for working with Claude Code on a daily basis, across many projects at once.</p>
 
-  <h2 style="font-size:1.05em; font-weight:800; margin:28px 0 16px;" data-i18n="kt00_list_h2">What's inside</h2>
-  <div class="expertise-grid">
-    <div class="expertise-item">
-      <h4 data-i18n="kt00_item1_h">Communication protocol</h4>
-      <p data-i18n="kt00_item1_p">A structured request/reply format so context survives long sessions and several projects running in parallel.</p>
-    </div>
-    <div class="expertise-item">
-      <h4 data-i18n="kt00_item2_h">Project organization conventions</h4>
-      <p data-i18n="kt00_item2_p">A consistent folder and file structure so dozens of projects stay findable instead of turning into a junk drawer.</p>
-    </div>
-    <div class="expertise-item">
-      <h4 data-i18n="kt00_item3_h">Trust-level tagging</h4>
-      <p data-i18n="kt00_item3_p">Code and docs are labeled by how freely they can be changed — from "safe to edit freely" to "don't touch without asking" — so AI assistance doesn't silently break things that matter.</p>
-    </div>
-    <div class="expertise-item">
-      <h4 data-i18n="kt00_item4_h">A documentation habit</h4>
-      <p data-i18n="kt00_item4_p">How-to guides written in plain Markdown, growing over time as the system changes.</p>
-    </div>
-  </div>
-
-  <h2 style="font-size:1.05em; font-weight:800; margin:8px 0 6px;" data-i18n="kt00_articles_h2">Five T00 concepts, explained</h2>
+  <h2 style="font-size:1.05em; font-weight:800; margin:28px 0 6px;" data-i18n="kt00_articles_h2">Eight T00 concepts, explained</h2>
   <p style="margin-bottom:0;" data-i18n="kt00_articles_sub">These describe the general mechanism, not this site's private working files — each one is a reusable idea you could adopt in your own AI workflow.</p>
   <div class="kb-articles">
     <div class="kb-article">
       <h3 data-i18n="kt00_a1_h">The req/reply communication protocol</h3>
       <p data-i18n="kt00_a1_p">A convention for keeping AI collaboration organized: substantive answers get written into a persistent reply log rather than only spoken in the terminal, while the terminal itself stays terse — short confirmations only. That way a session spanning hours or days can be picked back up without re-reading a wall of scrollback.</p>
       <p class="kb-article-note" data-i18n="kt00_a1_note">Why it matters for T00: it's the backbone that keeps long, multi-project sessions traceable instead of scattered across chat history.</p>
-      <a class="kb-cta kb-article-link" href="kb-docs/t00-req-reply-protocol.md" target="_blank" rel="noopener" data-i18n="kt00_a1_link">Read the full guide (.md) →</a>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=t00-req-reply-protocol.md" target="_blank" rel="noopener" data-i18n="kt00_a1_link">Read the full guide →</a>
     </div>
     <div class="kb-article">
       <h3 data-i18n="kt00_a2_h">Trust levels for AI-assisted changes</h3>
       <p data-i18n="kt00_a2_p">A high / medium / low tagging convention that tells an AI assistant how freely it can change something. High-trust areas need a heads-up before changes; low-trust areas can be edited boldly; untagged code defaults to a sensible middle ground.</p>
       <p class="kb-article-note" data-i18n="kt00_a2_note">Why it matters for T00: it stops an eager AI from silently rewriting something that was deliberately built a certain way.</p>
-      <a class="kb-cta kb-article-link" href="kb-docs/t00-trust-levels.md" target="_blank" rel="noopener" data-i18n="kt00_a2_link">Read the full guide (.md) →</a>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=t00-trust-levels.md" target="_blank" rel="noopener" data-i18n="kt00_a2_link">Read the full guide →</a>
     </div>
     <div class="kb-article">
       <h3 data-i18n="kt00_a3_h">Persistent memory across sessions</h3>
       <p data-i18n="kt00_a3_p">The idea of giving an AI assistant a small, durable memory file — preferences, conventions, recurring feedback — that carries forward between separate conversations, so context doesn't need to be re-explained from scratch every time.</p>
       <p class="kb-article-note" data-i18n="kt00_a3_note">Deliberately minimal: not a full transcript, just the handful of durable facts worth remembering.</p>
-      <a class="kb-cta kb-article-link" href="kb-docs/t00-persistent-memory.md" target="_blank" rel="noopener" data-i18n="kt00_a3_link">Read the full guide (.md) →</a>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=t00-persistent-memory.md" target="_blank" rel="noopener" data-i18n="kt00_a3_link">Read the full guide →</a>
     </div>
     <div class="kb-article">
       <h3 data-i18n="kt00_a4_h">Custom slash commands</h3>
       <p data-i18n="kt00_a4_p">Packaging a repeatable multi-step workflow — like "estimate this task" or "publish this build" — into a single reusable command instead of re-typing the same instructions every time.</p>
       <p class="kb-article-note" data-i18n="kt00_a4_note">Turns a recurring multi-paragraph instruction into a one-word trigger, keeping repetitive workflows consistent.</p>
-      <a class="kb-cta kb-article-link" href="kb-docs/t00-slash-commands.md" target="_blank" rel="noopener" data-i18n="kt00_a4_link">Read the full guide (.md) →</a>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=t00-slash-commands.md" target="_blank" rel="noopener" data-i18n="kt00_a4_link">Read the full guide →</a>
     </div>
     <div class="kb-article">
       <h3 data-i18n="kt00_a5_h">Skills: on-demand instruction sets</h3>
       <p data-i18n="kt00_a5_p">A way of packaging specialized instructions so an AI assistant only loads them when actually relevant, instead of every conversation carrying the full weight of every capability it might ever need.</p>
       <p class="kb-article-note" data-i18n="kt00_a5_note">Keeps day-to-day interactions lighter while still making deep, specialized knowledge available the moment it's needed.</p>
-      <a class="kb-cta kb-article-link" href="kb-docs/t00-skills.md" target="_blank" rel="noopener" data-i18n="kt00_a5_link">Read the full guide (.md) →</a>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=t00-skills.md" target="_blank" rel="noopener" data-i18n="kt00_a5_link">Read the full guide →</a>
+    </div>
+    <div class="kb-article">
+      <h3 data-i18n="kt00_a6_h">Mapping requests before answering</h3>
+      <p data-i18n="kt00_a6_p">Before answering, restate an incoming message as a numbered list of distinct points, each tagged to which part of the original it came from — so a request that mixes several asks together doesn't quietly lose one of them.</p>
+      <p class="kb-article-note" data-i18n="kt00_a6_note">Also a two-way habit: separating distinct asks on the way in (numbered points, one thought per line) makes them far less likely to get lost on the way out.</p>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=t00-req-mapping.md" target="_blank" rel="noopener" data-i18n="kt00_a6_link">Read the full guide →</a>
+    </div>
+    <div class="kb-article">
+      <h3 data-i18n="kt00_a7_h">Design docs: recording why, not just what</h3>
+      <p data-i18n="kt00_a7_p">An append-only log of decisions that involved a real tradeoff — approaches tried and rejected, constraints the code alone doesn't reveal — so the same mistake doesn't get "cleaned up" back into existence later.</p>
+      <p class="kb-article-note" data-i18n="kt00_a7_note">Only for genuine tradeoffs, not routine work — a design doc that restates every line of code stops being useful.</p>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=t00-design-docs.md" target="_blank" rel="noopener" data-i18n="kt00_a7_link">Read the full guide →</a>
+    </div>
+    <div class="kb-article">
+      <h3 data-i18n="kt00_a8_h">Honest status reporting</h3>
+      <p data-i18n="kt00_a8_p">When part of a task genuinely can't be done properly, say so upfront — flag it clearly, spell out exactly what's missing — instead of shipping something that looks finished but doesn't actually work or has a security gap.</p>
+      <p class="kb-article-note" data-i18n="kt00_a8_note">An honest "this part isn't real yet" is worth more than a dishonest "this looks like it works."</p>
+      <a class="kb-cta kb-article-link" href="kb-doc-viewer.html?doc=t00-honest-reporting.md" target="_blank" rel="noopener" data-i18n="kt00_a8_link">Read the full guide →</a>
     </div>
   </div>
 

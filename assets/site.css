@@ -27,8 +27,8 @@
   --theme-btn-color: #444;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { overflow-x: hidden; max-width: 100%; }
-body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; transition: background 0.25s, color 0.25s; overflow-x: hidden; max-width: 100%; }
+html { max-width: 100%; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; transition: background 0.25s, color 0.25s; max-width: 100%; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
@@ -45,8 +45,8 @@ nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 1
 .nav-dropdown { position: relative; }
 .nav-dropdown > .nav-dropdown-label { color: var(--muted); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; background: none; border: none; font: inherit; padding: 0; }
 .nav-dropdown > .nav-dropdown-label:hover { color: var(--text); }
-.nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; margin-top: 12px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px; min-width: 240px; box-shadow: 0 8px 24px rgba(0,0,0,0.18); z-index: 200; }
-.nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; margin-top: 0; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px; min-width: 240px; box-shadow: 0 8px 24px rgba(0,0,0,0.18); z-index: 200; }
+.nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu, .nav-dropdown.open .nav-dropdown-menu { display: block; }
 .nav-dropdown-menu a { display: block; padding: 8px 10px; border-radius: 6px; color: var(--text); font-size: 0.95em; }
 .nav-dropdown-menu a:hover { background: var(--bg2); text-decoration: none; color: var(--accent); }
 .nav-dropdown-menu a small { display: block; color: var(--muted); font-size: 0.82em; font-weight: 400; margin-top: 2px; }

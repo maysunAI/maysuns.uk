@@ -29,6 +29,7 @@
     .f-card .status { font-size: 0.76em; padding: 3px 9px; border-radius: 10px; }
     .f-card .status.live { background: rgba(52,211,153,0.15); color: var(--accent2); }
     .f-card .status.dev { background: rgba(96,165,250,0.15); color: var(--accent); }
+    .f-card .agent-tag { font-size: 0.68em; font-weight: 600; color: var(--accent); border: 1px solid var(--accent); border-radius: 10px; padding: 1px 8px; margin-left: 6px; white-space: nowrap; vertical-align: middle; }
 
     .f-more { color: var(--muted); font-size: 0.87em; padding-top: 4px; }
     .f-more a { color: var(--muted); text-decoration: underline; }
@@ -53,8 +54,8 @@
       <div class="nav-dropdown" tabindex="0">
         <span class="nav-dropdown-label" data-i18n="nav_updates_label">Updates ▾</span>
         <div class="nav-dropdown-menu">
-          <a href="updates.html#news" data-i18n="nav_updates_news">AI Industry News</a>
-          <a href="updates.html#changelog" data-i18n="nav_updates_changelog">Changelog</a>
+          <a href="updates-news.html" data-i18n="nav_updates_news">AI Industry News</a>
+          <a href="updates-changelog.html" data-i18n="nav_updates_changelog">Changelog</a>
         </div>
       </div>
       <div class="nav-dropdown" tabindex="0">
@@ -64,8 +65,9 @@
           <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
         </div>
       </div>
-      <a href="product-games.html" data-i18n="nav_games">Game Hall</a>
+      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Game Hall</a>
       <a href="product-shop.html" data-i18n="nav_shop">Maysun Shop</a>
+      <a href="ask-ai.html" data-i18n="nav_askai" style="color:var(--accent);font-weight:700;">✨ Ask AI</a>
       <a href="whats-next.html" data-i18n="nav_whatsnext">What's Next</a>
       <div class="nav-dropdown" tabindex="0">
         <span class="nav-dropdown-label" data-i18n="nav_aboutme_label">About Me ▾</span>
@@ -88,7 +90,21 @@
   <h1 data-i18n="f_hero_h1_1">Real products. Real experience. Real feelings.</h1>
 </div>
 
-<div class="f-cats">
+<div class="f-cats" id="featured">
+
+  <div class="f-featured" style="margin-bottom:28px;">
+    <a class="f-card" href="t00.html" style="padding:24px 28px;">
+      <div class="card-head"><span class="icon">☀️</span><h3 style="font-size:1.15em;" data-i18n="card_t00_title">T00 — the method behind everything here</h3></div>
+      <p style="font-size:0.92em;" data-i18n="card_t00_desc">Not a product. The framework, refined through months of daily collaboration with Claude Code, that everything else on this site was built through.</p>
+      <span class="status live" data-i18n="card_t00_badge">30 commands · 100 guides · 18 rules</span>
+    </a>
+
+    <a class="f-card" href="local-knowledge-base.html" style="padding:24px 28px;">
+      <div class="card-head"><span class="icon">📚</span><h3 style="font-size:1.15em;" data-i18n="card_lkb_title">Local Knowledge Base</h3></div>
+      <p style="font-size:0.92em;" data-i18n="card_lkb_desc">Ask questions about your own documents in plain language — your files never leave your machine. Two real, running implementations.</p>
+      <span class="status live" data-i18n="card_lkb_badge">2 working apps · fully offline capable</span>
+    </a>
+  </div>
 
   <div class="f-cat">
     <div class="f-cat-head"><h2 data-i18n="f_cat1_h2">🤖 AI Agents &amp; Automation</h2></div>
@@ -100,12 +116,12 @@
     </p>
     <div class="f-featured">
       <a class="f-card" href="product-website-generator.html">
-        <div class="card-head"><span class="icon">🌐</span><h3 data-i18n="card_webgen_title">AI App Generator</h3></div>
+        <div class="card-head"><span class="icon">🌐</span><h3 data-i18n="card_webgen_title">AI App Generator</h3><span class="agent-tag" data-i18n="agent_tag_label">🤖 Agent</span></div>
         <p data-i18n="card_webgen_desc">Describe an app in chat, get working software back — then keep editing it by chatting.</p>
         <span class="status dev" data-i18n="card_webgen_badge">Personal Use / Verified</span>
       </a>
       <a class="f-card" href="product-email-agent.html">
-        <div class="card-head"><span class="icon">📧</span><h3 data-i18n="card_email_title">Email-Driven Task Agent</h3></div>
+        <div class="card-head"><span class="icon">📧</span><h3 data-i18n="card_email_title">Email-Driven Task Agent</h3><span class="agent-tag" data-i18n="agent_tag_label">🤖 Agent</span></div>
         <p data-i18n="card_email_desc">Send it an instruction by Gmail — it runs the task and replies.</p>
         <span class="status live" data-i18n="card_email_badge">Live / Daily Use</span>
       </a>
@@ -117,9 +133,9 @@
     <div class="f-cat-head"><h2 data-i18n="f_cat2_h2">📦 Shipped &amp; Live</h2><span class="tagline" data-i18n="f_cat2_tag">— deployed, not prototypes</span></div>
     <p class="f-cat-sub" data-i18n="f_cat2_sub">Working payment processing and a real publishing pipeline — built and functioning end to end.</p>
     <div class="f-featured">
-      <a class="f-card" href="https://shop.maysuns.uk" target="_blank" rel="noopener">
-        <div class="card-head"><span class="icon">🛒</span><h3 data-i18n="card_shop_title">Product Shop Platform</h3></div>
-        <p data-i18n="card_shop_desc">A live e-commerce platform with real Stripe checkout.</p>
+      <a class="f-card" href="product-shop.html">
+        <div class="card-head"><span class="icon">🛒</span><h3 data-i18n="card_shop_title">Maysun Shop</h3></div>
+        <p data-i18n="card_shop_desc">Web shop, Amazon KDP, Google Play, Apple Store — every channel I sell through.</p>
         <span class="status live" data-i18n="card_shop_badge">Live</span>
       </a>
       <a class="f-card" href="product-kdp.html">
@@ -127,13 +143,17 @@
         <p data-i18n="card_kdp_desc">A concept-to-publication pipeline on AI-assisted development. 2 titles live on Amazon KDP.</p>
         <span class="status live" data-i18n="card_kdp_badge">Amazon KDP — 2 Live</span>
       </a>
+      <a class="f-card" href="https://games.maysuns.uk" target="_blank" rel="noopener">
+        <div class="card-head"><span class="icon">🐍</span><h3 data-i18n="card_games_title">Game Hall</h3></div>
+        <p data-i18n="card_games_desc">Small, single-file browser games — play instantly, no install.</p>
+        <span class="status live" data-i18n="f_cat3_games_note">10 playable games, zero install</span>
+      </a>
     </div>
   </div>
 
   <div class="f-cat">
     <div class="f-cat-head"><h2 data-i18n="f_cat3_h2">🛠️ Tools &amp; Extras</h2><span class="tagline" data-i18n="f_cat3_tag">— smaller, but still real</span></div>
     <p class="f-cat-sub">
-      <a href="product-games.html" data-i18n="card_games_title">Game Hall</a> (<span data-i18n="f_cat3_games_note">10 playable games, zero install</span>) ·
       <a href="product-reader.html" data-i18n="card_reader_title">MD Markdown Reader</a> (<span data-i18n="f_cat3_reader_note">live web version</span>) ·
       <a href="product-memory.html" data-i18n="card_memory_title">Memory Assistant</a> (<span data-i18n="f_cat3_memory_note">personal tool</span>) ·
       <a href="product-medication.html" data-i18n="card_medication_title">Medication Reminder App</a> (<span data-i18n="f_cat3_medication_note">in development</span>)

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle" data-i18n="kbv_page_title">Guide — maySunAI</title>
+  <link rel="stylesheet" href="assets/site.css?v=20260720b" />
+  <style>
+    .kbv-wrap { max-width: min(860px, 92vw); margin: 0 auto; padding: 40px clamp(24px, 6vw, 60px) 64px; }
+    .kbv-back { display: inline-block; margin-bottom: 20px; font-size: 0.88em; color: var(--muted); cursor: pointer; background: none; border: none; padding: 0; font: inherit; }
+    .kbv-back:hover { color: var(--accent); }
+    .kbv-content { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: clamp(24px, 4vw, 44px); line-height: 1.75; margin-top: 20px; }
+    .kbv-content h1 { font-size: 1.5em; font-weight: 800; margin: 0 0 18px; }
+    .kbv-content h2 { font-size: 1.15em; font-weight: 700; margin: 28px 0 12px; }
+    .kbv-content h3 { font-size: 1.02em; font-weight: 700; margin: 22px 0 10px; }
+    .kbv-content p { margin-bottom: 14px; font-size: 0.97em; }
+    .kbv-content ul, .kbv-content ol { margin: 0 0 14px 1.3em; }
+    .kbv-content li { margin-bottom: 6px; font-size: 0.97em; }
+    .kbv-content code { background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-size: 0.9em; }
+    .kbv-content pre { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin-bottom: 14px; }
+    .kbv-content pre code { background: none; border: none; padding: 0; }
+    .kbv-content a { text-decoration: underline; }
+    .kbv-status { color: var(--muted); font-size: 0.95em; padding: 20px 0; }
+    .kbv-promo { margin-top: 28px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px clamp(20px, 4vw, 28px); }
+    .kbv-promo img { width: 100%; max-width: 480px; border-radius: 8px; border: 1px solid var(--border); display: block; margin-bottom: 14px; }
+    .kbv-promo p { color: var(--muted); font-size: 0.9em; margin-bottom: 10px; }
+    .kbv-promo a.btn { font-size: 0.85em; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiknowledge_label">AI Knowledge ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="knowledge-t00.html"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
+          <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
+          <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Git, Vue, Node, Python, Flask basics</small></a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_updates_label">Updates ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="updates-news.html" data-i18n="nav_updates_news">AI Industry News</a>
+          <a href="updates-changelog.html" data-i18n="nav_updates_changelog">Changelog</a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiproducts_label">AI Products ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="portfolio.html#ai-tools" data-i18n="nav_aiproducts_tools">AI Tools</a>
+          <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
+        </div>
+      </div>
+      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Game Hall</a>
+      <a href="product-shop.html" data-i18n="nav_shop">Maysun Shop</a>
+      <a href="ask-ai.html" data-i18n="nav_askai" style="color:var(--accent);font-weight:700;">✨ Ask AI</a>
+      <a href="whats-next.html" data-i18n="nav_whatsnext">What's Next</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aboutme_label">About Me ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="stories.html"><span data-i18n="nav_aboutme_stories">Stories</span><small data-i18n="nav_aboutme_stories_sub">Real behind-the-scenes moments</small></a>
+          <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
+        </div>
+      </div>
+    </div>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </div>
+</nav>
+
+<div class="kbv-wrap">
+  <button class="kbv-back" onclick="history.back()" data-i18n="kbv_back">← Back to list</button>
+
+  <div id="kbvStatus" class="kbv-status" data-i18n="kbv_loading">Loading…</div>
+  <div id="kbvContent" class="kbv-content" style="display:none;"></div>
+
+  <div class="kbv-promo">
+    <img src="assets/demo/pj25_drop_demo.gif" alt="Dragging a Markdown file onto MD Reader and it rendering instantly" loading="lazy" />
+    <p data-i18n="kbv_promo_p">This guide is a plain .md file — you can open it directly in my other product, MD Reader: drop any Markdown file in and it renders instantly, no upload, no account.</p>
+    <a class="btn btn-outline" href="https://reader.maysuns.uk" target="_blank" rel="noopener" data-i18n="kbv_promo_cta">Try MD Reader →</a>
+  </div>
+</div>
+
+<footer>
+  <p data-i18n="footer_line">© 2026 maySunAI</p>
+  <div class="footer-links">
+    <a href="mailto:j6016086@gmail.com" data-i18n="footer_contact">✉️ Email</a>
+    <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>
+  </div>
+</footer>
+
+<script src="assets/i18n.js?v=20260720c"></script>
+<script src="assets/main.js?v=20260720"></script>
+<script>
+  function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function inlineMd(text) {
+    text = escapeHtml(text);
+    text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+    text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    return text;
+  }
+
+  function renderMarkdown(md) {
+    var lines = md.replace(/\r\n/g, '\n').split('\n');
+    var html = '';
+    var i = 0;
+    var listType = null;
+    var paragraphBuf = [];
+
+    function closeList() {
+      if (listType) { html += '</' + listType + '>'; listType = null; }
+    }
+    function flushParagraph() {
+      if (paragraphBuf.length) {
+        html += '<p>' + inlineMd(paragraphBuf.join(' ')) + '</p>';
+        paragraphBuf = [];
+      }
+    }
+
+    while (i < lines.length) {
+      var line = lines[i];
+
+      if (line.trim().indexOf('```') === 0) {
+        flushParagraph(); closeList();
+        var codeLines = [];
+        i++;
+        while (i < lines.length && lines[i].trim().indexOf('```') !== 0) {
+          codeLines.push(lines[i]); i++;
+        }
+        html += '<pre><code>' + escapeHtml(codeLines.join('\n')) + '</code></pre>';
+        i++; continue;
+      }
+
+      var h = line.match(/^(#{1,3})\s+(.*)$/);
+      if (h) {
+        flushParagraph(); closeList();
+        var level = h[1].length;
+        html += '<h' + level + '>' + inlineMd(h[2]) + '</h' + level + '>';
+        i++; continue;
+      }
+
+      var ul = line.match(/^[-*]\s+(.*)$/);
+      var ol = line.match(/^\d+\.\s+(.*)$/);
+      if (ul) {
+        flushParagraph();
+        if (listType !== 'ul') { closeList(); html += '<ul>'; listType = 'ul'; }
+        html += '<li>' + inlineMd(ul[1]) + '</li>';
+        i++; continue;
+      }
+      if (ol) {
+        flushParagraph();
+        if (listType !== 'ol') { closeList(); html += '<ol>'; listType = 'ol'; }
+        html += '<li>' + inlineMd(ol[1]) + '</li>';
+        i++; continue;
+      }
+
+      if (line.trim() === '') {
+        flushParagraph(); closeList();
+        i++; continue;
+      }
+
+      paragraphBuf.push(line.trim());
+      i++;
+    }
+    flushParagraph(); closeList();
+    return html;
+  }
+
+  var kbvDoc = null;
+
+  function loadDoc() {
+    var statusEl = document.getElementById('kbvStatus');
+    var contentEl = document.getElementById('kbvContent');
+    if (!kbvDoc) return;
+
+    statusEl.style.display = 'block';
+    contentEl.style.display = 'none';
+    var dict = window.SITE_I18N[currentLang] || window.SITE_I18N.en;
+    statusEl.textContent = dict.kbv_loading;
+
+    // Localized doc naming convention: foo.md (English default) / foo.ja.md / foo.zh.md
+    var base = kbvDoc.replace(/\.md$/i, '');
+    var localizedUrl = (currentLang === 'ja' || currentLang === 'zh') ? 'kb-docs/' + base + '.' + currentLang + '.md' : null;
+    var fallbackUrl = 'kb-docs/' + kbvDoc;
+
+    function renderFrom(md) {
+      var titleMatch = md.match(/^#\s+(.*)$/m);
+      if (titleMatch) document.title = titleMatch[1] + ' — maySunAI';
+      contentEl.innerHTML = renderMarkdown(md);
+      contentEl.style.display = 'block';
+      statusEl.style.display = 'none';
+    }
+
+    var firstTry = localizedUrl || fallbackUrl;
+    fetch(firstTry)
+      .then(function (res) {
+        if (!res.ok) throw new Error('not found');
+        return res.text();
+      })
+      .then(renderFrom)
+      .catch(function () {
+        // Localized version missing — fall back to the English original rather than failing outright
+        if (localizedUrl) {
+          fetch(fallbackUrl)
+            .then(function (res) { if (!res.ok) throw new Error('fetch failed'); return res.text(); })
+            .then(renderFrom)
+            .catch(function () { statusEl.textContent = dict.kbv_error; });
+        } else {
+          statusEl.textContent = dict.kbv_error;
+        }
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var params = new URLSearchParams(window.location.search);
+    var doc = params.get('doc') || '';
+    if (!/^[a-z0-9-]+\.md$/i.test(doc)) {
+      document.getElementById('kbvStatus').textContent = window.SITE_I18N[currentLang] ? window.SITE_I18N[currentLang].kbv_error : 'Could not load this guide.';
+      return;
+    }
+    kbvDoc = doc;
+    loadDoc();
+    // Re-load in the new language whenever the visitor switches language
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { setTimeout(loadDoc, 0); });
+    });
+  });
+</script>
+</body>
+</html>

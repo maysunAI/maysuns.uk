@@ -71,4 +71,24 @@ function detectDefaultTheme() {
 document.documentElement.setAttribute('data-theme', detectDefaultTheme());
 document.addEventListener('DOMContentLoaded', function () {
   applyLanguage(detectDefaultLang());
+  initNavDropdowns();
 });
+
+/* Nav dropdowns: click/tap to open instead of relying on :hover/:focus-within,
+   which needs two taps on touchscreens (first tap only triggers hover state). */
+function initNavDropdowns() {
+  var dropdowns = document.querySelectorAll('.nav-dropdown');
+  dropdowns.forEach(function (dd) {
+    var label = dd.querySelector('.nav-dropdown-label');
+    if (!label) return;
+    label.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = dd.classList.contains('open');
+      dropdowns.forEach(function (o) { o.classList.remove('open'); });
+      if (!isOpen) dd.classList.add('open');
+    });
+  });
+  document.addEventListener('click', function () {
+    dropdowns.forEach(function (o) { o.classList.remove('open'); });
+  });
+}
