@@ -20,6 +20,25 @@
     .t00d-example p:last-child { margin-bottom: 0; }
     .t00d-example p strong { color: var(--text); }
     .t00d-cta-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+
+    .t00d-glance { display: flex; align-items: stretch; gap: 14px; margin: 20px 0; flex-wrap: wrap; }
+    .glance-col { flex: 1 1 240px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; }
+    .glance-before { border-color: color-mix(in srgb, var(--border) 70%, #a33); }
+    .glance-after { border-color: var(--accent); }
+    .glance-label { font-weight: 800; font-size: 0.95em; margin-bottom: 10px; }
+    .glance-before .glance-label { color: #c65; }
+    .glance-after .glance-label { color: var(--accent); }
+    .glance-col ul { margin: 0; padding-left: 1.1em; }
+    .glance-col li { font-size: 0.92em; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+    .glance-arrow { display: flex; align-items: center; justify-content: center; font-size: 1.6em; color: var(--accent); flex: 0 0 auto; }
+    @media (max-width: 680px) { .glance-arrow { transform: rotate(90deg); margin: 4px auto; } }
+
+    .t00d-audience-grid { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
+    .audience-card { flex: 1 1 280px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; }
+    .audience-tag { color: var(--accent); font-size: 0.82em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 12px; }
+    .audience-card ul { margin: 0; padding-left: 1.1em; }
+    .audience-card li { font-size: 0.94em; color: var(--text); line-height: 1.65; margin-bottom: 10px; }
+    .audience-card li strong { color: var(--accent); }
   </style>
 </head>
 <body>
@@ -91,6 +110,68 @@
   <p data-i18n="t00d_s1_p1">T00 is a personal AI-collaboration framework built the way most real engineering practices get built: not designed upfront on a whiteboard, but refined through repeated, hands-on friction — a communication protocol here, a memory convention there, a rule added the day it would have prevented a mistake.</p>
   <p data-i18n="t00d_s1_p2">It makes Claude Code work more effectively, and it makes me work more efficiently. That's the whole point: not "the AI does everything," but a working relationship between a person and an AI assistant that gets better the more it's used.</p>
   <p data-i18n="t00d_s1_p3">Every product on this site — the app generator, the email agent, the shop, the games, all of it — was created through T00. T00 isn't one of the products. It's the method that made the others possible.</p>
+</div>
+
+<div class="t00d-section">
+  <h2 data-i18n="t00d_faq_h2">Two questions people actually ask me</h2>
+  <div class="t00d-example">
+    <div class="tag" data-i18n="t00d_faq1_tag">My Japanese teacher asked me this</div>
+    <p data-i18n="t00d_faq1_a">Can AI actually finish a task without you opening files one by one? Yes. This exact page is the proof — I asked for "a more compelling T00 introduction, with a diagram," and Claude Code found the right files, read them, rewrote them, and checked its own work. I didn't open a single file by hand.</p>
+  </div>
+  <div class="t00d-example">
+    <div class="tag" data-i18n="t00d_faq2_tag">"Is this limited to the T00 folder?"</div>
+    <p data-i18n="t00d_faq2_a">No. T00 is the name of the workspace where the rules and the conversation history live — not a wall around what the AI can touch. Give it a path anywhere on the computer, and it can read or edit it. It just always asks before anything risky or hard to undo — nothing runs silently in the background.</p>
+  </div>
+</div>
+
+<div class="t00d-section">
+  <h2 data-i18n="t00d_glance_h2">T00 at a glance</h2>
+  <div class="t00d-glance">
+    <div class="glance-col glance-before">
+      <div class="glance-label" data-i18n="t00d_glance_before_label">Without it</div>
+      <ul>
+        <li data-i18n="t00d_glance_before1">Open file 1. Read it.</li>
+        <li data-i18n="t00d_glance_before2">Open file 2. Read it too.</li>
+        <li data-i18n="t00d_glance_before3">Try to hold all of it in your head at once.</li>
+        <li data-i18n="t00d_glance_before4">Make the edit yourself, and hope nothing else broke.</li>
+      </ul>
+    </div>
+    <div class="glance-arrow">→</div>
+    <div class="glance-col glance-after">
+      <div class="glance-label" data-i18n="t00d_glance_after_label">With T00</div>
+      <ul>
+        <li data-i18n="t00d_glance_after1">Say what you want, in plain language.</li>
+        <li data-i18n="t00d_glance_after2">The agent finds the right files, reads them, makes the change.</li>
+        <li data-i18n="t00d_glance_after3">It asks you when it isn't sure, instead of guessing.</li>
+        <li data-i18n="t00d_glance_after4">You review the result and confirm — nothing ships unchecked.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="t00d-section">
+  <h2 data-i18n="t00d_audience_h2">What it means, from two angles</h2>
+  <div class="t00d-audience-grid">
+    <div class="audience-card">
+      <div class="audience-tag" data-i18n="t00d_lay_tag">If you're not technical</div>
+      <ul>
+        <li data-i18n="t00d_lay1">Tells you what needs doing today, and what's coming up.</li>
+        <li data-i18n="t00d_lay2">Flags what actually matters, instead of drowning it in noise.</li>
+        <li data-i18n="t00d_lay3">Reads files for you and tells you what's actually in them.</li>
+        <li data-i18n="t00d_lay4">Understands what you meant — the result doesn't drift from what you asked.</li>
+        <li data-i18n="t00d_lay5">Asks you before guessing, whenever it's unsure.</li>
+      </ul>
+    </div>
+    <div class="audience-card">
+      <div class="audience-tag" data-i18n="t00d_pro_tag">If you build software</div>
+      <ul>
+        <li data-i18n="t00d_pro1">Token/context bloat — hierarchical rule files, only the relevant layer gets loaded, not everything every time.</li>
+        <li data-i18n="t00d_pro2">Answers drifting off-task over a long session — a persistent req/reply log stands in for scrollback memory.</li>
+        <li data-i18n="t00d_pro3">Detail problems that don't surface until later — trust-level tags plus a dedicated review pass before anything ships.</li>
+        <li data-i18n="t00d_pro4"><strong>The real one:</strong> the first 80% of a build goes fast — the last 20% is where quality quietly erodes or you need far more people. Sub-agent delegation for the hard, isolated pieces, plus a hard rule against ever reporting "done" without actually checking, is what T00 built specifically to hold that line.</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <div class="t00d-section">
