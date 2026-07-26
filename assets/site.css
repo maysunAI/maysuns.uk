@@ -46,7 +46,12 @@ nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 1
 .nav-dropdown > .nav-dropdown-label { color: var(--muted); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; background: none; border: none; font: inherit; padding: 0; }
 .nav-dropdown > .nav-dropdown-label:hover { color: var(--text); }
 .nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; margin-top: 0; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px; min-width: 240px; box-shadow: 0 8px 24px rgba(0,0,0,0.18); z-index: 200; }
-.nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu, .nav-dropdown.open .nav-dropdown-menu { display: block; }
+/* 2026-07-27修复：这里以前还有 :hover / :focus-within 两个触发器跟JS的 .open 点击开合并存。
+   触屏设备上"先触发CSS的:hover模拟展开，再吃掉JS真正的click事件"是iOS Safari/Edge一个已知的
+   老问题，会导致下拉菜单"有时候不好用"（需要点两次，或点了又马上关闭）。JS里初始化时已经
+   有完整的点击展开/收起逻辑（initNavDropdowns），不需要再靠CSS:hover这条路，统一只用
+   .open这一个开关，桌面鼠标用户改成"点一下展开"（原来是"划过去就展开"），换来触屏端稳定可用。 */
+.nav-dropdown.open .nav-dropdown-menu { display: block; }
 .nav-dropdown-menu a { display: block; padding: 8px 10px; border-radius: 6px; color: var(--text); font-size: 0.95em; }
 .nav-dropdown-menu a:hover { background: var(--bg2); text-decoration: none; color: var(--accent); }
 .nav-dropdown-menu a small { display: block; color: var(--muted); font-size: 0.82em; font-weight: 400; margin-top: 2px; }
@@ -58,6 +63,14 @@ nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 1
      不要用CSS强制覆盖成"永远显示"。 */
   .nav-dropdown-menu { display: none; position: static; box-shadow: none; margin-top: 4px; border: none; padding-left: 10px; }
   .nav-dropdown.open .nav-dropdown-menu { display: block; }
+
+  /* 2026-07-27修复：.nav-links 原来只是 flex-wrap，手机上点开一个下拉菜单（比如"AI知识库"）
+     菜单展开时高度突然变化，会让同一行里排在后面的"首页"这类普通链接被挤到换行、
+     插到展开的菜单中间，视觉上很乱（用户反馈"前面的首页跑到中间位置了，不好看"）。
+     改成纵向堆叠（column），每一项各占一行，展开的下拉菜单只会把它下面的项目往下推，
+     不会打乱前面已经排好的项目顺序。 */
+  .nav-links { flex-direction: column; align-items: flex-start; width: 100%; gap: 4px; }
+  .nav-dropdown { width: 100%; }
 }
 
 /* THEME TOGGLE */
