@@ -18,6 +18,14 @@
     .st-status.live { background: rgba(52,211,153,0.15); color: var(--accent2); }
     .st-card + .st-card { margin-top: 20px; }
     .st-card .rule { margin-bottom: 10px; }
+
+    .st-timeline { margin-top: 18px; display: flex; flex-direction: column; gap: 0; }
+    .st-step { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .st-step:last-child { border-bottom: none; }
+    .st-step-icon { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; background: var(--bg2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.3em; }
+    .st-step-body h3 { font-size: 0.98em; margin-bottom: 4px; }
+    .st-step-body p { color: var(--muted); font-size: 0.9em; line-height: 1.65; margin-bottom: 0; }
+    .st-disclaimer { font-size: 0.82em; color: var(--muted); border-left: 3px solid var(--accent3); padding: 8px 14px; background: var(--bg2); border-radius: 0 8px 8px 0; margin-top: 16px; }
   </style>
 </head>
 <body>
@@ -78,6 +86,25 @@
 </div>
 
 <div class="st-section">
+  <div class="st-card">
+    <h2 data-i18n="stories_t00day_title">A Day With T00</h2>
+    <p data-i18n="stories_t00day_intro">A composite scenario built from how a workday like this actually goes — not one specific client, but every step here maps to a real feature (the site's own product-generator, PJ14's email agent, T00's req/reply log). The "client" is illustrative.</p>
+    <div class="st-timeline">
+      <div class="st-step"><div class="st-step-icon">☕</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s1_h">Morning: today's list</h3><p data-i18n="stories_t00day_s1_p">Coffee in hand, I ask T00 out loud: "What's on today?" I haven't opened a single file, but T00 already knows — unread emails, a project deadline, a doc I left half-finished yesterday. A few seconds later, a prioritized to-do list comes back.</p></div></div>
+      <div class="st-step"><div class="st-step-icon">📧</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s2_h">A new request, buried in the list</h3><p data-i18n="stories_t00day_s2_p">One item doesn't look familiar: a client email asking for a landing page, plus a meeting. T00 had already read the email and turned it into a task — before I'd even opened my inbox.</p></div></div>
+      <div class="st-step"><div class="st-step-icon">✨</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s3_h">Built in one shot</h3><p data-i18n="stories_t00day_s3_p">"Go ahead and build it." A few minutes later, the landing page is live — design, copy, layout, all done. No starting from a blank file.</p></div></div>
+      <div class="st-step"><div class="st-step-icon">🤝</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s4_h">Off to the meeting</h3><p data-i18n="stories_t00day_s4_p">I walk in with the live page already up on my phone. Showing something real beats describing it. Specific notes come back — "make this stand out," "this line reads too stiff."</p></div></div>
+      <div class="st-step"><div class="st-step-icon">📱</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s5_h">An email on the way back</h3><p data-i18n="stories_t00day_s5_p">On the train home, I email T00 the notes straight from my phone. No laptop required.</p></div></div>
+      <div class="st-step"><div class="st-step-icon">✅</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s6_h">Already fixed by the time I check</h3><p data-i18n="stories_t00day_s6_p">T00's reply is waiting with a link to the updated page — done while I was still commuting.</p></div></div>
+      <div class="st-step"><div class="st-step-icon">🔍</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s7_h">Back home: polishing the details</h3><p data-i18n="stories_t00day_s7_p">This is where T00's req/reply log actually earns its keep. This morning's conversation, the client's in-person feedback, the email sent from the train — it's all one continuous record. I can trace exactly what changed and why, and refine the details without losing the thread.</p></div></div>
+      <div class="st-step"><div class="st-step-icon">📤</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s8_h">Sign-off</h3><p data-i18n="stories_t00day_s8_p">Final version goes to the client: "Here's the update."</p></div></div>
+      <div class="st-step"><div class="st-step-icon">📄</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s9_h">Two write-ups</h3><p data-i18n="stories_t00day_s9_p">One last thing: "Write it up." Two documents come back — a short "how to use this page" guide for the client, and a personal note on how the job went, for next time.</p></div></div>
+      <div class="st-step"><div class="st-step-icon">🎉</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s10_h">Done</h3><p data-i18n="stories_t00day_s10_p">Today's list is one item shorter.</p></div></div>
+    </div>
+    <div class="st-disclaimer" data-i18n="stories_t00day_disclaimer">⚠️ Illustrative scenario: the client and meeting are a composite example, not a specific real engagement. Every capability shown is real — this site's own AI app generator, PJ14's email-driven agent, and T00's req/reply log.</div>
+    <span class="st-status live" data-i18n="stories_t00day_status">Published</span>
+  </div>
+
   <div class="st-card">
     <h2 data-i18n="stories_card_title">Making a School Emblem with AI: A Story of Failure, Then Success</h2>
     <p data-i18n="stories_card_teaser">A design task that didn't go as planned the first time.</p>

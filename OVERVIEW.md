@@ -292,3 +292,12 @@ maysuns.uk 个人品牌网站，Vultr服务器 + Cloudflare DNS托管（2026-07-
 - "微信发送后Edge打开有问题"这条**没有找到具体的代码级根因**，只排查并修复了最相关的缓存版本号问题——如果这不是真正原因，麻烦重新测试后告诉我具体现象（打开后卡在哪一步/白屏还是样式错乱/控制台有没有报错），我可以继续排查。
 - **图片/截图没有做**：这次会话没有可用的浏览器/截图工具，"缺图片自己截图补"这条做不到，如实说明而不是跳过不提。如果指的是某个具体页面缺配图，告诉我是哪个页面，下次有工具可用时优先补上。
 - 静态检查：`node --check`确认`i18n.js`/`main.js`语法正确；Python脚本核对全部28个html文件`<div>`标签开闭一致，`site.css`大括号113对113无缺失。未做Playwright真机渲染验证。
+
+## 2026-07-28 SEO/GEO基础设施 + "T00的一天"宣传故事任务立项
+
+用户要求"推广maysuns.uk"，问SEO/GEO是什么+要求实际执行，并提出讲故事宣传T00的想法。已完成：
+
+- **SEO/GEO技术落地**（curl核实此前完全没有）：新建`robots.txt`（含GPTBot/PerplexityBot/ClaudeBot/Google-Extended等AI爬虫放行规则）+`sitemap.xml`（25个正式页面）；首页补上此前完全缺失的`<meta name="description">`；首页+`t00.html`新增Open Graph标签+Twitter Card；首页新增`WebSite` JSON-LD结构化数据。已commit(`cc369fd`)+push+部署到Vultr服务器，curl核实`robots.txt`/`sitemap.xml`均返回200。
+- **新增两篇help文档**：`H94_geo_ai_search_optimization_guide.md`（GEO入门，跟已有`H88`SEO指南配对）；`T00_HELP.html`已重新生成（102篇文档）。
+- **"T00的一天"宣传故事**：任务文件`tasks/T02_t00_day_story.md`，已完成日语故事文案初稿（10个场景节点，对应用户给的大纲扩写），**诚实说明**：英文/中文翻译、配图、正式排版进HTML页面均未完成——本次会话没有截图/图片生成工具，只完成了文字部分，任务文件里有完整状态表方便下次接续。
+- **联动新建`PJ19_todolist_assistant`**：故事里"早上问T00给todolist"这个功能对应的真实项目，目前只是概念阶段的项目壳（`CLAUDE.md`），未开发。
