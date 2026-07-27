@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="t00d_page_title">What T00 Is — maySunAI</title>
   <meta id="metaDescription" name="description" data-i18n-desc="t00d_meta_description" content="The method behind every product on this site — refined through months of daily collaboration with Claude Code." />
-  <link rel="stylesheet" href="assets/site.css?v=20260727" />
+  <link rel="stylesheet" href="assets/site.css?v=20260727b" />
   <style>
     .t00d-hero { padding: 56px clamp(24px, 6vw, 120px) 8px; max-width: min(900px, 92vw); margin: 0 auto; text-align: center; }
     .t00d-hero .eyebrow { color: var(--muted); font-size: 0.9em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px; }
@@ -45,7 +45,8 @@
 
 <nav>
   <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
-  <div class="nav-right">
+  <button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">☰</button>
+  <div class="nav-right" id="navRight">
     <div class="nav-links">
       <a href="index.html" data-i18n="nav_home">Home</a>
       <div class="nav-dropdown" tabindex="0">
@@ -90,6 +91,7 @@
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
   </div>
 </nav>
+<div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
 
 <div class="t00d-hero">
   <div class="eyebrow" data-i18n="t00d_eyebrow">The method behind this entire site</div>
@@ -210,6 +212,6 @@
 </footer>
 
 <script src="assets/i18n.js?v=20260727"></script>
-<script src="assets/main.js?v=20260727"></script>
+<script src="assets/main.js?v=20260727b"></script>
 </body>
 </html>

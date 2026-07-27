@@ -33,13 +33,17 @@ a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 /* NAV */
-nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; transition: background 0.25s; flex-wrap: wrap; gap: 10px; }
+nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; transition: background 0.25s; gap: 10px; }
 .nav-logo { font-weight: bold; font-size: 1.1em; color: var(--accent); }
 .nav-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .nav-links { display: flex; gap: 16px; font-size: 0.9em; flex-wrap: wrap; align-items: center; }
 .nav-links a { color: var(--muted); }
 .nav-links a.nav-current { color: var(--text); font-weight: 600; }
 .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+/* HAMBURGER (mobile-only, see @media block below for visibility) */
+.nav-hamburger { display: none; background: none; border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1.3em; line-height: 1; padding: 6px 10px; cursor: pointer; touch-action: manipulation; }
+.nav-backdrop { display: none; }
 
 /* NAV DROPDOWN */
 .nav-dropdown { position: relative; }
@@ -56,21 +60,49 @@ nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 1
 .nav-dropdown-menu a:hover { background: var(--bg2); text-decoration: none; color: var(--accent); }
 .nav-dropdown-menu a small { display: block; color: var(--muted); font-size: 0.82em; font-weight: 400; margin-top: 2px; }
 @media (max-width: 640px) {
-  /* 2026-07-21修复：之前这里给 .nav-dropdown-menu 强制 display:block，导致手机上
-     4个下拉菜单（AI知识库/AI动态/AI产品/关于我）永远同时全部展开、跟"首页"这类
-     普通链接挤在一起换行——画面乱、链接因为挤压变小而点不准。main.js 里其实已经写好了
-     点击展开/收起的逻辑（.nav-dropdown.open），手机端只需要交给它管理显示/隐藏，
-     不要用CSS强制覆盖成"永远显示"。 */
-  .nav-dropdown-menu { display: none; position: static; box-shadow: none; margin-top: 4px; border: none; padding-left: 10px; }
-  .nav-dropdown.open .nav-dropdown-menu { display: block; }
+  /* 2026-07-27再次修复：column堆叠仍然把全部链接摊开挤在头部，占地方且乱，
+     iPhone上个别菜单项点了没反应（触屏:hover态跟JS click抢事件、点击热区太小）。
+     改成汉堡按钮+左侧抽屉菜单：默认完全隐藏，点击汉堡从左侧滑出，点遮罩或链接自动收起。
+     点击热区统一放大到 ≥44px（Apple HIG最小可点尺寸）+ touch-action:manipulation
+     去掉移动端300ms点击延迟/双击缩放干扰，解决"点击没反应"。 */
+  .nav-hamburger { display: inline-flex; align-items: center; justify-content: center; }
 
-  /* 2026-07-27修复：.nav-links 原来只是 flex-wrap，手机上点开一个下拉菜单（比如"AI知识库"）
-     菜单展开时高度突然变化，会让同一行里排在后面的"首页"这类普通链接被挤到换行、
-     插到展开的菜单中间，视觉上很乱（用户反馈"前面的首页跑到中间位置了，不好看"）。
-     改成纵向堆叠（column），每一项各占一行，展开的下拉菜单只会把它下面的项目往下推，
-     不会打乱前面已经排好的项目顺序。 */
-  .nav-links { flex-direction: column; align-items: flex-start; width: 100%; gap: 4px; }
+  .nav-right {
+    position: fixed; top: 0; left: -300px; width: min(78vw, 300px); height: 100vh;
+    background: var(--bg2); border-right: 1px solid var(--border);
+    flex-direction: column; align-items: stretch; flex-wrap: nowrap;
+    gap: 0; padding: 64px 18px 24px; overflow-y: auto;
+    transition: left 0.25s ease; z-index: 150;
+  }
+  .nav-right.open { left: 0; box-shadow: 8px 0 24px rgba(0,0,0,0.25); }
+
+  /* z-index stays BELOW nav's (100): .nav-right is a descendant of <nav>, which
+     creates its own stacking context (position:sticky + z-index:100), so .nav-right's
+     z-index:150 only wins against other children of <nav> — against a body-level
+     sibling like .nav-backdrop it's <nav>'s z-index (100) that gets compared. A
+     backdrop z-index >= 100 would paint above the whole nav bar and swallow every
+     tap inside the drawer, which is exactly the "iPhone上菜单点击没反应" bug this
+     redesign is meant to fix. Keeping it under 100 dims the page behind the header
+     without ever sitting on top of it. */
+  .nav-backdrop {
+    display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+    z-index: 90; opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+  }
+  .nav-backdrop.open { opacity: 1; pointer-events: auto; }
+
+  .nav-links { flex-direction: column; align-items: stretch; width: 100%; gap: 0; margin-bottom: 16px; }
+  .nav-links a, .nav-dropdown > .nav-dropdown-label {
+    display: flex; align-items: center; min-height: 44px; padding: 10px 4px;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+    border-bottom: 1px solid var(--border);
+  }
   .nav-dropdown { width: 100%; }
+  .nav-dropdown-menu { display: none; position: static; box-shadow: none; margin-top: 0; border: none; padding-left: 14px; }
+  .nav-dropdown.open .nav-dropdown-menu { display: block; }
+  .nav-dropdown-menu a { min-height: 44px; padding: 10px 4px; border-bottom: 1px solid var(--border); }
+
+  .lang-switch { margin-bottom: 12px; }
+  .lang-switch, .theme-toggle { width: 100%; justify-content: center; }
 }
 
 /* THEME TOGGLE */

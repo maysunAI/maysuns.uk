@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="ask_page_title">Ask AI about T00 — maySunAI</title>
   <meta id="metaDescription" name="description" data-i18n-desc="ask_meta_description" content="Ask a live AI assistant anything about T00, grounded in the site's own knowledge base." />
-  <link rel="stylesheet" href="assets/site.css?v=20260727" />
+  <link rel="stylesheet" href="assets/site.css?v=20260727b" />
   <style>
     .ask-hero { padding: 48px clamp(24px, 6vw, 120px) 8px; max-width: min(900px, 92vw); margin: 0 auto; text-align: center; }
     .ask-hero h1 { font-size: clamp(1.5em, 4vw, 2.1em); font-weight: 800; margin-bottom: 10px; }
@@ -35,7 +35,8 @@
 
 <nav>
   <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
-  <div class="nav-right">
+  <button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">☰</button>
+  <div class="nav-right" id="navRight">
     <div class="nav-links">
       <a href="index.html" data-i18n="nav_home">Home</a>
       <div class="nav-dropdown" tabindex="0">
@@ -80,6 +81,7 @@
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
   </div>
 </nav>
+<div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
 
 <div class="ask-hero">
   <h1 data-i18n="ask_h1">Ask AI about T00</h1>
@@ -135,7 +137,7 @@
 </footer>
 
 <script src="assets/i18n.js?v=20260727"></script>
-<script src="assets/main.js?v=20260727"></script>
+<script src="assets/main.js?v=20260727b"></script>
 <script>
   function inferAskApiBase() {
     // Same convention as stats-widget.js: same-domain deployment expects a dedicated

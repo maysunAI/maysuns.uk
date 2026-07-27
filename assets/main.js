@@ -72,7 +72,52 @@ document.documentElement.setAttribute('data-theme', detectDefaultTheme());
 document.addEventListener('DOMContentLoaded', function () {
   applyLanguage(detectDefaultLang());
   initNavDropdowns();
+  initMobileNav();
 });
+
+/* Mobile off-canvas menu (hamburger, left slide-in).
+   Replaces the old "stack everything under the nav bar" mobile layout, which
+   took up too much space and made individual links hard to tap accurately. */
+function toggleMobileNav() {
+  var navRight = document.getElementById('navRight');
+  var backdrop = document.getElementById('navBackdrop');
+  var btn = document.querySelector('.nav-hamburger');
+  if (!navRight) return;
+  var isOpen = navRight.classList.toggle('open');
+  if (backdrop) backdrop.classList.toggle('open', isOpen);
+  if (btn) {
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    btn.textContent = isOpen ? '✕' : '☰';
+  }
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+function closeMobileNav() {
+  var navRight = document.getElementById('navRight');
+  var backdrop = document.getElementById('navBackdrop');
+  var btn = document.querySelector('.nav-hamburger');
+  if (!navRight) return;
+  navRight.classList.remove('open');
+  if (backdrop) backdrop.classList.remove('open');
+  if (btn) {
+    btn.setAttribute('aria-expanded', 'false');
+    btn.textContent = '☰';
+  }
+  document.body.style.overflow = '';
+}
+
+function initMobileNav() {
+  var navRight = document.getElementById('navRight');
+  if (!navRight) return;
+  // Tapping a real link (not a dropdown label) closes the drawer so it
+  // doesn't stay open over the next page / anchor jump.
+  navRight.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { closeMobileNav(); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMobileNav();
+  });
+}
 
 /* Nav dropdowns: click/tap to open instead of relying on :hover/:focus-within,
    which needs two taps on touchscreens (first tap only triggers hover state). */

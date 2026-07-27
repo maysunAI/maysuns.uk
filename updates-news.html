@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="updn_page_title">Latest AI Updates — maySunAI</title>
   <meta id="metaDescription" name="description" data-i18n-desc="updn_meta_description" content="Curated highlights from AI industry news — Claude, Codex, and more." />
-  <link rel="stylesheet" href="assets/site.css?v=20260721" />
+  <link rel="stylesheet" href="assets/site.css?v=20260727b" />
   <style>
     .upd-section { max-width: min(1100px, 92vw); margin: 0 auto; padding: 48px clamp(24px, 6vw, 120px) 60px; }
     .upd-section h2 { font-size: clamp(1.3em, 3vw, 1.7em); font-weight: 800; margin-bottom: 8px; }
@@ -23,7 +23,8 @@
 
 <nav>
   <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
-  <div class="nav-right">
+  <button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">☰</button>
+  <div class="nav-right" id="navRight">
     <div class="nav-links">
       <a href="index.html" data-i18n="nav_home">Home</a>
       <div class="nav-dropdown" tabindex="0">
@@ -68,41 +69,42 @@
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
   </div>
 </nav>
+<div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
 
 <div class="upd-section" id="news">
   <h2 data-i18n="upd_news_h2">Latest AI Updates</h2>
-  <p class="upd-news-coverage" data-i18n="upd_news_coverage">Curated highlights · Last updated: 2026-07-20 (next update searches forward from this date)</p>
+  <p class="upd-news-coverage" data-i18n="upd_news_coverage">Curated highlights · Last updated: 2026-07-25 (next update searches forward from this date)</p>
   <div class="upd-news-grid">
     <div class="upd-news-cat">
       <h3 data-i18n="upd_news_claude_h3">Claude</h3>
       <div class="upd-news-card">
-        <div class="item-title" data-i18n="upd_news_claude_title">Claude Sonnet 5 launches</div>
-        <div class="item-body" data-i18n="upd_news_claude_body">Anthropic shipped Claude Sonnet 5 on June 30, 2026.</div>
-        <div class="item-meta"><span data-i18n="upd_news_claude_date">2026-06-30</span><a href="https://www.anthropic.com/news/claude-sonnet-5" target="_blank" rel="noopener" data-i18n="upd_news_claude_source">Anthropic official announcement</a></div>
+        <div class="item-title" data-i18n="upd_news_claude_title">Claude Opus 5 launches</div>
+        <div class="item-body" data-i18n="upd_news_claude_body">Anthropic released Claude Opus 5 on July 24, 2026, nearing Claude Fable 5-level intelligence at half the price, with a new low/medium/high effort toggle to balance cost and capability.</div>
+        <div class="item-meta"><span data-i18n="upd_news_claude_date">2026-07-24</span><a href="https://www.anthropic.com/news/claude-opus-5" target="_blank" rel="noopener" data-i18n="upd_news_claude_source">Anthropic official announcement</a></div>
       </div>
     </div>
     <div class="upd-news-cat">
       <h3 data-i18n="upd_news_codex_h3">Codex</h3>
       <div class="upd-news-card">
-        <div class="item-title" data-i18n="upd_news_codex_title">Codex merges into the ChatGPT desktop app</div>
-        <div class="item-body" data-i18n="upd_news_codex_body">OpenAI folded Codex into the new ChatGPT desktop app on July 9, 2026.</div>
-        <div class="item-meta"><span data-i18n="upd_news_codex_date">2026-07-09</span><a href="https://developers.openai.com/codex/changelog" target="_blank" rel="noopener" data-i18n="upd_news_codex_source">OpenAI Codex official changelog</a></div>
+        <div class="item-title" data-i18n="upd_news_codex_title">OpenAI touts 10M ChatGPT Work + Codex users, launches small business program</div>
+        <div class="item-body" data-i18n="upd_news_codex_body">On July 21, 2026, OpenAI said ChatGPT Work and Codex have reached 10 million users combined and introduced a new small business program with training and dedicated agents.</div>
+        <div class="item-meta"><span data-i18n="upd_news_codex_date">2026-07-21</span><a href="https://9to5mac.com/2026/07/21/openai-launches-small-business-program-as-it-touts-10m-chatgpt-work-and-codex-users/" target="_blank" rel="noopener" data-i18n="upd_news_codex_source">9to5Mac</a></div>
       </div>
     </div>
     <div class="upd-news-cat">
       <h3 data-i18n="upd_news_othercoding_h3">Other AI Coding Tools</h3>
       <div class="upd-news-card">
-        <div class="item-title" data-i18n="upd_news_othercoding_title">Moonshot AI ships Kimi K3</div>
-        <div class="item-body" data-i18n="upd_news_othercoding_body">Moonshot AI released Kimi K3 on July 16, 2026, alongside the Kimi Code CLI.</div>
-        <div class="item-meta"><span data-i18n="upd_news_othercoding_date">2026-07-16</span><a href="https://www.marktechpost.com/2026/07/16/moonshot-ai-releases-kimi-k3-a-2-8-trillion-parameter-open-moe-model-with-kimi-delta-attention-and-1m-context/" target="_blank" rel="noopener" data-i18n="upd_news_othercoding_source">MarkTechPost</a></div>
+        <div class="item-title" data-i18n="upd_news_othercoding_title">White House accuses Moonshot AI of distilling Anthropic's Fable for Kimi K3</div>
+        <div class="item-body" data-i18n="upd_news_othercoding_body">White House OSTP director Michael Kratsios said on July 22, 2026 that Moonshot AI covertly distilled Anthropic's Fable model at industrial scale to build Kimi K3, and alleged use of export-restricted Nvidia GB300 chips.</div>
+        <div class="item-meta"><span data-i18n="upd_news_othercoding_date">2026-07-22</span><a href="https://techstartups.com/2026/07/23/white-house-accuses-moonshot-ai-of-using-restricted-nvidia-gb300-chips-as-kimi-k3-challenges-openai-and-anthropic/" target="_blank" rel="noopener" data-i18n="upd_news_othercoding_source">Tech Startups</a></div>
       </div>
     </div>
     <div class="upd-news-cat">
       <h3 data-i18n="upd_news_otherai_h3">Other AI News</h3>
       <div class="upd-news-card">
-        <div class="item-title" data-i18n="upd_news_otherai_title">GPT-5.6 (Sol / Terra / Luna) reaches general availability</div>
-        <div class="item-body" data-i18n="upd_news_otherai_body">OpenAI's three-tier GPT-5.6 family reached general availability on July 9, 2026.</div>
-        <div class="item-meta"><span data-i18n="upd_news_otherai_date">2026-07-09</span><a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noopener" data-i18n="upd_news_otherai_source">OpenAI official announcement</a></div>
+        <div class="item-title" data-i18n="upd_news_otherai_title">Google begins Gemini 4 pretraining, ships three new Gemini models</div>
+        <div class="item-body" data-i18n="upd_news_otherai_body">Google announced on July 21, 2026 that it has started its most ambitious Gemini 4 pretraining run yet, while shipping Gemini 3.6 Flash, 3.5 Flash-Lite, and a security-tuned 3.5 Flash Cyber — Gemini 3.5 Pro remains delayed.</div>
+        <div class="item-meta"><span data-i18n="upd_news_otherai_date">2026-07-21</span><a href="https://www.techtimes.com/articles/321268/20260722/gemini-36-flash-cuts-token-costs-scores-higher-every-benchmark.htm" target="_blank" rel="noopener" data-i18n="upd_news_otherai_source">Tech Times</a></div>
       </div>
     </div>
   </div>
@@ -116,7 +118,7 @@
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=20260720c"></script>
-<script src="assets/main.js?v=20260720"></script>
+<script src="assets/i18n.js?v=20260727"></script>
+<script src="assets/main.js?v=20260727b"></script>
 </body>
 </html>
