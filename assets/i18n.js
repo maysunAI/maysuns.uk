@@ -62,6 +62,7 @@ window.SITE_I18N = {
     portfolio_page_title: "実績一覧 — maySunAI",
 
     f_page_title: "maySunAI | 本物のAIプロダクト、学び続ける",
+    f_meta_description: "T00：普通の言葉でやりたいことを伝えるだけで、ファイルを見つけて、作業して、自分で確認してくれる。Claude Codeとの日々の協働で磨いてきた個人AI協業フレームワーク——このサイトの実際に稼働しているプロダクトはすべてこの方法で作られています。高嵩（Jason Gao）、25年以上のエンタープライズSE経験。",
     f_hero_eyebrow: "T00が実際にできること",
     f_hero_h1: "やりたいことを伝えるだけ。ファイルを見つけて、作業して、自分で確認する。",
     f_hero_lede: "ファイルを一つずつ開く必要も、毎回状況を説明し直す必要もありません。普通の言葉でやりたいことを伝えれば、エージェントが該当ファイルを見つけ、読み、変更を加え、リスクのある操作の前には必ず確認します。このサイト自体、その方法で作られています。",
@@ -617,6 +618,7 @@ window.SITE_I18N = {
     portfolio_page_title: "Portfolio — maySunAI",
 
     f_page_title: "maySunAI | Real AI Products, Always Learning",
+    f_meta_description: "T00: tell it what you need in plain language, it finds the files, does the work, and checks itself. The AI-collaboration framework behind every real, shipped product on this site — by Jason Gao, 25+ years enterprise SE.",
     f_hero_eyebrow: "What T00 actually does",
     f_hero_h1: "Tell it what you need. It finds the files, does the work, checks itself.",
     f_hero_lede: "No opening files one by one, no re-explaining context every time. Say what you want in plain language — the agent locates the right files, reads them, makes the change, and asks you before anything risky. This whole site was built that way.",
@@ -1172,6 +1174,7 @@ window.SITE_I18N = {
     portfolio_page_title: "全部作品 — maySunAI",
 
     f_page_title: "maySunAI | 真实AI产品，持续学习进取",
+    f_meta_description: "T00：用大白话说出你想要的，它自己找文件、动手做、还会自己核对。这是高嵩（Jason Gao，25年以上企业级SE经验）跟Claude Code日常协作磨出来的个人AI协作框架——这个网站上所有真实上线的产品，都是这么做出来的。",
     f_hero_eyebrow: "T00到底能做什么",
     f_hero_h1: "说出你想要的，它自己找文件、动手做、还会自己核对。",
     f_hero_lede: "不用一个个打开文件，不用每次都重新解释背景。用大白话说出你想要的结果——AI自己找到相关文件、读懂、动手改，遇到有风险的操作会先问你。这整个网站，就是这么做出来的。",

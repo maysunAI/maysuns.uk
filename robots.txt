@@ -1,0 +1,25 @@
+# maysuns.uk — robots.txt
+
+User-agent: *
+Allow: /
+
+# AI搜索引擎爬虫（GEO：允许被引用，见 AI00_Common/_docs/help/general/H94_geo_ai_search_optimization_guide.md）
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://maysuns.uk/sitemap.xml
