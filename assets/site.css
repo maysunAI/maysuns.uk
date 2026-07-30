@@ -36,6 +36,16 @@ a:hover { text-decoration: underline; }
 nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; transition: background 0.25s; gap: 10px; }
 .nav-logo { font-weight: bold; font-size: 1.1em; color: var(--accent); }
 .nav-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+/* 2026-07-31: lang-switch + theme-toggle moved out of .nav-right (the hamburger drawer on
+   mobile) into their own top-bar group so they stay reachable on a phone without opening
+   the menu. DOM order is now logo -> .nav-utility -> hamburger -> .nav-right, which already
+   satisfies the mobile requirement for free (flex default order). On desktop the order:10
+   override below pushes it back to the visual right edge, after .nav-right, matching the
+   original desktop layout. */
+.nav-utility { display: flex; align-items: center; gap: 8px; }
+@media (min-width: 641px) {
+  .nav-utility { order: 10; }
+}
 .nav-links { display: flex; gap: 16px; font-size: 0.9em; flex-wrap: wrap; align-items: center; }
 .nav-links a { color: var(--muted); }
 .nav-links a.nav-current { color: var(--text); font-weight: 600; }
@@ -101,8 +111,13 @@ nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 1
   .nav-dropdown.open .nav-dropdown-menu { display: block; }
   .nav-dropdown-menu a { min-height: 44px; padding: 10px 4px; border-bottom: 1px solid var(--border); }
 
-  .lang-switch { margin-bottom: 12px; }
-  .lang-switch, .theme-toggle { width: 100%; justify-content: center; }
+  /* lang-switch/theme-toggle no longer live in this drawer (see .nav-utility above) --
+     compact sizing here is for the top bar itself, where they now sit next to the logo
+     and hamburger on a 375-390px iPhone screen. */
+  .nav-utility { gap: 5px; }
+  .nav-utility .lang-switch { padding: 2px; gap: 2px; }
+  .nav-utility .lang-btn { padding: 3px 6px; font-size: 0.68em; }
+  .nav-utility .theme-toggle { padding: 3px 7px; font-size: 0.68em; }
 }
 
 /* THEME TOGGLE */
@@ -152,8 +167,11 @@ section p.body-text.muted { color: var(--muted); }
 .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: border-color 0.2s, background 0.25s, transform 0.15s; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: block; color: inherit; }
 .product-card:hover { border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
 .product-icon { font-size: 2.2em; margin-bottom: 12px; }
-.product-card h3 { font-size: 1.05em; margin-bottom: 6px; text-transform: none; letter-spacing: normal; color: var(--text); }
-.product-card p { color: var(--muted); font-size: 0.9em; line-height: 1.5; margin-bottom: 16px; }
+/* 卡片网格里icon+标题同一行（原来icon和h3是各自独立的block，各占一行）——
+   用float+overflow:hidden让标题贴着icon旁边换行，clear:left让下面的描述文字恢复整行宽度 */
+.product-card .product-icon { float: left; margin: 1px 10px 10px 0; font-size: 1.7em; }
+.product-card h3 { overflow: hidden; font-size: 1.05em; margin-bottom: 6px; text-transform: none; letter-spacing: normal; color: var(--text); }
+.product-card p { clear: left; color: var(--muted); font-size: 0.9em; line-height: 1.5; margin-bottom: 16px; }
 .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75em; font-weight: 600; }
 .badge-live { background: #064e3b; color: var(--accent2); }
 .badge-review { background: #1e3a5f; color: var(--accent); }
