@@ -12,7 +12,7 @@
   <meta property="og:description" data-i18n-desc="t00d_meta_description" content="The method behind every product on this site — refined through months of daily collaboration with Claude Code." />
   <meta property="og:url" content="https://maysuns.uk/t00.html" />
   <meta name="twitter:card" content="summary" />
-  <link rel="stylesheet" href="assets/site.css?v=20260727b" />
+  <link rel="stylesheet" href="assets/site.css?v=20260731a" />
   <style>
     .t00d-hero { padding: 56px clamp(24px, 6vw, 120px) 8px; max-width: min(900px, 92vw); margin: 0 auto; text-align: center; }
     .t00d-hero .eyebrow { color: var(--muted); font-size: 0.9em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px; }
@@ -38,7 +38,20 @@
     .glance-col ul { margin: 0; padding-left: 1.1em; }
     .glance-col li { font-size: 0.92em; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
     .glance-arrow { display: flex; align-items: center; justify-content: center; font-size: 1.6em; color: var(--accent); flex: 0 0 auto; }
-    @media (max-width: 680px) { .glance-arrow { transform: rotate(90deg); margin: 4px auto; } }
+    @media (max-width: 680px) { .glance-arrow { transform: rotate(90deg); margin: 4px auto; align-self: center; } }
+
+    .t00d-flow-wrap { max-width: min(920px, 94vw); margin: 8px auto 36px; padding: 0 clamp(16px, 4vw, 40px); }
+    .t00d-flow { display: flex; align-items: flex-start; justify-content: center; gap: 4px; flex-wrap: wrap; }
+    .flow-step { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 160px; text-align: center; }
+    .flow-icon-circle { width: 62px; height: 62px; border-radius: 50%; background: var(--card); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; flex: none; }
+    .flow-icon-circle svg { width: 28px; height: 28px; stroke: var(--accent); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .flow-step-num { font-size: 0.72em; font-weight: 800; color: var(--accent); letter-spacing: 0.04em; }
+    .flow-text { font-size: 0.86em; color: var(--muted); line-height: 1.45; }
+    .flow-arrow-h { color: var(--accent); font-size: 1.5em; flex: 0 0 auto; align-self: center; margin-top: 22px; opacity: 0.7; }
+    @media (max-width: 720px) {
+      .t00d-flow { flex-direction: column; align-items: center; }
+      .flow-arrow-h { transform: rotate(90deg); margin: -4px auto; }
+    }
 
     .t00d-audience-grid { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
     .audience-card { flex: 1 1 280px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; }
@@ -52,6 +65,14 @@
 
 <nav>
   <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
+  <div class="nav-utility">
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
+      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </div>
   <button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">☰</button>
   <div class="nav-right" id="navRight">
     <div class="nav-links">
@@ -62,6 +83,7 @@
           <a href="knowledge-t00.html"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
           <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
           <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Git, Vue, Node, Python, Flask basics</small></a>
+          <a href="knowledge-ai-glossary.html"><span data-i18n="nav_aiknowledge_glossary">AI Concepts Glossary</span><small data-i18n="nav_aiknowledge_glossary_sub">30 AI terms, EN/JA/ZH, with pronunciation</small></a>
         </div>
       </div>
       <div class="nav-dropdown" tabindex="0">
@@ -78,24 +100,10 @@
           <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
         </div>
       </div>
-      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Game Hall</a>
-      <a href="product-shop.html" data-i18n="nav_shop">Maysun Shop</a>
+      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Relax</a>
       <a href="ask-ai.html" data-i18n="nav_askai" style="color:var(--accent);font-weight:700;">✨ Ask AI</a>
-      <a href="whats-next.html" data-i18n="nav_whatsnext">What's Next</a>
-      <div class="nav-dropdown" tabindex="0">
-        <span class="nav-dropdown-label" data-i18n="nav_aboutme_label">About Me ▾</span>
-        <div class="nav-dropdown-menu">
-          <a href="stories.html"><span data-i18n="nav_aboutme_stories">Stories</span><small data-i18n="nav_aboutme_stories_sub">Real behind-the-scenes moments</small></a>
-          <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
-        </div>
-      </div>
+      <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
     </div>
-    <div class="lang-switch">
-      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
-      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
-      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
-    </div>
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
   </div>
 </nav>
 <div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
@@ -106,11 +114,39 @@
   <p class="lede" data-i18n="t00d_lede">Not a product. The assistant, the flow, the way of communicating — refined through months of daily, hands-on iteration with Claude Code. Every other product on this site was built through it.</p>
 </div>
 
-<div class="trust-strip">
-  <div class="trust-grid">
-    <div class="trust-item"><strong data-i18n="t00d_stat1_num">30</strong><span data-i18n="t00d_stat1_label">custom slash commands</span></div>
-    <div class="trust-item"><strong data-i18n="t00d_stat2_num">100</strong><span data-i18n="t00d_stat2_label">how-to guides written</span></div>
-    <div class="trust-item"><strong data-i18n="t00d_stat3_num">18</strong><span data-i18n="t00d_stat3_label">framework rules (R01–R18)</span></div>
+<div class="t00d-flow-wrap">
+  <div class="t00d-flow">
+    <div class="flow-step">
+      <div class="flow-step-num">1</div>
+      <div class="flow-icon-circle">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16v12H8l-4 4V4z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg>
+      </div>
+      <div class="flow-text" data-i18n="t00d_flow1">Say what you want, in plain language.</div>
+    </div>
+    <div class="flow-arrow-h">→</div>
+    <div class="flow-step">
+      <div class="flow-step-num">2</div>
+      <div class="flow-icon-circle">
+        <svg viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h9a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/><circle cx="15" cy="14" r="3"/><line x1="17.2" y1="16.2" x2="19.5" y2="18.5"/></svg>
+      </div>
+      <div class="flow-text" data-i18n="t00d_flow2">It finds the right files on its own and reads them.</div>
+    </div>
+    <div class="flow-arrow-h">→</div>
+    <div class="flow-step">
+      <div class="flow-step-num">3</div>
+      <div class="flow-icon-circle">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 1 1 3.8 2.6c-.9.4-1 1.1-1 2"/><line x1="12" y1="17" x2="12" y2="17.1"/></svg>
+      </div>
+      <div class="flow-text" data-i18n="t00d_flow3">Unsure about something? It asks — it doesn't guess.</div>
+    </div>
+    <div class="flow-arrow-h">→</div>
+    <div class="flow-step">
+      <div class="flow-step-num">4</div>
+      <div class="flow-icon-circle">
+        <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <div class="flow-text" data-i18n="t00d_flow4">You review the result and confirm before anything ships.</div>
+    </div>
   </div>
 </div>
 
@@ -177,48 +213,29 @@
         <li data-i18n="t00d_pro1">Token/context bloat — hierarchical rule files, only the relevant layer gets loaded, not everything every time.</li>
         <li data-i18n="t00d_pro2">Answers drifting off-task over a long session — a persistent req/reply log stands in for scrollback memory.</li>
         <li data-i18n="t00d_pro3">Detail problems that don't surface until later — trust-level tags plus a dedicated review pass before anything ships.</li>
-        <li data-i18n="t00d_pro4"><strong>The real one:</strong> the first 80% of a build goes fast — the last 20% is where quality quietly erodes or you need far more people. Sub-agent delegation for the hard, isolated pieces, plus a hard rule against ever reporting "done" without actually checking, is what T00 built specifically to hold that line.</li>
+        <li><strong data-i18n="t00d_pro4_strong">The real one:</strong> <span data-i18n="t00d_pro4">the first 80% of a build goes fast — the last 20% is where quality quietly erodes or you need far more people. Sub-agent delegation for the hard, isolated pieces, plus a hard rule against ever reporting "done" without actually checking, is what T00 built specifically to hold that line.</span></li>
       </ul>
     </div>
   </div>
 </div>
 
-<div class="t00d-section">
-  <h2 data-i18n="t00d_s2_h2">Designed around the human being the bottleneck</h2>
-  <p data-i18n="t00d_s2_p1">Claude Code itself doesn't have an opinion about this. It's a tool — powerful, but it assumes you'll remember what you asked for ten minutes ago. In practice, across long sessions and dozens of parallel projects, the human is the one who forgets, not the AI.</p>
-  <p data-i18n="t00d_s2_p2">T00's req/reply protocol exists specifically because of that: every substantive answer gets written to a persistent log instead of only spoken into a chat window that scrolls away. It's not a feature for the AI's benefit — it's a feature for mine.</p>
-</div>
-
-<div class="t00d-section">
-  <h2 data-i18n="t00d_s3_h2">Where 25 years of engineering experience actually shows up</h2>
-  <p data-i18n="t00d_s3_p1">The instinct that's hardest to teach an AI is the one experienced engineers build over decades: when something looks safe to simplify, and when it only looks that way. Here's a real example from this site's own build log, not a hypothetical.</p>
-  <div class="t00d-example">
-    <div class="tag" data-i18n="t00d_ex_tag">Real example, from this site's own DESIGN.md</div>
-    <p><strong data-i18n="t00d_ex_p1_strong">The ask:</strong> <span data-i18n="t00d_ex_p1">a dropdown menu needed "one click instead of two" to open.</span></p>
-    <p><strong data-i18n="t00d_ex_p2_strong">The easy answer:</strong> <span data-i18n="t00d_ex_p2">add a click handler. Looked done. Wasn't — the real cause was a CSS gap the mouse had to cross, silently breaking the hover state.</span></p>
-    <p><strong data-i18n="t00d_ex_p3_strong">The judgment call:</strong> <span data-i18n="t00d_ex_p3">don't patch the symptom, find why it actually happens. Closing the gap fixed it for good, with no JavaScript required — the kind of root-cause instinct that mostly comes from having shipped, and debugged, a lot of software before.</span></p>
-  </div>
-  <p><span data-i18n="t00d_s3_p2">That instinct is what T00 tries to encode as it goes: not just what was built, but why — so the same mistake doesn't get "fixed" back into existence six months later. Curious how that's tracked?</span> <a href="knowledge-t00.html" data-i18n="t00d_s3_link">See the T00 Knowledge Base →</a></p>
-</div>
-
 <div class="t00d-section" style="text-align:center;">
-  <h2 data-i18n="t00d_s4_h2">Want the mechanics, not the philosophy?</h2>
-  <p data-i18n="t00d_s4_p1">The T00 Knowledge Base breaks down the five concrete concepts — the req/reply protocol, trust levels, persistent memory, slash commands, skills.</p>
+  <h2 data-i18n="t00d_end_h2">Curious what it's actually produced?</h2>
+  <p data-i18n="t00d_end_p">From slash commands to how-to guides — see the concrete output T00 has built.</p>
   <div class="t00d-cta-row">
-    <a class="btn btn-primary" href="knowledge-t00.html" data-i18n="t00d_cta1">See the 5 concepts →</a>
-    <a class="btn btn-outline" href="index.html#featured" data-i18n="t00d_cta2">See what it built →</a>
+    <a class="btn btn-primary" href="t00-output.html" data-i18n="t00d_end_cta">What T00 has built →</a>
   </div>
 </div>
 
 <footer>
   <p data-i18n="footer_line">© 2026 maySunAI</p>
   <div class="footer-links">
-    <a href="mailto:j6016086@gmail.com" data-i18n="footer_contact">✉️ Email</a>
+    <a href="contact.html" data-i18n="footer_contact">💬 Leave a message</a>
     <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=20260727"></script>
+<script src="assets/i18n.js?v=20260731b"></script>
 <script src="assets/main.js?v=20260727b"></script>
 </body>
 </html>

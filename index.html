@@ -24,46 +24,49 @@
     "author": { "@type": "Person", "name": "Jason Gao" }
   }
   </script>
-  <link rel="stylesheet" href="assets/site.css?v=20260727b" />
+  <link rel="stylesheet" href="assets/site.css?v=20260731a" />
   <style>
-    .f-hero { padding: 56px clamp(24px, 6vw, 120px) 24px; margin: 0 auto; max-width: 900px; text-align: center; }
-    .f-hero .eyebrow { color: var(--muted); font-size: 0.9em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px; }
-    .f-hero h1 { font-size: clamp(1.7em, 4.6vw, 2.7em); font-weight: 800; line-height: 1.3; margin-bottom: 16px; }
-    .f-hero p.lede { font-size: 1.08em; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
-    .f-hero p.tagline { font-size: 0.9em; color: var(--muted); margin-bottom: 24px; }
-    .f-hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .f-hero { padding: 48px clamp(24px, 6vw, 120px) 8px; margin: 0 auto; max-width: 760px; text-align: center; }
+    .f-hero p { font-size: 1.08em; line-height: 1.6; }
+    .f-hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; text-align: center; }
 
-    .f-cats { margin: 32px auto 0; padding: 0 clamp(24px, 6vw, 120px); }
-    .f-cat { margin-bottom: 28px; border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
-    .f-cat-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
-    .f-cat-head h2 { font-size: 1.15em; font-weight: 800; }
+    .f-cats { margin: 24px auto 0; padding: 0 clamp(24px, 6vw, 120px); }
+    /* 紧凑网格：宽屏4个板块一行，中等宽度2列，手机1列——按用户反馈"图之间距离太大，能紧凑点/放一行也可以" */
+    .f-cats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .f-cat { border: 1px solid var(--border); border-radius: 14px; padding: 14px; transition: border-color 0.15s ease, transform 0.15s ease; }
+    .f-cat:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .f-cat-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; justify-content: center; }
+    .f-cat-head h2 { font-size: 0.98em; font-weight: 800; }
     .f-cat-head .tagline { color: var(--muted); font-size: 0.88em; }
-    .f-cat-sub { color: var(--muted); font-size: 0.9em; margin-bottom: 12px; }
-    .f-cat-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 0.85em; color: var(--muted); margin-bottom: 16px; }
-    .f-cat-tools .tool-pill { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 3px 12px; color: var(--text); text-decoration: none; }
-    .f-cat-tools .tool-pill:hover { border-color: var(--accent); }
+    .f-cat-sub { color: var(--muted); font-size: 0.84em; margin: 8px auto 10px !important; max-width: none !important; }
 
-    .f-featured { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 12px; }
-    .f-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: block; color: inherit; }
-    .f-card:hover { border-color: var(--accent); text-decoration: none; }
-    .f-card .card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-    .f-card .icon { font-size: 1.3em; }
-    .f-card h3 { font-size: 1.02em; }
-    .f-card p { color: var(--muted); font-size: 0.87em; margin-bottom: 10px; }
-    .f-card .status { font-size: 0.76em; padding: 3px 9px; border-radius: 10px; }
-    .f-card .status.live { background: rgba(52,211,153,0.15); color: var(--accent2); }
-    .f-card .status.dev { background: rgba(96,165,250,0.15); color: var(--accent); }
-    .f-card .agent-tag { font-size: 0.68em; font-weight: 600; color: var(--accent); border: 1px solid var(--accent); border-radius: 10px; padding: 1px 8px; margin-left: 6px; white-space: nowrap; vertical-align: middle; }
+    /* 四个板块统一用同一个缩略图容器（固定宽高比+object-fit:cover），
+       不管插画还是截图，展示尺寸都一样大，不会有的板块图片明显更大 */
+    .f-thumb { display: block; max-width: 100%; margin: 0 auto; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15); border: 1px solid var(--border); aspect-ratio: 4 / 3; position: relative; }
+    .f-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-    .f-more { color: var(--muted); font-size: 0.87em; padding-top: 4px; }
-    .f-more a { color: var(--muted); text-decoration: underline; }
-    .f-more a:hover { color: var(--accent); }
+    @media (max-width: 1100px) {
+      .f-cats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .f-cat { padding: 20px; }
+    }
+    @media (max-width: 760px) {
+      .f-cats-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
 <nav>
   <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
+  <div class="nav-utility">
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
+      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </div>
   <button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">☰</button>
   <div class="nav-right" id="navRight">
     <div class="nav-links">
@@ -74,13 +77,14 @@
           <a href="knowledge-t00.html"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
           <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
           <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Git, Vue, Node, Python, Flask basics</small></a>
+          <a href="knowledge-ai-glossary.html"><span data-i18n="nav_aiknowledge_glossary">AI Concepts Glossary</span><small data-i18n="nav_aiknowledge_glossary_sub">30 AI terms, EN/JA/ZH, with pronunciation</small></a>
         </div>
       </div>
       <div class="nav-dropdown" tabindex="0">
-        <span class="nav-dropdown-label" data-i18n="nav_updates_label">Updates ▾</span>
+        <span class="nav-dropdown-label" data-i18n="nav_updates_label">AI Updates ▾</span>
         <div class="nav-dropdown-menu">
           <a href="updates-news.html" data-i18n="nav_updates_news">AI Industry News</a>
-          <a href="updates-changelog.html" data-i18n="nav_updates_changelog">Changelog</a>
+          <a href="updates-changelog.html" data-i18n="nav_updates_changelog">My Updates</a>
         </div>
       </div>
       <div class="nav-dropdown" tabindex="0">
@@ -90,120 +94,75 @@
           <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
         </div>
       </div>
-      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Game Hall</a>
-      <a href="product-shop.html" data-i18n="nav_shop">Maysun Shop</a>
+      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Relax</a>
       <a href="ask-ai.html" data-i18n="nav_askai" style="color:var(--accent);font-weight:700;">✨ Ask AI</a>
-      <a href="whats-next.html" data-i18n="nav_whatsnext">What's Next</a>
-      <div class="nav-dropdown" tabindex="0">
-        <span class="nav-dropdown-label" data-i18n="nav_aboutme_label">About Me ▾</span>
-        <div class="nav-dropdown-menu">
-          <a href="stories.html"><span data-i18n="nav_aboutme_stories">Stories</span><small data-i18n="nav_aboutme_stories_sub">Real behind-the-scenes moments</small></a>
-          <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
-        </div>
-      </div>
+      <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
     </div>
-    <div class="lang-switch">
-      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
-      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
-      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
-    </div>
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
   </div>
 </nav>
 <div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
 
 <div class="f-hero">
-  <div class="eyebrow" data-i18n="f_hero_eyebrow">What T00 actually does</div>
-  <h1 data-i18n="f_hero_h1">Tell it what you need. It finds the files, does the work, checks itself.</h1>
-  <p class="lede" data-i18n="f_hero_lede">No opening files one by one, no re-explaining context every time. Say what you want in plain language — the agent locates the right files, reads them, makes the change, and asks you before anything risky. This whole site was built that way.</p>
-  <p class="tagline" data-i18n="f_hero_h1_1">Real products. Real experience. Real feelings.</p>
-  <div class="f-hero-btns">
-    <a class="btn btn-primary" href="t00.html" data-i18n="f_hero_cta1">See what T00 does →</a>
-    <a class="btn btn-outline" href="#featured" data-i18n="f_hero_cta2">See what's been built →</a>
-  </div>
+  <p data-i18n="f_intro_line">👋 I'm Jason — a generative AI learner. Building real products with AI, and growing my own workflow, T00, along the way.</p>
 </div>
 
 <div class="f-cats" id="featured">
+<div class="f-cats-grid">
 
-  <div class="f-featured" style="margin-bottom:28px;">
-    <a class="f-card" href="t00.html" style="padding:24px 28px;">
-      <div class="card-head"><span class="icon">☀️</span><h3 style="font-size:1.15em;" data-i18n="card_t00_title">T00 — the method behind everything here</h3></div>
-      <p style="font-size:0.92em;" data-i18n="card_t00_desc">Not a product. The framework, refined through months of daily collaboration with Claude Code, that everything else on this site was built through.</p>
-      <span class="status live" data-i18n="card_t00_badge">30 commands · 100 guides · 18 rules</span>
+  <div class="f-cat" style="text-align:center;">
+    <div class="f-cat-head" style="justify-content:center;"><h2 data-i18n="f_story_h2">📖 A Day with Jason and T00</h2></div>
+    <a href="stories.html" class="f-thumb" style="background:#FBF3E7;">
+      <img src="assets/illustrations/man_computer.png" alt="" loading="lazy">
+      <div style="position:absolute;top:16px;left:16px;background:#2b2b33;color:#fff;font-weight:800;font-size:0.95em;padding:6px 12px;border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,.18);letter-spacing:0.02em;">🕘 9:00</div>
     </a>
+    <p class="f-cat-sub" style="max-width:480px;margin:12px auto 16px;" data-i18n="f_story_p">9:00 — I ask T00 what's on today, and a to-do list appears on its own, pulled straight from my inbox.</p>
+    <a class="btn btn-outline" href="stories.html" data-i18n="f_story_cta">Read the full story →</a>
+  </div>
 
-    <a class="f-card" href="local-knowledge-base.html" style="padding:24px 28px;">
-      <div class="card-head"><span class="icon">📚</span><h3 style="font-size:1.15em;" data-i18n="card_lkb_title">Local Knowledge Base</h3></div>
-      <p style="font-size:0.92em;" data-i18n="card_lkb_desc">Ask questions about your own documents in plain language — your files never leave your machine. Two real, running implementations.</p>
-      <span class="status live" data-i18n="card_lkb_badge">2 working apps · fully offline capable</span>
+  <div class="f-cat" style="text-align:center;">
+    <div class="f-cat-head" style="justify-content:center;"><h2 data-i18n="f_news_h2">📰 What's moving in AI, this week</h2></div>
+    <a href="updates-news.html" class="f-thumb">
+      <img src="help_screenshots/home_news_teaser_20260730.png" alt="" loading="lazy">
     </a>
+    <p class="f-cat-sub" style="max-width:480px;margin:12px auto 16px;" data-i18n="f_news_p">Curated highlights from Claude, Codex, and the rest of the AI world — updated regularly.</p>
+    <a class="btn btn-outline" href="updates-news.html" data-i18n="f_news_cta">See the latest updates →</a>
   </div>
 
-  <div class="f-cat">
-    <div class="f-cat-head"><h2 data-i18n="f_cat1_h2">🤖 AI Agents &amp; Automation</h2></div>
-    <p class="f-cat-tools">
-      <span data-i18n="f_cat1_tools_label">Built by learning alongside:</span>
-      <a class="tool-pill" href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a>
-      <a class="tool-pill" href="https://openai.com/codex" target="_blank" rel="noopener">Codex</a>
-      <a class="tool-pill" href="https://github.com/MoonshotAI" target="_blank" rel="noopener">Kimi K3 CLI</a>
-    </p>
-    <div class="f-featured">
-      <a class="f-card" href="product-website-generator.html">
-        <div class="card-head"><span class="icon">🌐</span><h3 data-i18n="card_webgen_title">AI App Generator</h3><span class="agent-tag" data-i18n="agent_tag_label">🤖 Agent</span></div>
-        <p data-i18n="card_webgen_desc">Describe an app in chat, get working software back — then keep editing it by chatting.</p>
-        <span class="status dev" data-i18n="card_webgen_badge">Personal Use / Verified</span>
-      </a>
-      <a class="f-card" href="product-email-agent.html">
-        <div class="card-head"><span class="icon">📧</span><h3 data-i18n="card_email_title">Email-Driven Task Agent</h3><span class="agent-tag" data-i18n="agent_tag_label">🤖 Agent</span></div>
-        <p data-i18n="card_email_desc">Send it an instruction by Gmail — it runs the task and replies.</p>
-        <span class="status live" data-i18n="card_email_badge">Live / Daily Use</span>
-      </a>
-    </div>
-    <p class="f-more"><span data-i18n="f_cat1_also">Also in this category:</span> <a href="product-rag.html" data-i18n="card_rag_title">Local RAG Knowledge-Chat App</a>, <a href="product-agent-platform.html" data-i18n="card_agent_title">Personal AI Agent Platform</a></p>
+  <div class="f-cat" style="text-align:center;">
+    <div class="f-cat-head" style="justify-content:center;"><h2 data-i18n="f_products_h2">🧰 T00's AI Portfolio</h2></div>
+    <a href="portfolio.html" class="f-thumb">
+      <img src="help_screenshots/home_products_teaser_20260730.png" alt="" loading="lazy">
+    </a>
+    <p class="f-cat-sub" style="max-width:480px;margin:12px auto 16px;" data-i18n="f_products_p">AI agents, automation, and a few things beyond — six projects, each with a real status, not a demo label.</p>
+    <a class="btn btn-outline" href="portfolio.html" data-i18n="f_products_cta">See the full portfolio →</a>
   </div>
 
-  <div class="f-cat">
-    <div class="f-cat-head"><h2 data-i18n="f_cat2_h2">📦 Shipped &amp; Live</h2><span class="tagline" data-i18n="f_cat2_tag">— deployed, not prototypes</span></div>
-    <p class="f-cat-sub" data-i18n="f_cat2_sub">Working payment processing and a real publishing pipeline — built and functioning end to end.</p>
-    <div class="f-featured">
-      <a class="f-card" href="product-shop.html">
-        <div class="card-head"><span class="icon">🛒</span><h3 data-i18n="card_shop_title">Maysun Shop</h3></div>
-        <p data-i18n="card_shop_desc">Web shop, Amazon KDP, Google Play, Apple Store — every channel I sell through.</p>
-        <span class="status live" data-i18n="card_shop_badge">Live</span>
-      </a>
-      <a class="f-card" href="product-kdp.html">
-        <div class="card-head"><span class="icon">📚</span><h3 data-i18n="card_kdp_title">KDP E-Books</h3></div>
-        <p data-i18n="card_kdp_desc">A concept-to-publication pipeline on AI-assisted development. 2 titles live on Amazon KDP.</p>
-        <span class="status live" data-i18n="card_kdp_badge">Amazon KDP — 2 Live</span>
-      </a>
-      <a class="f-card" href="https://games.maysuns.uk" target="_blank" rel="noopener">
-        <div class="card-head"><span class="icon">🐍</span><h3 data-i18n="card_games_title">Game Hall</h3></div>
-        <p data-i18n="card_games_desc">Small, single-file browser games — play instantly, no install.</p>
-        <span class="status live" data-i18n="f_cat3_games_note">10 playable games, zero install</span>
-      </a>
-    </div>
+  <div class="f-cat" style="text-align:center;">
+    <div class="f-cat-head" style="justify-content:center;"><h2 data-i18n="f_kb_h2">📚 AI Knowledge Base</h2></div>
+    <a href="knowledge-t00.html" class="f-thumb">
+      <img src="help_screenshots/home_kb_teaser_20260730.png" alt="" loading="lazy">
+    </a>
+    <p class="f-cat-sub" style="max-width:480px;margin:12px auto 16px;" data-i18n="f_kb_p">Eight T00 concepts, explained — the working system behind everything on this site, written up so you can borrow the ideas.</p>
+    <a class="btn btn-outline" href="knowledge-t00.html" data-i18n="f_kb_cta">Browse the knowledge base →</a>
   </div>
 
-  <div class="f-cat">
-    <div class="f-cat-head"><h2 data-i18n="f_cat3_h2">🛠️ Tools &amp; Extras</h2><span class="tagline" data-i18n="f_cat3_tag">— smaller, but still real</span></div>
-    <p class="f-cat-sub">
-      <a href="product-reader.html" data-i18n="card_reader_title">MD Markdown Reader</a> (<span data-i18n="f_cat3_reader_note">live web version</span>) ·
-      <a href="product-memory.html" data-i18n="card_memory_title">Memory Assistant</a> (<span data-i18n="f_cat3_memory_note">personal tool</span>) ·
-      <a href="product-medication.html" data-i18n="card_medication_title">Medication Reminder App</a> (<span data-i18n="f_cat3_medication_note">in development</span>)
-    </p>
-  </div>
+</div>
+</div>
 
+<div class="f-hero-btns" style="margin:8px 0 48px;">
+  <a class="btn btn-primary" href="t00.html" data-i18n="f_hero_cta1">What T00 does →</a>
+  <a class="btn btn-outline" href="t00-output.html" data-i18n="f_hero_cta2">What T00 has built →</a>
 </div>
 
 <footer>
   <p data-i18n="footer_line">© 2026 maySunAI</p>
   <div class="footer-links">
-    <a href="mailto:j6016086@gmail.com" data-i18n="footer_contact">✉️ Email</a>
+    <a href="contact.html" data-i18n="footer_contact">💬 Leave a message</a>
     <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=20260727"></script>
+<script src="assets/i18n.js?v=20260731b"></script>
 <script src="assets/main.js?v=20260727b"></script>
 </body>
 </html>

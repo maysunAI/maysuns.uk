@@ -5,13 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="stories_page_title">Stories — maySunAI</title>
   <meta id="metaDescription" name="description" data-i18n-desc="stories_meta_description" content="Real behind-the-scenes stories from building these products." />
-  <link rel="stylesheet" href="assets/site.css?v=20260727b" />
+  <link rel="canonical" href="https://maysuns.uk/stories.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="maySunAI" />
+  <meta property="og:title" content="A Day With T00 — maySunAI" />
+  <meta property="og:description" content="Follow Jason through one real workday, start to finish — this is what using T00 actually looks like." />
+  <meta property="og:url" content="https://maysuns.uk/stories.html" />
+  <meta property="og:image" content="https://maysuns.uk/assets/illustrations/man_computer.png" />
+  <meta property="og:image:width" content="797" />
+  <meta property="og:image:height" content="802" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://maysuns.uk/assets/illustrations/man_computer.png" />
+  <link rel="stylesheet" href="assets/site.css?v=20260731a" />
   <style>
-    .st-hero { padding: 48px clamp(24px, 6vw, 120px) 8px; max-width: min(1100px, 92vw); margin: 0 auto; }
-    .st-hero h1 { font-size: clamp(1.3em, 3vw, 1.7em); font-weight: 800; margin-bottom: 8px; }
-    .st-hero p { color: var(--muted); }
-    .st-section { max-width: min(1100px, 92vw); margin: 0 auto; padding: 24px clamp(24px, 6vw, 120px) 56px; }
+    .st-section { max-width: min(1200px, 94vw); margin: 40px auto 0; padding: 24px clamp(24px, 6vw, 140px) 56px; }
     .st-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+    .st-card h1 { font-size: clamp(1.3em, 3vw, 1.7em); font-weight: 800; margin-bottom: 8px; }
     .st-card h2 { font-size: 1.08em; margin-bottom: 10px; }
     .st-card p { color: var(--muted); font-size: 0.92em; line-height: 1.6; margin-bottom: 12px; }
     .st-status { display: inline-block; font-size: 0.78em; padding: 3px 10px; border-radius: 10px; background: rgba(240,180,41,0.15); color: #f0b429; margin-top: 8px; }
@@ -19,36 +28,214 @@
     .st-card + .st-card { margin-top: 20px; }
     .st-card .rule { margin-bottom: 10px; }
 
-    .st-timeline { margin-top: 18px; display: flex; flex-direction: column; gap: 0; }
-    .st-step { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .st-timeline { margin-top: 18px; display: flex; flex-direction: column; gap: 0; counter-reset: scene; }
+    .st-step { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); counter-increment: scene; }
     .st-step:last-child { border-bottom: none; }
-    .st-step-icon { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; background: var(--bg2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.3em; }
+    /* 减少装饰性icon：圆圈里不放emoji，只放场景编号 */
+    .st-step-icon { position: relative; flex: 0 0 auto; width: 32px; height: 32px; border-radius: 50%; background: var(--accent); border: none; display: flex; align-items: center; justify-content: center; font-size: 0; }
+    .st-step-icon::after { content: counter(scene); color: #fff; font-size: 0.82rem; font-weight: 800; }
     .st-step-body h3 { font-size: 0.98em; margin-bottom: 4px; }
     .st-step-body p { color: var(--muted); font-size: 0.9em; line-height: 1.65; margin-bottom: 0; }
     .st-disclaimer { font-size: 0.82em; color: var(--muted); border-left: 3px solid var(--accent3); padding: 8px 14px; background: var(--bg2); border-radius: 0 8px 8px 0; margin-top: 16px; }
+    .st-cta { text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .st-cta p { color: var(--muted); font-size: 0.9em; margin-bottom: 12px; }
+    .st-cta-btn { display: inline-block; background: var(--accent); color: #fff; font-weight: 700; padding: 10px 22px; border-radius: 24px; text-decoration: none; font-size: 0.92em; }
+    .st-cta-btn:hover { opacity: 0.9; text-decoration: none; }
+
+    /* 画面1插画：固定亮色背景，不跟随全站深色主题（图片不应该跟着反色，跟照片同理） */
+    .st-step-illustrated { flex-direction: column; gap: 4px; }
+    .st-illustration { position: relative; width: 100%; margin: 4px 0 14px; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.15); background: #FBF3E7; }
+    .st-illustration img { display: block; width: 100%; height: auto; }
+    .st-illustration-credit { position: absolute; right: 10px; bottom: 8px; font-size: 0.68em; color: #b8a892; }
+    .st-caption-card { position: absolute; top: 20px; right: 24px; background: #ffffff; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.14); padding: 10px 14px; font-size: 0.82em; color: #2b2b33; max-width: 55%; }
+    .st-caption-card .sc-line { display: flex; align-items: center; gap: 6px; margin: 3px 0; opacity: 0; animation: scFadeIn .5s ease-out forwards; }
+    .st-caption-card .sc-line:nth-child(1) { animation-delay: .15s; }
+    .st-caption-card .sc-line:nth-child(2) { animation-delay: .45s; }
+    .st-caption-card .sc-line:nth-child(3) { animation-delay: .75s; }
+    .st-caption-card .sc-check { color: #22c07a; font-weight: 800; }
+    .sc-tag { display: inline-block; margin-top: 6px; background: #eaf2ff; color: #3d7fd9; font-weight: 700; font-size: 0.85em; padding: 2px 8px; border-radius: 6px; }
+
+    /* T00专属徽章：统一的"这是T00做的"标志，比文字标签更醒目 */
+    .t00-badge { display: inline-flex; align-items: center; gap: 6px; background: #2b2b33; color: #fff; font-weight: 800; font-size: 0.92em; padding: 5px 12px 5px 6px; border-radius: 20px; box-shadow: 0 3px 10px rgba(0,0,0,.2); }
+    .t00-badge .tb-sun { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: #60a5fa; font-size: 1em; }
+    @keyframes scFadeIn { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
+    @media (max-width: 560px) { .st-caption-card { position: static; margin: -8px 12px 12px; max-width: none; } }
+
+    .sc-line.sc-highlight { background: #eaf2ff; margin: 6px -6px -2px; padding: 4px 6px; border-radius: 6px; }
+    .st-clock-badge { position: absolute; top: 16px; left: 16px; background: #2b2b33; color: #fff; font-weight: 800; font-size: 0.95em; padding: 6px 12px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,.18); letter-spacing: 0.02em; }
+    .st-speech-bubble { position: absolute; bottom: 22%; left: 8%; background: #fff; color: #2b2b33; font-size: 0.82em; font-weight: 600; padding: 8px 12px; border-radius: 12px 12px 12px 2px; box-shadow: 0 4px 12px rgba(0,0,0,.14); max-width: 46%; }
+    .st-speech-bubble.sb-t00 { left: auto; right: 6%; bottom: 26%; border-radius: 12px 12px 12px 2px; border: 2px solid #60a5fa; }
+    .st-speech-bubble.sb-t00 .sb-who { display: block; color: #3d7fd9; font-weight: 800; font-size: 0.85em; margin-bottom: 2px; }
+    /* 手机端不再整个隐藏对话气泡——之前display:none导致"Jason"这个发言人标注在手机上完全看不到，PC和手机内容不一致 */
+    @media (max-width: 560px) { .st-speech-bubble { position: static; margin: 8px 0 0; max-width: none; border-radius: 12px; } }
+    .sc-frommail { font-size: 0.76em; color: #888; margin: 4px 0 2px; font-style: italic; }
+
+    /* 画面5：邮件卡片里的迷你对话 */
+    .st-chat-mini { background: #fff; border-radius: 10px; padding: 10px 14px; margin: 0 auto 18px; max-width: 340px; font-size: 0.85em; box-shadow: 0 4px 12px rgba(0,0,0,.12); text-align: left; }
+    .st-chat-mini .cm-them { color: #666; margin-bottom: 6px; }
+    .st-chat-mini .cm-t00 { color: #1c7a4d; font-weight: 700; }
+
+    /* 场景2：不需要专业插画，纯聊天气泡UI */
+    .st-chat-card { background: #FBF3E7; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); padding: 22px 24px; margin: 4px 0 14px; }
+    .st-chat-card .cc-bubble { display: inline-block; background: #fff; border-radius: 14px 14px 14px 2px; padding: 10px 16px; font-size: 0.92em; color: #2b2b33; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .st-chat-card .cc-reply { display: block; margin-top: 10px; text-align: right; }
+    .st-chat-card .cc-reply .cc-bubble { background: #60a5fa; color: #fff; border-radius: 14px 14px 2px 14px; }
+
+    /* 场景7：req/reply工作流小样，直接展示T00真实的记录格式 */
+    .st-reqreply-card { background: #1d2129; color: #cfd3da; font-family: Consolas, monospace; font-size: 0.78em; border-radius: 10px; padding: 12px 14px; box-shadow: 0 4px 12px rgba(0,0,0,.16); line-height: 1.6; }
+    .st-reqreply-card .rr-tag { color: #60a5fa; }
+    .st-reqreply-card .rr-ok { color: #34d399; }
+
+    /* 场景1拆成两张图：问 → 答，因果关系比塞进一张图更清楚 */
+    .st-two-frame { display: flex; align-items: center; gap: 10px; margin: 4px 0 14px; }
+    .st-two-frame .st-illustration { margin: 0; flex: 1 1 0; }
+    .st-frame-arrow { flex: 0 0 auto; font-size: 1.6em; color: var(--accent); opacity: 0.8; }
+    .st-frame-b { flex: 1 1 0; background: #FBF3E7; color: #2b2b33; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); padding: 20px; display: flex; flex-direction: column; justify-content: center; min-height: 100%; }
+    .st-frame-b .sc-tag { align-self: flex-start; margin-top: 10px; }
+    @media (max-width: 680px) {
+      .st-two-frame { flex-direction: column; align-items: stretch; }
+      .st-two-frame .st-illustration, .st-two-frame .st-frame-b { flex: 1 1 auto; width: 100%; }
+      .st-frame-arrow { transform: rotate(90deg); align-self: center; }
+    }
+
+    /* 画面1：新任务展开成"要件定義"小清单 */
+    .sc-reqbox { margin-top: 6px; padding-top: 6px; border-top: 1px dashed #d8c9a8; opacity: 0; animation: scFadeIn .5s ease-out forwards; animation-delay: 1.0s; }
+    .sc-reqtitle { font-weight: 800; font-size: 0.82em; color: #3d7fd9; margin-bottom: 3px; }
+    .sc-reqitem { font-size: 0.8em; color: #555; margin: 1px 0; }
+
+    /* 画面2：T00回复标注（呼应画面1的1-4条要求） */
+    .sc-echo { font-size: 0.78em; color: #3d7fd9; margin: 1px 0; }
+
+    /* 出发去客户公司：轻量的一行，不需要插画 */
+    .st-transit-mini { background: var(--bg2); border: 1px dashed var(--border); border-radius: 10px; padding: 12px 16px; margin: 4px 0 14px; font-size: 0.9em; color: var(--muted); }
+
+    /* 名片交换、鞠躬告别：改用irasutoya.com的真实插画（免费商用，见变更记录里的授权说明），不再手绘 */
+    .st-real-illust { background: #FBF3E7; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); padding: 20px; margin: 4px 0 14px; text-align: center; }
+    .st-real-illust img { max-width: 220px; width: 100%; height: auto; }
+    /* 2026-07-30 visual audit: standalone illustration cards (business-card exchange / bowing farewell)
+       were stretching to the full ~980px content width on desktop while the image stayed capped at
+       220px, leaving ~78% empty space on each side of a lone icon-sized picture. Cap the card itself
+       so it hugs the image instead of floating in an oversized banner. Only targets direct children of
+       .st-step (these two solo-illustration scenes) -- does not affect the paired .st-row-2 layout used
+       in the "Done" scene, and has no visible effect on mobile where the column is already narrower
+       than this cap. */
+    .st-step > .st-real-illust { max-width: 360px; margin-left: auto; margin-right: auto; }
+
+    /* 新增：T00工作中（没有合适插画时，用有边框的进度框代替） */
+    .st-workbox { border: 2px dashed var(--accent); border-radius: 14px; padding: 18px 22px; margin: 4px 0 14px; background: var(--bg2); }
+    .st-workbox .wb-title { font-weight: 800; font-size: 0.9em; color: var(--accent); margin-bottom: 10px; }
+    .st-workbox .wb-item { font-size: 0.88em; color: var(--muted); margin: 5px 0; opacity: 1; }
+    .st-workbox.st-anim-ready .wb-item { opacity: 0; }
+    .st-workbox.st-play .wb-item { animation: scFadeIn .5s ease-out forwards; }
+    .st-workbox.st-play .wb-item:nth-child(2) { animation-delay: .3s; }
+    .st-workbox.st-play .wb-item:nth-child(3) { animation-delay: .9s; }
+    .st-workbox.st-play .wb-item:nth-child(4) { animation-delay: 1.5s; }
+    .wb-check { color: #34d399; font-weight: 800; margin-right: 4px; }
+
+    /* 新增：无人物的浏览器网站mockup（画面3改用，不再依赖插画里的人物） */
+    .st-browser-mock { position: relative; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.12); border: 1px solid #e8ded0; }
+    .st-browser-mock .bm-bar { display: flex; align-items: center; gap: 6px; background: #ececec; padding: 8px 12px; }
+    .st-browser-mock .bm-dot { width: 9px; height: 9px; border-radius: 50%; background: #d8d8d8; }
+    .st-browser-mock .bm-url { margin-left: 8px; background: #fff; border-radius: 10px; padding: 2px 10px; font-size: 0.7em; color: #3d7fd9; flex: 1; }
+    .st-browser-mock .bm-body { padding: 22px 24px 30px; min-height: 160px; }
+    .st-browser-mock .bm-logo { text-align: center; font-size: 2.2em; margin-bottom: 6px; }
+    .st-browser-mock .bm-sitename { font-weight: 800; font-size: 1.15em; color: #2b2b33; margin-bottom: 14px; }
+    .st-browser-mock .bm-block { height: 10px; background: #e2e2e6; border-radius: 4px; margin: 8px 0; }
+    .st-browser-mock .bm-block.accent { background: #60a5fa; width: 35%; }
+    .st-browser-mock .bm-block.w60 { width: 60%; }
+    .st-browser-mock .bm-block.w80 { width: 80%; }
+    .st-browser-mock .bm-marker { position: absolute; width: 26px; height: 26px; border-radius: 50%; background: #f0b429; border: 3px solid #fff; box-shadow: 0 2px 10px rgba(0,0,0,.3); top: 14px; left: 14px; z-index: 2; }
+    .st-browser-mock .bm-marker-label { position: absolute; top: 44px; left: 10px; background: #2b2b33; color: #fff; font-size: 0.68em; font-weight: 700; padding: 3px 8px; border-radius: 8px; white-space: nowrap; }
+    /* 循环播放而不是只播一次：不管什么时候滚到这里，都能看到它在动，不会"早就播完看不到" */
+    /* icon从居中移到左上——跟maysuns.uk真实首页的logo位置（左上角）保持一致 */
+    .st-browser-mock.st-play .bm-marker { animation: markerMove 3s ease-in-out infinite; }
+    @keyframes markerMove { 0%, 15% { top: 90px; left: 46%; } 45%, 70% { top: 14px; left: 14px; } 100% { top: 14px; left: 14px; } }
+
+    /* 新增：文件卡片（要件定義.md / 详细设计书.md 通用） */
+    .st-file-card { display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 4px 14px rgba(0,0,0,.12); }
+    .st-file-card .fc-icon { font-size: 1.8em; }
+    .st-file-card .fc-name { font-weight: 800; color: #2b2b33; font-size: 0.9em; }
+    .st-file-card .fc-status { font-size: 0.76em; color: #22c07a; }
+    .st-row-2 { display: flex; gap: 14px; align-items: stretch; flex-wrap: wrap; margin: 4px 0 14px; }
+    .st-row-2 > * { flex: 1 1 260px; }
+
+    /* 新增：req/reply真实格式对比卡（画面7结尾用） */
+    .st-rr-compare { display: flex; gap: 10px; align-items: stretch; }
+    .st-rr-compare .rr-col { flex: 1 1 0; background: #1d2129; color: #cfd3da; font-family: Consolas, monospace; font-size: 0.74em; border-radius: 10px; padding: 12px 14px; line-height: 1.7; }
+    .st-rr-compare .rr-col .rr-h { color: #60a5fa; font-weight: 800; margin-bottom: 4px; }
+    @media (max-width: 620px) { .st-rr-compare { flex-direction: column; } }
+
+    /* 画面9：坐在电脑前，屏幕放大显示req/reply真实记录格式——mapping和回答部分要大到看得清 */
+    .st-screen-mock { position: relative; background: #FBF3E7; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); padding: 24px; margin: 14px 0 4px; }
+    .st-screen-mock .sm-screen { background: #14161b; border-radius: 10px; overflow: hidden; box-shadow: 0 0 0 8px #2b2b33, 0 10px 24px rgba(0,0,0,.3); }
+    .st-screen-mock .sm-titlebar { display: flex; align-items: center; gap: 6px; background: #1d2129; padding: 10px 14px; }
+    .st-screen-mock .sm-titlebar .bm-dot { width: 9px; height: 9px; }
+    .st-screen-mock .sm-filename { margin-left: 8px; color: #8b93a3; font-size: 0.85em; font-family: Consolas, monospace; }
+    .st-screen-mock .sm-body { padding: 20px 24px; font-family: Consolas, monospace; color: #cfd3da; }
+    .st-screen-mock .sm-section { margin-bottom: 16px; }
+    .st-screen-mock .sm-section:last-child { margin-bottom: 0; }
+    .st-screen-mock .sm-label { display: inline-block; font-size: 0.95em; font-weight: 800; margin-bottom: 6px; }
+    .st-screen-mock .sm-label.req { color: #f0b429; }
+    .st-screen-mock .sm-label.map { color: #60a5fa; }
+    .st-screen-mock .sm-label.ans { color: #34d399; }
+    .st-screen-mock .sm-text { font-size: 0.92em; line-height: 1.7; margin: 2px 0; }
+
+    /* 结尾庆祝画面：礼花+收款+表扬 */
+    .sm-fireworks { position: absolute; top: 12px; right: 16px; font-size: 1.6em; }
+    .st-caption-card.sc-praise { top: auto; bottom: 20px; right: 24px; }
+    @media (max-width: 560px) { .st-caption-card.sc-praise { position: static; margin: 8px 12px 0; } }
+
+    /* 结尾：不用插画，就一个放大的icon */
+    .st-big-icon-scene { text-align: center; background: #FBF3E7; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); padding: 40px 24px; margin: 4px 0 14px; }
+    .st-big-icon-scene .big-icon { font-size: 5em; line-height: 1; }
+
+    /* 场景末尾的小注释：标注这一幕对应T00框架里哪个真实项目/功能，不是虚构能力 */
+    .sc-pjnote { font-size: 0.78em; opacity: 0.65; margin-top: 10px; }
+
+    /* 手机端：图片卡片的边框/内边距太占地方导致换行过多，收窄一圈 */
+    @media (max-width: 560px) {
+      .st-real-illust { padding: 10px; }
+      .st-illustration { margin: 4px 0 10px; }
+      .st-browser-mock .bm-body { padding: 14px 16px 18px; }
+      .st-screen-mock { padding: 14px; }
+      .st-workbox { padding: 12px 14px; }
+      .st-big-icon-scene { padding: 24px 16px; }
+      /* 外层section+card两层padding叠加在手机上占掉太多横向空间(48px×2)，导致正文可用宽度不到八成、句子换行变多——收窄成一层 */
+      .st-section { padding-left: 12px; padding-right: 12px; }
+      .st-card { padding: 16px; }
+    }
   </style>
 </head>
 <body>
 
 <nav>
   <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
+  <div class="nav-utility">
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
+      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </div>
   <button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">☰</button>
   <div class="nav-right" id="navRight">
     <div class="nav-links">
       <a href="index.html" data-i18n="nav_home">Home</a>
       <div class="nav-dropdown" tabindex="0">
-        <span class="nav-dropdown-label" data-i18n="nav_aiknowledge_label">AI Knowledge ▾</span>
+        <span class="nav-dropdown-label nav-current" data-i18n="nav_aiknowledge_label">AI Knowledge ▾</span>
         <div class="nav-dropdown-menu">
           <a href="knowledge-t00.html"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
           <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
           <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Git, Vue, Node, Python, Flask basics</small></a>
+          <a href="knowledge-ai-glossary.html"><span data-i18n="nav_aiknowledge_glossary">AI Concepts Glossary</span><small data-i18n="nav_aiknowledge_glossary_sub">30 AI terms, EN/JA/ZH, with pronunciation</small></a>
         </div>
       </div>
       <div class="nav-dropdown" tabindex="0">
-        <span class="nav-dropdown-label" data-i18n="nav_updates_label">Updates ▾</span>
+        <span class="nav-dropdown-label" data-i18n="nav_updates_label">AI Updates ▾</span>
         <div class="nav-dropdown-menu">
           <a href="updates-news.html" data-i18n="nav_updates_news">AI Industry News</a>
-          <a href="updates-changelog.html" data-i18n="nav_updates_changelog">Changelog</a>
+          <a href="updates-changelog.html" data-i18n="nav_updates_changelog">My Updates</a>
         </div>
       </div>
       <div class="nav-dropdown" tabindex="0">
@@ -58,79 +245,279 @@
           <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
         </div>
       </div>
-      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Game Hall</a>
-      <a href="product-shop.html" data-i18n="nav_shop">Maysun Shop</a>
+      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Relax</a>
       <a href="ask-ai.html" data-i18n="nav_askai" style="color:var(--accent);font-weight:700;">✨ Ask AI</a>
-      <a href="whats-next.html" data-i18n="nav_whatsnext">What's Next</a>
-      <div class="nav-dropdown" tabindex="0">
-        <span class="nav-dropdown-label nav-current" data-i18n="nav_aboutme_label">About Me ▾</span>
-        <div class="nav-dropdown-menu">
-          <a href="stories.html" class="nav-current"><span data-i18n="nav_aboutme_stories">Stories</span><small data-i18n="nav_aboutme_stories_sub">Real behind-the-scenes moments</small></a>
-          <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
-        </div>
-      </div>
+      <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
     </div>
-    <div class="lang-switch">
-      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
-      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
-      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
-    </div>
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
   </div>
 </nav>
 <div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
 
-<div class="st-hero">
-  <h1 data-i18n="stories_h1">Stories</h1>
-  <p data-i18n="stories_sub">Small, real moments from building this — not polished case studies.</p>
-</div>
-
 <div class="st-section">
   <div class="st-card">
-    <h2 data-i18n="stories_t00day_title">A Day With T00</h2>
-    <p data-i18n="stories_t00day_intro">A composite scenario built from how a workday like this actually goes — not one specific client, but every step here maps to a real feature (the site's own product-generator, PJ14's email agent, T00's req/reply log). The "client" is illustrative.</p>
+    <h1 data-i18n="stories_t00day_title">A Day With T00</h1>
+    <p data-i18n="stories_t00day_intro">Follow one real workday, start to finish — this is what using T00 actually looks like.</p>
     <div class="st-timeline">
-      <div class="st-step"><div class="st-step-icon">☕</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s1_h">Morning: today's list</h3><p data-i18n="stories_t00day_s1_p">Coffee in hand, I ask T00 out loud: "What's on today?" I haven't opened a single file, but T00 already knows — unread emails, a project deadline, a doc I left half-finished yesterday. A few seconds later, a prioritized to-do list comes back.</p></div></div>
-      <div class="st-step"><div class="st-step-icon">📧</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s2_h">A new request, buried in the list</h3><p data-i18n="stories_t00day_s2_p">One item doesn't look familiar: a client email asking for a landing page, plus a meeting. T00 had already read the email and turned it into a task — before I'd even opened my inbox.</p></div></div>
-      <div class="st-step"><div class="st-step-icon">✨</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s3_h">Built in one shot</h3><p data-i18n="stories_t00day_s3_p">"Go ahead and build it." A few minutes later, the landing page is live — design, copy, layout, all done. No starting from a blank file.</p></div></div>
-      <div class="st-step"><div class="st-step-icon">🤝</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s4_h">Off to the meeting</h3><p data-i18n="stories_t00day_s4_p">I walk in with the live page already up on my phone. Showing something real beats describing it. Specific notes come back — "make this stand out," "this line reads too stiff."</p></div></div>
-      <div class="st-step"><div class="st-step-icon">📱</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s5_h">An email on the way back</h3><p data-i18n="stories_t00day_s5_p">On the train home, I email T00 the notes straight from my phone. No laptop required.</p></div></div>
-      <div class="st-step"><div class="st-step-icon">✅</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s6_h">Already fixed by the time I check</h3><p data-i18n="stories_t00day_s6_p">T00's reply is waiting with a link to the updated page — done while I was still commuting.</p></div></div>
-      <div class="st-step"><div class="st-step-icon">🔍</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s7_h">Back home: polishing the details</h3><p data-i18n="stories_t00day_s7_p">This is where T00's req/reply log actually earns its keep. This morning's conversation, the client's in-person feedback, the email sent from the train — it's all one continuous record. I can trace exactly what changed and why, and refine the details without losing the thread.</p></div></div>
-      <div class="st-step"><div class="st-step-icon">📤</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s8_h">Sign-off</h3><p data-i18n="stories_t00day_s8_p">Final version goes to the client: "Here's the update."</p></div></div>
-      <div class="st-step"><div class="st-step-icon">📄</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s9_h">Two write-ups</h3><p data-i18n="stories_t00day_s9_p">One last thing: "Write it up." Two documents come back — a short "how to use this page" guide for the client, and a personal note on how the job went, for next time.</p></div></div>
-      <div class="st-step"><div class="st-step-icon">🎉</div><div class="st-step-body"><h3 data-i18n="stories_t00day_s10_h">Done</h3><p data-i18n="stories_t00day_s10_p">Today's list is one item shorter.</p></div></div>
+
+      <div class="st-step st-step-illustrated">
+        <div class="st-step-icon"></div><div class="st-step-body"><h3 data-i18n="stories_t00day_s1_h">9:00 — "What's on today?"</h3><p data-i18n="stories_t00day_s1_p">I ask, T00 answers — a to-do list appears on its own, with one item already flagged: a client email asking for a website, plus a meeting.</p></div>
+        <div class="st-two-frame">
+          <div class="st-illustration">
+            <img src="assets/illustrations/man_computer.png" alt="" loading="lazy">
+            <div class="st-clock-badge">🕘 9:00</div>
+            <div class="st-speech-bubble sb-t00"><span class="sb-who" data-i18n="stories_jason_label">Jason</span><span data-i18n="stories_t00day_s1_bubble">"T00, what do I need to do today?"</span></div>
+          </div>
+          <div class="st-frame-arrow">→</div>
+          <div class="st-frame-b">
+            <div class="sc-line"><span class="sc-check">✓</span> <span data-i18n="stories_t00day_s1_cap1">Unread emails</span></div>
+            <div class="sc-line"><span class="sc-check">✓</span> <span data-i18n="stories_t00day_s1_cap2">Project deadline</span></div>
+            <div class="sc-line sc-highlight"><span class="sc-check">📧</span> <span data-i18n="stories_t00day_s1_cap3">New: build a website + client meeting</span></div>
+            <div class="sc-frommail" data-i18n="stories_t00day_s1_frommail">🔍 Read straight from the client's email</div>
+            <div class="sc-reqbox">
+              <div class="sc-reqtitle" data-i18n="stories_t00day_s1_reqtitle">📋 Requirements (from the client)</div>
+              <div class="sc-reqitem">1. <span data-i18n="stories_t00day_s1_req1">Company intro page</span></div>
+              <div class="sc-reqitem">2. <span data-i18n="stories_t00day_s1_req2">Product overview</span></div>
+              <div class="sc-reqitem">3. <span data-i18n="stories_t00day_s1_req3">Contact info</span></div>
+              <div class="sc-reqitem">4. <span data-i18n="stories_t00day_s1_req4">Japanese + English</span></div>
+            </div>
+            <span class="t00-badge"><span class="tb-sun">☀️</span>T00</span>
+          </div>
+        </div>
+        <div class="sc-pjnote"><a href="whats-next.html#pipeline" style="color:inherit;" data-i18n="stories_t00day_s1_pjnote">🔗 T00's PJ19 (daily to-do assistant, concept stage) — designed to scan the inbox + project records into today's to-do list.</a></div>
+      </div>
+
+      <div class="st-step st-step-illustrated">
+        <div class="st-step-icon"></div><div class="st-step-body"><h3 data-i18n="stories_t00day_s2_h">Jason gives the word, T00 takes it from there</h3><p data-i18n="stories_t00day_s2_p">One line, referencing the client's email — T00 handles the rest: read it, define the requirements, build the site.</p></div>
+        <div class="st-two-frame">
+          <div class="st-illustration">
+            <img src="assets/illustrations/man_computer.png" alt="" loading="lazy">
+            <div class="st-speech-bubble sb-t00"><span class="sb-who" data-i18n="stories_jason_label">Jason</span><span data-i18n="stories_t00day_s2_me">"Based on the client's email, try building a website."</span></div>
+          </div>
+          <div class="st-frame-arrow">→</div>
+          <div class="st-frame-b">
+            <span class="t00-badge"><span class="tb-sun">☀️</span>T00</span>
+            <div class="sc-echo">📧 <span data-i18n="stories_t00day_s2_step1">Read the email</span></div>
+            <div class="sc-echo">→ 📋 <span data-i18n="stories_t00day_s2_step2">Define requirements</span></div>
+            <div class="sc-echo">→ 🌐 <span data-i18n="stories_t00day_s2_step3">Build the site</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="st-step st-step-illustrated">
+        <div class="st-step-icon"></div><div class="st-step-body"><h3 data-i18n="stories_t00day_s2b_h">A few minutes later, it's ready</h3><p data-i18n="stories_t00day_s2b_p">T00 built it on its own — already live at its own address, matching every requirement.</p></div>
+        <div class="st-workbox st-scroll-anim">
+          <div class="wb-title" data-i18n="stories_t00day_s2b_title">🔧 T00 is building it</div>
+          <div class="wb-item"><span class="wb-check">✓</span><span data-i18n="stories_t00day_s2b_item1">Page structure generated</span></div>
+          <div class="wb-item"><span class="wb-check">✓</span><span data-i18n="stories_t00day_s2b_item2">Design + layout applied</span></div>
+          <div class="wb-item"><span class="wb-check">✓</span><span data-i18n="stories_t00day_s2b_item3">Copy filled in</span></div>
+        </div>
+        <div class="st-row-2" style="margin-top:14px;">
+          <div class="st-browser-mock st-scroll-anim">
+            <div class="bm-bar"><span class="bm-dot"></span><span class="bm-dot"></span><span class="bm-dot"></span><span class="bm-url">🔗 www.maysunai-demo.com</span></div>
+            <div class="bm-body">
+              <div class="bm-logo">☀️</div>
+              <div class="bm-sitename" style="text-align:center;" data-i18n="stories_t00day_s3_sitename">maySunAI — Homepage</div>
+              <div class="bm-block accent" style="margin:14px auto;"></div>
+              <div class="bm-block w80"></div>
+              <div class="bm-block w60"></div>
+              <div class="bm-block w80"></div>
+            </div>
+          </div>
+          <div class="st-file-card">
+            <span class="fc-icon">📄</span>
+            <div>
+              <div class="fc-name" data-i18n="stories_t00day_s3_filename">requirements.md</div>
+              <div class="fc-status" data-i18n="stories_t00day_s3_filestatus">✓ Matches all 4 items</div>
+            </div>
+          </div>
+        </div>
+        <div class="sc-pjnote"><a href="product-website-generator.html" style="color:inherit;" data-i18n="stories_t00day_s2b_pjnote">🔗 T00's PJ11 (maysunAI) — one line in chat generates a working website, for real.</a></div>
+      </div>
+
+      <div class="st-step st-step-illustrated">
+        <div class="st-step-icon"></div><div class="st-step-body"><h3 data-i18n="stories_t00day_s3c_h">Visiting the client</h3><p data-i18n="stories_t00day_s3c_p">Site link in hand — business cards exchanged, then straight to the laptop.</p></div>
+        <div class="st-real-illust">
+          <img src="assets/illustrations/meishi_exchange.png" alt="business card exchange" loading="lazy">
+          <div class="st-illustration-credit" style="position:static;">illustration: irasutoya.com</div>
+        </div>
+      </div>
+
+      <div class="st-step st-step-illustrated">
+        <div class="st-step-icon"></div><div class="st-step-body"><h3 data-i18n="stories_t00day_s4_h">Reviewing the site together</h3><p data-i18n="stories_t00day_s4_p">The live site is already up on my phone. Showing something real beats describing it — specific feedback comes right back.</p></div>
+        <div class="st-two-frame">
+          <div class="st-illustration">
+            <img src="assets/illustrations/undraw_meeting.svg" alt="" loading="lazy">
+            <div class="st-caption-card">
+              <div class="sc-line" data-i18n="stories_t00day_s4_cap1">"Make this stand out more"</div>
+            </div>
+          </div>
+          <div class="st-frame-arrow">🔍</div>
+          <div class="st-browser-mock" style="flex:1 1 0;">
+            <div class="bm-bar"><span class="bm-dot"></span><span class="bm-dot"></span><span class="bm-dot"></span><span class="bm-url">🔗 www.maysunai-demo.com</span></div>
+            <div class="bm-body">
+              <div class="bm-logo" style="position:relative; display:inline-block; width:100%;">
+                <span>☀️</span>
+                <span style="position:absolute; top:-2px; left:calc(50% + 18px); background:#fff; color:#2b2b33; font-size:0.42em; font-weight:700; padding:4px 9px; border-radius:8px 8px 8px 2px; box-shadow:0 2px 8px rgba(0,0,0,.16); white-space:nowrap;" data-i18n="stories_t00day_s4_markerlabel">← this icon</span>
+              </div>
+              <div class="bm-sitename" style="text-align:center;" data-i18n="stories_t00day_s3_sitename">maySunAI — Homepage</div>
+              <div class="bm-block accent" style="margin:14px auto;"></div>
+              <div class="bm-block w80"></div>
+              <div class="bm-block w60"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="st-step st-step-illustrated">
+        <div class="st-step-icon"></div><div class="st-step-body"><h3 data-i18n="stories_t00day_s5_h">I forward the feedback — T00 already answers</h3><p data-i18n="stories_t00day_s5_p">One email with the client's notes, and T00 replies with exactly what changed and where.</p></div>
+        <div class="st-transit-mini">📤 <span data-i18n="stories_t00day_s4b_send">"I'll have T00 make that change." Then straight to email.</span></div>
+        <div class="st-row-2">
+          <div class="st-real-illust" style="padding:0; overflow:hidden;">
+            <img src="assets/illustrations/email_to_ai00.png" alt="email sent to AI00" style="max-width:100%;">
+            <div class="st-illustration-credit" style="position:static; padding:4px 0 8px;" data-i18n="stories_t00day_s5_capA">Sent to AI00</div>
+          </div>
+          <div class="st-real-illust" style="padding:0; overflow:hidden;">
+            <img src="assets/illustrations/email_ai00_reply.png" alt="AI00's completed reply" style="max-width:100%;">
+            <div class="st-illustration-credit" style="position:static; padding:4px 0 8px;" data-i18n="stories_t00day_s5_capB">AI00's reply — done</div>
+          </div>
+        </div>
+        <div class="st-row-2" style="margin-top:14px;">
+          <div>
+            <div class="st-browser-mock">
+              <div class="bm-bar"><span class="bm-dot"></span><span class="bm-dot"></span><span class="bm-dot"></span><span class="bm-url">🔗 www.maysunai-demo.com</span></div>
+              <div class="bm-body" style="position:relative;">
+                <div class="bm-logo" style="position:absolute; top:0; left:50%; transform:translateX(-50%); margin:0; font-size:1.3em;">☀️</div>
+                <div class="bm-sitename" style="text-align:center; padding-top:22px;" data-i18n="stories_t00day_s3_sitename">maySunAI — Homepage</div>
+                <div class="bm-block accent" style="margin:14px auto;"></div>
+                <div class="bm-block w80"></div>
+                <div class="bm-block w60"></div>
+              </div>
+            </div>
+            <div style="text-align:center; font-size:1em; font-weight:700; color:var(--muted); padding:8px 0;" data-i18n="stories_t00day_s5_before">Before</div>
+          </div>
+          <div>
+            <div class="st-browser-mock">
+              <div class="bm-bar"><span class="bm-dot"></span><span class="bm-dot"></span><span class="bm-dot"></span><span class="bm-url">🔗 www.maysunai-demo.com</span></div>
+              <div class="bm-body" style="position:relative;">
+                <div class="bm-logo" style="position:absolute; top:0; left:0; margin:0; font-size:1.3em;">☀️</div>
+                <div class="bm-sitename" style="text-align:center; padding-top:22px;" data-i18n="stories_t00day_s3_sitename">maySunAI — Homepage</div>
+                <div class="bm-block accent" style="margin:14px auto;"></div>
+                <div class="bm-block w80"></div>
+                <div class="bm-block w60"></div>
+              </div>
+            </div>
+            <div style="text-align:center; font-size:1em; font-weight:700; color:var(--muted); padding:8px 0;" data-i18n="stories_t00day_s5_after">After</div>
+          </div>
+        </div>
+        <div class="sc-pjnote"><a href="product-email-agent.html" style="color:inherit;" data-i18n="stories_t00day_s5_pjnote">🔗 T00's PJ14 — reads the instruction straight from the email body, executes it, replies the same way.</a></div>
+      </div>
+
+      <div class="st-step st-step-illustrated">
+        <div class="st-step-icon"></div><div class="st-step-body"><h3 data-i18n="stories_t00day_s6_h">Second look, more specific asks</h3><p data-i18n="stories_t00day_s6_p">We review the site together again — this time the client has concrete changes in mind, not just impressions.</p></div>
+        <div class="st-workbox">
+          <div class="wb-title" data-i18n="stories_t00day_s6_tag">🔁 Round 2: specific changes</div>
+          <div class="wb-item" data-i18n="stories_t00day_s6_item1">Same screen as before — but this time the notes are exact, not just general impressions.</div>
+        </div>
+      </div>
+
+      <div class="st-step st-step-illustrated">
+        <div class="st-step-icon"></div><div class="st-step-body"><h3 data-i18n="stories_t00day_s6b_h">See you later</h3><p data-i18n="stories_t00day_s6b_p">Notes in hand, it's time to head back and get these changes done.</p></div>
+        <div class="st-real-illust">
+          <img src="assets/illustrations/ojigi_mutual.png" alt="bowing farewell" loading="lazy">
+          <div class="st-illustration-credit" style="position:static;">illustration: irasutoya.com</div>
+        </div>
+      </div>
+
+      <div class="st-step st-step-illustrated">
+        <div class="st-step-icon"></div><div class="st-step-body"><h3 data-i18n="stories_t00day_s7_h">Back home: the details get done right</h3><p data-i18n="stories_t00day_s7_p">This morning's request, the in-person notes, the email from the client — T00's req/reply log keeps it all as one continuous thread, so nothing gets lost in the details.</p></div>
+        <div class="sc-pjnote"><a href="kb-doc-viewer.html?doc=t00-req-reply-protocol.md" style="color:inherit;" data-i18n="stories_t00day_s7_pjnote_top">🔗 T00's req/reply log — lets you check whether the AI followed every instruction exactly, item by item.</a></div>
+        <div class="st-illustration" style="max-width:380px; margin-left:auto; margin-right:auto; margin-top:8px;">
+          <img src="assets/illustrations/man_computer.png" alt="" loading="lazy">
+          <span class="t00-badge" style="position:absolute;bottom:16px;left:16px;"><span class="tb-sun">☀️</span>T00</span>
+        </div>
+        <div class="st-screen-mock">
+          <div class="sm-screen">
+            <div class="sm-titlebar"><span class="bm-dot"></span><span class="bm-dot"></span><span class="bm-dot"></span><span class="sm-filename">temp03_reply.md</span></div>
+            <div class="sm-body">
+              <div class="sm-section">
+                <span class="sm-label req" data-i18n="stories_t00day_s7_sm_reqlabel">📌 Original request</span>
+                <div class="sm-text" data-i18n="stories_t00day_s7_sm_req1">1. Please revise the details based on file.md</div>
+                <div class="sm-text" data-i18n="stories_t00day_s7_sm_req2">2. Then generate a detailed design document</div>
+              </div>
+              <div class="sm-section">
+                <span class="sm-label map" data-i18n="stories_t00day_s7_sm_maplabel">🔎 Mapping</span>
+                <div class="sm-text" data-i18n="stories_t00day_s7_sm_map1">(1) file.md: revise details</div>
+                <div class="sm-text" data-i18n="stories_t00day_s7_sm_map2">(2) detailed design doc: generate</div>
+              </div>
+              <div class="sm-section">
+                <span class="sm-label ans" data-i18n="stories_t00day_s7_sm_anslabel">✅ Answer</span>
+                <div class="sm-text" data-i18n="stories_t00day_s7_sm_ans1">[1] Done — details revised per file.md</div>
+                <div class="sm-text" data-i18n="stories_t00day_s7_sm_ans2">[2] Done — detailed-design.md generated</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="st-file-card" style="margin:14px 0 0;">
+          <span class="fc-icon">📘</span>
+          <div>
+            <div class="fc-name" data-i18n="stories_t00day_s7_filename">detailed-design.md</div>
+            <div class="fc-status" data-i18n="stories_t00day_s7_filestatus">✓ Generated from today's requests — plus a user manual and a build-from-scratch dev guide</div>
+          </div>
+        </div>
+        <div class="sc-pjnote"><a href="product-help-system.html" style="color:inherit;" data-i18n="stories_t00day_s7_pjnote_bottom">🔗 T00's PJ06 (the help-doc system) — the real mechanism behind user manuals/dev guides; this site's own docs are built exactly this way.</a></div>
+      </div>
+
+      <div class="st-step st-step-illustrated">
+        <div class="st-step-icon"></div><div class="st-step-body"><h3 data-i18n="stories_t00day_s8_h">Done</h3><p data-i18n="stories_t00day_s8_p">Site live, client happy, today's list one item shorter.</p></div>
+        <div class="st-big-icon-scene">
+          <div class="big-icon">🎉</div>
+          <span class="sc-tag" data-i18n="stories_t00day_s8_tag">Done — for today</span>
+        </div>
+        <div class="st-row-2" style="margin-top:14px; align-items:center;">
+          <div class="st-chat-mini" style="margin:0;">
+            <div class="cm-them" data-i18n="stories_t00day_s8_praise">Client: "Thank you for the great work — looking forward to next time!"</div>
+          </div>
+          <div class="st-real-illust" style="padding:10px;">
+            <img src="assets/illustrations/undraw_agreement.svg" alt="handshake" loading="lazy">
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="st-disclaimer" data-i18n="stories_t00day_disclaimer">⚠️ Illustrative scenario: the client and meeting are a composite example, not a specific real engagement. Every capability shown is real — this site's own AI app generator, PJ14's email-driven agent, and T00's req/reply log.</div>
+    <div class="st-disclaimer" data-i18n="stories_t00day_disclaimer">⚠️ Illustrative scenario, composite client — every capability shown is real.</div>
     <span class="st-status live" data-i18n="stories_t00day_status">Published</span>
-  </div>
-
-  <div class="st-card">
-    <h2 data-i18n="stories_card_title">Making a School Emblem with AI: A Story of Failure, Then Success</h2>
-    <p data-i18n="stories_card_teaser">A design task that didn't go as planned the first time.</p>
-    <span class="st-status" data-i18n="stories_card_status">Full story coming soon</span>
-  </div>
-
-  <div class="st-card">
-    <h2 data-i18n="stories_card2_title">How I Work With AI: 3 Rules You Can Steal</h2>
-    <p data-i18n="stories_card2_intro">I've been building with tools like Claude Code for months and picked up a few collaboration habits worth sharing — no project specifics, just how I work with AI itself.</p>
-    <p class="rule" data-i18n="stories_card2_rule1">1. Keep substantive answers in one file, not scattered across chat. I have the AI write every real answer into a persistent reply log and keep the terminal output to a one-line confirmation — the log stays a complete, searchable record as conversations get longer.</p>
-    <p class="rule" data-i18n="stories_card2_rule2">2. Label trust levels in code instead of relying on memory. Tags like trust: high/medium/low tell the AI "safe to change freely" versus "check with me first," so I don't repeat instructions every time.</p>
-    <p class="rule" data-i18n="stories_card2_rule3">3. Force a clear line between "actually done" and "placeholder." Progress reports must separate what's genuinely working from what's stubbed out — this habit has saved me from more than one "I thought this was finished" surprise.</p>
-    <p data-i18n="stories_card2_outro">None of this needs special tooling — just communication habits. Anyone working with AI day to day can copy them directly.</p>
-    <span class="st-status live" data-i18n="stories_card2_status">Published</span>
+    <div class="st-cta">
+      <p data-i18n="stories_cta_text">This is what a real workday with T00 looks like — built by Jason, powered by the T00 framework.</p>
+      <a class="st-cta-btn" href="https://maysuns.uk/index.html" data-i18n="stories_cta_btn">See what else T00 can do →</a>
+    </div>
   </div>
 </div>
 
 <footer>
   <p data-i18n="footer_line">© 2026 maySunAI</p>
   <div class="footer-links">
-    <a href="mailto:j6016086@gmail.com" data-i18n="footer_contact">✉️ Email</a>
+    <a href="contact.html" data-i18n="footer_contact">💬 Leave a message</a>
     <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=20260727"></script>
+<script src="assets/i18n.js?v=20260731b"></script>
 <script src="assets/main.js?v=20260727b"></script>
+<script>
+// 动画只在滚动到画面里才播放一次（避免PC上早就播完看不到的问题）
+(function(){
+  var targets = document.querySelectorAll('.st-scroll-anim');
+  if(!('IntersectionObserver' in window) || !targets.length) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        en.target.classList.add('st-play');
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
 </body>
 </html>
