@@ -72,3 +72,25 @@
 
 - 记录时间：2026-07-20
 - 状态：想法阶段（用户明确要求"只plan不做"），等用户说"开始做"再选具体方案
+
+---
+
+## F005 — 功能完成后自动生成宣传视频的全流程（D02自动化流水线）
+
+用户提供了ChatGPT起草的`tasks/D02-VIDEO_WORKFLOW.md`：每完成一个新功能→分析卖点→生成脚本→生成图片Prompt→调用图片API→调用视频API→配音→字幕→自动剪辑→输出MP4→发布文案，这一整条自动化链路。
+
+可行性评估见`tasks/D04-marketing_automation_assessment.md`：脚本/卖点/图片Prompt这几步现在就能做（不需要新工具），但"调用图片API→调用视频API→自动剪辑→输出MP4"这条链子目前T00里没有任何对接代码，需要先申请付费API Key（图片/视频/配音都不免费）+ 从零写脚本，工作量不小，不建议现在就搭一整套抽象管道。
+
+- 记录时间：2026-07-28
+- 关联文件：`tasks/D01-AI_MARKETING_AGENT.md`（角色定位，已并入PJ50 CLAUDE.md）、`tasks/D02-VIDEO_WORKFLOW.md`、`tasks/D03-TOOLS_AND_APIS.md`（工具选型，已在D04里更新为GPT Image 2/Nano Banana Pro/Veo 3.1/Kling 3.0/ElevenLabs的2026年现状）
+- 状态：想法阶段，等真的有具体一条视频要发布时再挑场景做端到端验证，不提前搭抽象基础设施
+
+---
+
+## F006 — "AI做院徽"故事，独立成篇
+
+`stories.html`原来放了一张"Making a School Emblem with AI"的占位卡片（只有标题+"Full story coming soon"，从未写过正文），2026-07-29按用户要求"这页面只能放一个故事"从`stories.html`里移除了。对应的`stories_card_title`/`stories_card_teaser`/`stories_card_status`这几个i18n key还留在`assets/i18n.js`里（三语言都在），没有删除，等这个故事真正写出来时可以直接复用。
+
+- 记录时间：2026-07-29
+- 状态：想法阶段，等用户说"开始写这个故事"时再决定是做成`stories.html`第二个故事卡片，还是单独一个页面
+- 关联：i18n.js里保留的`stories_card_*`key（未删除，等复用）

@@ -300,4 +300,14 @@ maysuns.uk 个人品牌网站，Vultr服务器 + Cloudflare DNS托管（2026-07-
 - **SEO/GEO技术落地**（curl核实此前完全没有）：新建`robots.txt`（含GPTBot/PerplexityBot/ClaudeBot/Google-Extended等AI爬虫放行规则）+`sitemap.xml`（25个正式页面）；首页补上此前完全缺失的`<meta name="description">`；首页+`t00.html`新增Open Graph标签+Twitter Card；首页新增`WebSite` JSON-LD结构化数据。已commit(`cc369fd`)+push+部署到Vultr服务器，curl核实`robots.txt`/`sitemap.xml`均返回200。
 - **新增两篇help文档**：`H94_geo_ai_search_optimization_guide.md`（GEO入门，跟已有`H88`SEO指南配对）；`T00_HELP.html`已重新生成（102篇文档）。
 - **"T00的一天"宣传故事**：任务文件`tasks/T02_t00_day_story.md`，已完成日语故事文案初稿（10个场景节点，对应用户给的大纲扩写），**诚实说明**：英文/中文翻译、配图、正式排版进HTML页面均未完成——本次会话没有截图/图片生成工具，只完成了文字部分，任务文件里有完整状态表方便下次接续。
+
+## 2026-07-30 新增真实"留言板"功能（自建后端，替换footer的mailto链接）
+
+任务文件：`tasks/T05_contact_message_backend.md`（含完整技术细节/怎么看留言/邮件通知现状）。用户要求把footer的`mailto:`邮件链接换成真实留言功能，明确选择"自建后端，更可控"（vs 第三方表单服务）。
+
+- **新后端`pj50-backend`**：Vultr服务器`/var/www/pj50-backend/`，端口5150，PM2管理（`online`），Express+ESM，跟同服务器`pj20/pj23-backend`同款代码风格。`POST /api/message`（留言提交，蜜罐字段+IP限流每小时5条）+ `POST /api/messages/list`（密码保护查看，`ADMIN_PASSWORD`环境变量）。
+- **前端新页面**：`contact.html`（公开留言表单，EN/日本語/中文三语言）+ `contact-admin.html`（密码保护查看页，noindex，不在任何nav菜单里）。
+- **全站29个html文件**footer链接从`mailto:j6016086@gmail.com`改成指向`contact.html`，`footer_contact`三语言译文同步改成"💬 Leave a message"系列文案。改动前备份到`Z01_backup_20260730e/`。
+- **诚实说明：邮件通知今天不会真的送达**——新增了best-effort的Resend邮件通知层（`emailSender.js`），但服务器上所有后端项目（含这个新的）都没有配置真实`RESEND_API_KEY`，缺失时会优雅跳过不报错。要让它工作需要用户去resend.com注册拿key并配置到服务器`.env`。留言功能本身（Jason能看到留言）不依赖这一层。
+- **验证**：真实端到端测试——Playwright在生产环境`https://maysuns.uk/contact.html`真实提交留言→SSH确认落盘→用真实密码在`contact-admin.html`成功取回；蜜罐字段测试确认被拦截不落盘；连续6次提交确认第6次触发429限流；nginx改动`nginx -t`验证通过后才reload，reload后确认其它页面仍200。详见任务文件。
 - **联动新建`PJ19_todolist_assistant`**：故事里"早上问T00给todolist"这个功能对应的真实项目，目前只是概念阶段的项目壳（`CLAUDE.md`），未开发。

@@ -1,3 +1,7 @@
+> ⚠️ **2026-07-30起，此文档描述的手动流程已被自动化取代**：`updates-news.html`现在从后端`GET /api/news`拉取数据渲染（不再是手改`assets/i18n.js`里的`upd_news_*_title/body/date/source`几个key——这些key已被删除，改成后端`news.json`存储的动态内容）。新增了"🔍 用AI搜索最新动态"按钮，点击后调用`POST /api/news/refresh`，用真实Claude API+web_search真实搜索、去重、按留存策略合并进`news.json`。详见`CLAUDE.md`对应日期的changelog条目。**此文档保留作为历史记录**（当初人工搜索时用的分类关键词模板，现在已经写进了`pj50-backend/claudeNews.js`的prompt里，思路是一脉相承的，只是执行者从人工换成了AI）。
+
+---
+
 # updates.html「AI行业动态」更新流程（定式）
 
 > 目的：每次更新用差不多的方式做，覆盖期从上次结束的地方继续，内容精选不贪多。
