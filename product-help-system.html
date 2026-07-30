@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="prod_helpsys_page_title">HTML Help-Doc System — maySunAI</title>
+  <meta id="metaDescription" name="description" data-i18n-desc="prod_helpsys_meta_description" content="" />
+  <link rel="stylesheet" href="assets/site.css?v=20260731a" />
+  <style>
+    .doc-card {
+      background: #fdfcf9; color: #23261f; max-width: 760px; margin: 8px auto 40px;
+      border-radius: 14px; box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      padding: 34px clamp(22px, 5vw, 48px); font-family: Georgia, "Noto Serif", "Songti SC", serif;
+    }
+    .doc-card h1 { font-size: 1.6em; margin: 0; }
+    .doc-card .doc-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .doc-card .doc-title-row .product-icon { font-size: 1.6em; }
+    .doc-card .tagline { color: #6b6a5f; font-family: "Segoe UI", sans-serif; font-size: 0.95em; margin-bottom: 22px; }
+    .doc-card .body-text { font-family: "Segoe UI", sans-serif; color: #23261f; }
+    .doc-card ul, .doc-card ol { font-family: "Segoe UI", sans-serif; }
+    .doc-card .tech-list { margin-top: 18px; }
+    .doc-card .tech-chip { background: #eeece2; border: 1px solid #dedcce; color: #4a493f; }
+    .doc-card .shots-h { font-weight: 700; margin: 26px 0 10px; font-family: "Segoe UI", sans-serif; }
+    .doc-card .shots-row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .doc-card .shot-item { flex: 1 1 220px; max-width: 260px; }
+    .doc-card .shot-item img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid #dedcce; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .doc-card .shot-item .shot-cap { font-family: "Segoe UI", sans-serif; font-size: 0.78em; color: #6b6a5f; text-align: center; margin-top: 6px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
+  <div class="nav-utility">
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
+      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </div>
+  <button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">☰</button>
+  <div class="nav-right" id="navRight">
+    <div class="nav-links">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiknowledge_label">AI Knowledge ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="knowledge-t00.html"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
+          <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
+          <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Git, Vue, Node, Python, Flask basics</small></a>
+          <a href="knowledge-ai-glossary.html"><span data-i18n="nav_aiknowledge_glossary">AI Concepts Glossary</span><small data-i18n="nav_aiknowledge_glossary_sub">30 AI terms, EN/JA/ZH, with pronunciation</small></a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_updates_label">AI Updates ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="updates-news.html" data-i18n="nav_updates_news">AI Industry News</a>
+          <a href="updates-changelog.html" data-i18n="nav_updates_changelog">My Updates</a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiproducts_label">AI Products ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="portfolio.html#ai-tools" data-i18n="nav_aiproducts_tools">AI Tools</a>
+          <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
+        </div>
+      </div>
+      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Relax</a>
+      <a href="ask-ai.html" data-i18n="nav_askai" style="color:var(--accent);font-weight:700;">✨ Ask AI</a>
+      <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
+    </div>
+  </div>
+</nav>
+<div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
+
+<div class="doc-card">
+  <div class="doc-title-row">
+    <span class="product-icon">📘</span>
+    <h1 data-i18n="prod_helpsys_title">HTML Help-Doc System</h1>
+  </div>
+  <p class="tagline" data-i18n="prod_helpsys_tagline">Every guide, user manual, and dev handbook on this site is built the same way.</p>
+
+  <p class="body-text" style="font-weight:700;margin-bottom:6px;" data-i18n="prod_helpsys_features_h">Main features</p>
+  <ul class="body-text" style="margin:0 0 18px 20px;padding:0;">
+    <li data-i18n="prod_helpsys_f1">Converts md files into easy-to-read pages</li>
+    <li data-i18n="prod_helpsys_f2">Single HTML file — fully offline</li>
+    <li data-i18n="prod_helpsys_f3">Collapses into a ☰ button on mobile, menu auto-hides</li>
+    <li data-i18n="prod_helpsys_f4">Text-to-speech</li>
+    <li data-i18n="prod_helpsys_f5">Glossary</li>
+  </ul>
+  <p class="body-text" style="font-weight:700;margin-bottom:6px;" data-i18n="prod_helpsys_usecase_h">Use cases</p>
+  <p class="body-text" style="margin-bottom:6px;" data-i18n="prod_helpsys_usecase_intro">Used together with T00 to generate:</p>
+  <ol class="body-text" style="margin:0 0 18px 20px;padding:0;">
+    <li data-i18n="prod_helpsys_u1">Knowledge base / explanations</li>
+    <li data-i18n="prod_helpsys_u2">User manuals</li>
+    <li data-i18n="prod_helpsys_u3">Build-from-zero dev guides</li>
+    <li data-i18n="prod_helpsys_u4">Custom personal use</li>
+  </ol>
+  <div class="tech-list">
+    <span class="tech-chip">Single HTML file</span>
+    <span class="tech-chip">No CDN / offline-first</span>
+    <span class="tech-chip">Mobile + desktop</span>
+    <span class="tech-chip">Text-to-speech glossary</span>
+  </div>
+
+  <p class="shots-h" data-i18n="prod_helpsys_shots_h">Real screenshots (sample instance)</p>
+  <div class="shots-row">
+    <div class="shot-item">
+      <img src="help_screenshots/template_sample_mobile_nomenu_20260730.png" alt="Content view, menu closed" loading="lazy">
+      <div class="shot-cap" data-i18n="prod_helpsys_shot1_cap">Mobile — content view, menu closed</div>
+    </div>
+    <div class="shot-item">
+      <img src="help_screenshots/template_sample_mobile_menuopen_20260730.png" alt="Menu open" loading="lazy">
+      <div class="shot-cap" data-i18n="prod_helpsys_shot2_cap">Mobile — ☰ menu open</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p data-i18n="footer_line">© 2026 maySunAI</p>
+  <div class="footer-links">
+    <a href="contact.html" data-i18n="footer_contact">💬 Leave a message</a>
+    <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>
+  </div>
+</footer>
+
+<script src="assets/i18n.js?v=20260731b"></script>
+<script src="assets/main.js?v=20260727b"></script>
+</body>
+</html>

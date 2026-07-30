@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Messages Admin — maySunAI</title>
+  <link rel="stylesheet" href="assets/site.css?v=20260731a" />
+  <style>
+    /*
+      Not a public page: no nav-dropdown entry links here anywhere, reachable only
+      by typing this URL directly. Doesn't need to be pretty — Jason is the only user.
+      Password check happens server-side (POST /api/messages/list); nothing here
+      exposes the real ADMIN_PASSWORD value in the page source.
+    */
+    .adm-wrap { max-width: min(900px, 94vw); margin: 40px auto; padding: 0 clamp(16px, 4vw, 40px) 60px; }
+    .adm-gate { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; max-width: 380px; margin: 60px auto; display: flex; flex-direction: column; gap: 12px; }
+    .adm-gate input { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text); font: inherit; }
+    .adm-err { color: #e05a5a; font-size: 0.88em; min-height: 1.2em; }
+    table.adm-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.88em; }
+    table.adm-table th, table.adm-table td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
+    table.adm-table th { background: var(--card); }
+    table.adm-table td.adm-msg { white-space: pre-wrap; word-break: break-word; max-width: 420px; }
+    .adm-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 12px; flex-wrap: wrap; }
+    .adm-count { color: var(--muted); font-size: 0.88em; }
+    body { background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+
+<div class="adm-wrap">
+  <div class="adm-gate" id="admGate">
+    <h1 style="font-size:1.1em;margin:0 0 4px;">maysuns.uk — Messages Admin</h1>
+    <input type="password" id="admPassword" placeholder="Password" autocomplete="current-password" />
+    <button type="button" class="btn btn-primary" id="admSubmit">View Messages</button>
+    <div class="adm-err" id="admErr"></div>
+  </div>
+
+  <div id="admContent" style="display:none;">
+    <div class="adm-toolbar">
+      <h1 style="font-size:1.1em;margin:0;">Messages (newest first)</h1>
+      <span class="adm-count" id="admCount"></span>
+      <button type="button" class="btn btn-outline" id="admRefresh">Refresh</button>
+    </div>
+    <table class="adm-table">
+      <thead>
+        <tr><th>Timestamp</th><th>Name</th><th>Contact</th><th>Message</th><th>IP</th></tr>
+      </thead>
+      <tbody id="admTbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var gate = document.getElementById('admGate');
+    var content = document.getElementById('admContent');
+    var pwInput = document.getElementById('admPassword');
+    var submitBtn = document.getElementById('admSubmit');
+    var refreshBtn = document.getElementById('admRefresh');
+    var errEl = document.getElementById('admErr');
+    var tbody = document.getElementById('admTbody');
+    var countEl = document.getElementById('admCount');
+    var currentPassword = null; // kept only in memory for this page load, never written to the DOM/localStorage
+
+    function escapeHtml(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function renderMessages(messages) {
+      tbody.innerHTML = '';
+      countEl.textContent = messages.length + (messages.length === 1 ? ' message' : ' messages');
+      messages.forEach(function (m) {
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td>' + escapeHtml(m.timestamp) + '</td>' +
+          '<td>' + escapeHtml(m.name) + '</td>' +
+          '<td>' + escapeHtml(m.contact) + '</td>' +
+          '<td class="adm-msg">' + escapeHtml(m.message) + '</td>' +
+          '<td>' + escapeHtml(m.ip) + '</td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    function fetchMessages(password) {
+      errEl.textContent = '';
+      return fetch('/api/messages/list', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: password }),
+      })
+        .then(function (res) {
+          return res.json().then(function (body) { return { ok: res.ok, status: res.status, body: body }; });
+        })
+        .then(function (result) {
+          if (result.ok && result.body && result.body.ok) {
+            currentPassword = password;
+            gate.style.display = 'none';
+            content.style.display = 'block';
+            renderMessages(result.body.messages || []);
+          } else {
+            errEl.textContent = 'Wrong password, or server error. Please try again.';
+          }
+        })
+        .catch(function () {
+          errEl.textContent = 'Network error contacting the server. Please try again.';
+        });
+    }
+
+    submitBtn.addEventListener('click', function () {
+      var pw = pwInput.value;
+      if (!pw) { errEl.textContent = 'Enter the password.'; return; }
+      fetchMessages(pw);
+    });
+    pwInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') submitBtn.click();
+    });
+    refreshBtn.addEventListener('click', function () {
+      if (currentPassword) fetchMessages(currentPassword);
+    });
+  })();
+</script>
+</body>
+</html>

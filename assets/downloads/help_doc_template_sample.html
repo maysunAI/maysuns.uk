@@ -1,0 +1,137 @@
+<!--
+  T00 HTML Help-Doc System — English sample instance
+  Built from the same single-file template used for every guide on maysuns.uk.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sample Guide — T00 HTML Help-Doc System</title>
+<style>
+  :root{
+    --bg:#0f1115; --card:#171a21; --text:#e8e8ea; --sub:#9aa0ac;
+    --accent:#5b8cff; --border:#2a2f3a; --code:#1d2129;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f5f6f8; --card:#ffffff; --text:#1c1f26; --sub:#5b6270; --accent:#2a5fd9; --border:#e1e4ea; --code:#eef0f4; }
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; line-height:1.7;}
+  #topbar{ position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:10px; background:var(--card); border-bottom:1px solid var(--border); padding:10px 14px; }
+  #topbar h1{font-size:1rem; margin:0; flex:none;}
+  #menuBtn{ display:none; background:none; border:1px solid var(--border); border-radius:8px; color:var(--text); font-size:1.2rem; width:40px; height:40px; cursor:pointer; }
+  #sb{padding:6px 12px;border-radius:20px;border:1px solid var(--border);font-size:14px;flex:1;max-width:260px;background:var(--code);color:var(--text)}
+  #sb::placeholder{color:var(--sub)}
+  #sb:focus{outline:none;border-color:var(--accent)}
+  #layout{display:flex; height:calc(100vh - 61px);}
+  nav#menu{ width:230px; flex:none; background:var(--card); border-right:1px solid var(--border); padding:14px 10px; overflow-y:auto; }
+  nav#menu a{ display:block; padding:10px 12px; margin:2px 0; border-radius:8px; color:var(--sub); text-decoration:none; font-size:0.92rem; min-height:44px; line-height:24px; }
+  nav#menu a:hover{background:var(--code); color:var(--text);}
+  nav#menu a.active{background:var(--accent); color:#fff;}
+  main#content{flex:1; padding:22px 26px; max-width:800px; overflow-y:auto;}
+  .page{display:none;}
+  .page.active{display:block;}
+  .page h2{margin-top:0; color:var(--accent);}
+  .page table{width:100%; border-collapse:collapse; margin:10px 0;}
+  .page th,.page td{border:1px solid var(--border); padding:7px 10px; text-align:left;}
+  .page th{background:var(--code); color:var(--accent);}
+  .term-audio{ display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; margin-left:6px; border-radius:50%; border:1px solid var(--border); background:var(--code); color:var(--accent); cursor:pointer; font-size:0.95rem; vertical-align:middle; }
+  .term-audio:hover{background:var(--accent); color:#fff;}
+  .term-audio:active{transform:scale(0.92);}
+  @media (max-width:768px){
+    #menuBtn{display:block;}
+    nav#menu{ position:fixed; top:61px; left:0; bottom:0; width:78vw; max-width:300px; transform:translateX(-100%); transition:transform .2s ease; z-index:40; box-shadow:2px 0 12px rgba(0,0,0,.3); }
+    nav#menu.open{transform:translateX(0);}
+    #overlay{ display:none; position:fixed; inset:61px 0 0 0; background:rgba(0,0,0,.4); z-index:30; }
+    #overlay.open{display:block;}
+    main#content{padding:16px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <button id="menuBtn" onclick="toggleMenu()">☰</button>
+  <h1>Sample Guide</h1>
+  <input id="sb" type="search" placeholder="Search..." oninput="doSearch(this.value)" autocomplete="off">
+</div>
+
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<div id="layout">
+  <nav id="menu">
+    <a href="#" data-target="p1" onclick="showPage('p1');return false" class="active">① Getting Started</a>
+    <a href="#" data-target="p2" onclick="showPage('p2');return false">② Key Concepts</a>
+    <a href="#" data-target="p3" onclick="showPage('p3');return false">③ Glossary</a>
+    <a href="#" data-target="p4" onclick="showPage('p4');return false">④ FAQ</a>
+  </nav>
+
+  <main id="content">
+    <div class="page active" id="p1">
+      <h2>① Getting Started</h2>
+      <p>This is a single HTML file — no server, no build step, works fully offline. Open it in any browser and it just works.</p>
+      <p>On desktop, the menu stays open on the left. On mobile, tap the ☰ button at the top to open it.</p>
+    </div>
+    <div class="page" id="p2">
+      <h2>② Key Concepts</h2>
+      <p>Clicking a menu item swaps the content on this same page — no reload, no new tab.</p>
+      <table>
+        <tr><th>Feature</th><th>Works offline?</th></tr>
+        <tr><td>Menu navigation</td><td>Yes</td></tr>
+        <tr><td>Search</td><td>Yes</td></tr>
+        <tr><td>Text-to-speech</td><td>Yes (built into the browser)</td></tr>
+      </table>
+    </div>
+    <div class="page" id="p3">
+      <h2>③ Glossary</h2>
+      <p>RAG <button class="term-audio" onclick="speak('Retrieval-Augmented Generation')">🔊</button> — an AI answers using your own documents instead of guessing from memory alone.</p>
+      <p>Token <button class="term-audio" onclick="speak('Token')">🔊</button> — the small chunk of text an AI model reads or writes at a time.</p>
+    </div>
+    <div class="page" id="p4">
+      <h2>④ FAQ</h2>
+      <p><b>Do I need the internet to read this?</b> No — once the file is on your device, it works fully offline.</p>
+      <p><b>Can I copy this as my own template?</b> Yes, that's exactly what it's for.</p>
+    </div>
+  </main>
+</div>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#menu a').forEach(a=>a.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelector('#menu a[data-target="'+id+'"]').classList.add('active');
+  document.getElementById('menu').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('content').scrollTop=0;
+}
+function toggleMenu(){
+  document.getElementById('menu').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+function doSearch(q){
+  q = (q || '').trim().toLowerCase();
+  var links = document.querySelectorAll('#menu a[data-target]');
+  if(!q){ links.forEach(function(a){ a.style.display=''; }); return; }
+  var firstMatch = null;
+  links.forEach(function(a){
+    var id = a.getAttribute('data-target');
+    var page = document.getElementById(id);
+    var hit = page && page.innerText.toLowerCase().indexOf(q) !== -1;
+    a.style.display = hit ? '' : 'none';
+    if(hit && !firstMatch) firstMatch = id;
+  });
+  if(firstMatch) showPage(firstMatch);
+}
+function speak(text, lang){
+  if(!('speechSynthesis' in window)){ alert('Speech not supported in this browser'); return; }
+  window.speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = lang || 'en-US';
+  u.rate = 0.9;
+  window.speechSynthesis.speak(u);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="contact_page_title">Leave a Message — maySunAI</title>
+  <meta id="metaDescription" name="description" data-i18n-desc="contact_meta_description" content="Send Jason a message directly from the site — no email client required." />
+  <link rel="stylesheet" href="assets/site.css?v=20260731a" />
+  <style>
+    .ct-hero { padding: 48px clamp(24px, 6vw, 120px) 8px; max-width: min(760px, 92vw); margin: 0 auto; }
+    .ct-hero h1 { font-size: clamp(1.3em, 3vw, 1.7em); font-weight: 800; margin-bottom: 8px; }
+    .ct-hero p.sub { color: var(--muted); line-height: 1.6; }
+    .ct-section { max-width: min(760px, 92vw); margin: 0 auto; padding: 8px clamp(24px, 6vw, 120px) 56px; }
+    .ct-form { display: flex; flex-direction: column; gap: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 26px clamp(18px, 4vw, 32px); }
+    .ct-field { display: flex; flex-direction: column; gap: 6px; }
+    .ct-field label { font-size: 0.86em; font-weight: 600; color: var(--muted); }
+    .ct-field input, .ct-field textarea {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 12px; color: var(--text); font: inherit; font-size: 0.95em; resize: vertical;
+    }
+    .ct-field textarea { min-height: 140px; }
+    .ct-hp { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+    .ct-submit-row { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
+    .ct-status { font-size: 0.9em; line-height: 1.5; }
+    .ct-status.ct-status-ok { color: #3ac06b; }
+    .ct-status.ct-status-err { color: #e05a5a; }
+    .ct-char-count { font-size: 0.78em; color: var(--muted); text-align: right; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
+  <div class="nav-utility">
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" data-lang="ja" onclick="setLanguage('ja')">日本語</button>
+      <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </div>
+  <button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">☰</button>
+  <div class="nav-right" id="navRight">
+    <div class="nav-links">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiknowledge_label">AI Knowledge ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="knowledge-t00.html"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
+          <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
+          <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Git, Vue, Node, Python, Flask basics</small></a>
+          <a href="knowledge-ai-glossary.html"><span data-i18n="nav_aiknowledge_glossary">AI Concepts Glossary</span><small data-i18n="nav_aiknowledge_glossary_sub">30 AI terms, EN/JA/ZH, with pronunciation</small></a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_updates_label">AI Updates ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="updates-news.html" data-i18n="nav_updates_news">AI Industry News</a>
+          <a href="updates-changelog.html" data-i18n="nav_updates_changelog">My Updates</a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiproducts_label">AI Products ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="portfolio.html#ai-tools" data-i18n="nav_aiproducts_tools">AI Tools</a>
+          <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
+        </div>
+      </div>
+      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Relax</a>
+      <a href="ask-ai.html" data-i18n="nav_askai" style="color:var(--accent);font-weight:700;">✨ Ask AI</a>
+      <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
+    </div>
+  </div>
+</nav>
+<div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
+
+<div class="ct-hero">
+  <h1 data-i18n="contact_h1">Leave a Message</h1>
+  <p class="sub" data-i18n="contact_sub">Have a question, feedback, or just want to say hi? Send it directly — no email app needed.</p>
+</div>
+
+<div class="ct-section">
+  <form class="ct-form" id="ctForm" novalidate>
+    <div class="ct-field">
+      <label for="ctName" data-i18n="contact_name_label">Name (optional)</label>
+      <input type="text" id="ctName" name="name" maxlength="200" data-i18n-placeholder="contact_name_placeholder" placeholder="Your name" autocomplete="name" />
+    </div>
+    <div class="ct-field">
+      <label for="ctContact" data-i18n="contact_contact_label">Email or however you'd like me to reach you back (optional)</label>
+      <input type="text" id="ctContact" name="contact" maxlength="200" data-i18n-placeholder="contact_contact_placeholder" placeholder="you@example.com, or a Twitter/X handle, etc." autocomplete="email" />
+    </div>
+    <div class="ct-field">
+      <label for="ctMessage" data-i18n="contact_message_label">Message</label>
+      <textarea id="ctMessage" name="message" maxlength="2000" required data-i18n-placeholder="contact_message_placeholder" placeholder="What's on your mind?"></textarea>
+      <div class="ct-char-count"><span id="ctCharCount">0</span>/2000</div>
+    </div>
+    <!-- Honeypot: genuinely off-screen (not display:none), invisible + unreachable to real users,
+         but visible to naive bots that auto-fill every form field. Named "website" — a common
+         field name bots target on contact forms, so it's more likely to get auto-filled. -->
+    <div class="ct-hp" aria-hidden="true">
+      <label for="ctWebsite">Website</label>
+      <input type="text" id="ctWebsite" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+    <div class="ct-submit-row">
+      <button type="submit" class="btn btn-primary" id="ctSubmitBtn" data-i18n="contact_submit">Send Message</button>
+      <span class="ct-status" id="ctStatus" role="status" aria-live="polite"></span>
+    </div>
+  </form>
+</div>
+
+<footer>
+  <p data-i18n="footer_line">© 2026 maySunAI</p>
+  <div class="footer-links">
+    <a href="contact.html" data-i18n="footer_contact">💬 Leave a message</a>
+    <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>
+  </div>
+</footer>
+
+<script src="assets/i18n.js?v=20260731b"></script>
+<script src="assets/main.js?v=20260727b"></script>
+<script>
+  // Placeholder i18n extension, same small pattern used on whats-next.html
+  // (main.js only handles data-i18n / data-i18n-desc, not placeholders).
+  document.addEventListener('DOMContentLoaded', function () {
+    function currentDict() {
+      var langCode = document.documentElement.lang;
+      var lang = langCode === 'ja' ? 'ja' : (langCode === 'zh-CN' ? 'zh' : 'en');
+      return window.SITE_I18N[lang] || window.SITE_I18N.en;
+    }
+    function applyPlaceholders() {
+      var dict = currentDict();
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n-placeholder');
+        if (dict && dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
+      });
+    }
+    applyPlaceholders();
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { setTimeout(applyPlaceholders, 0); });
+    });
+
+    var form = document.getElementById('ctForm');
+    var messageEl = document.getElementById('ctMessage');
+    var charCountEl = document.getElementById('ctCharCount');
+    var statusEl = document.getElementById('ctStatus');
+    var submitBtn = document.getElementById('ctSubmitBtn');
+
+    messageEl.addEventListener('input', function () {
+      charCountEl.textContent = String(messageEl.value.length);
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var dict = currentDict();
+      var message = messageEl.value.trim();
+      statusEl.className = 'ct-status';
+      statusEl.textContent = '';
+
+      if (!message) {
+        statusEl.classList.add('ct-status-err');
+        statusEl.textContent = dict.contact_error_required;
+        return;
+      }
+      if (message.length > 2000) {
+        statusEl.classList.add('ct-status-err');
+        statusEl.textContent = dict.contact_error_toolong;
+        return;
+      }
+
+      var payload = {
+        name: document.getElementById('ctName').value.trim(),
+        contact: document.getElementById('ctContact').value.trim(),
+        message: message,
+        hp: document.getElementById('ctWebsite').value,
+      };
+
+      submitBtn.disabled = true;
+      statusEl.classList.remove('ct-status-err', 'ct-status-ok');
+      statusEl.textContent = dict.contact_sending;
+
+      fetch('/api/message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+        .then(function (res) {
+          return res.json().then(function (body) { return { ok: res.ok, status: res.status, body: body }; });
+        })
+        .then(function (result) {
+          if (result.ok && result.body && result.body.ok) {
+            statusEl.classList.add('ct-status-ok');
+            statusEl.textContent = dict.contact_success;
+            form.reset();
+            charCountEl.textContent = '0';
+          } else if (result.status === 429) {
+            statusEl.classList.add('ct-status-err');
+            statusEl.textContent = dict.contact_error_ratelimited;
+          } else {
+            statusEl.classList.add('ct-status-err');
+            statusEl.textContent = dict.contact_error;
+          }
+        })
+        .catch(function () {
+          statusEl.classList.add('ct-status-err');
+          statusEl.textContent = dict.contact_error;
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+        });
+    });
+  });
+</script>
+</body>
+</html>

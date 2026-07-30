@@ -1,0 +1,324 @@
+<!--
+  PJ50_personal_website — 从0到实现 HTML Help
+  基于 AI00_Common/_templates/mobile_help_template.html 标准模板改造
+  内容来源：PJ50 CLAUDE.md / REQUIREMENTS.md / DESIGN.md / OVERVIEW.md / git log（真实记录，非编造）
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PJ50 个人网站 — 从0到实现</title>
+<style>
+  :root{
+    --bg:#0f1115; --card:#171a21; --text:#e8e8ea; --sub:#9aa0ac;
+    --accent:#5b8cff; --border:#2a2f3a; --code:#1d2129;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f5f6f8; --card:#ffffff; --text:#1c1f26; --sub:#5b6270; --accent:#2a5fd9; --border:#e1e4ea; --code:#eef0f4; }
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; line-height:1.7;}
+
+  #topbar{
+    position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:10px;
+    background:var(--card); border-bottom:1px solid var(--border); padding:10px 14px;
+  }
+  #topbar h1{font-size:1rem; margin:0; flex:none; cursor:default;}
+  #menuBtn{
+    display:none; background:none; border:1px solid var(--border); border-radius:8px;
+    color:var(--text); font-size:1.2rem; width:40px; height:40px; cursor:pointer;
+  }
+  #sb{padding:6px 12px;border-radius:20px;border:1px solid var(--border);font-size:14px;flex:1;max-width:260px;background:var(--code);color:var(--text)}
+  #sb::placeholder{color:var(--sub)}
+  #sb:focus{outline:none;border-color:var(--accent)}
+
+  #layout{display:flex; height:calc(100vh - 61px);}
+  nav#menu{
+    width:240px; flex:none; background:var(--card); border-right:1px solid var(--border);
+    padding:14px 10px; overflow-y:auto;
+  }
+  nav#menu a{
+    display:block; padding:10px 12px; margin:2px 0; border-radius:8px; color:var(--sub);
+    text-decoration:none; font-size:0.92rem; min-height:44px; line-height:24px;
+  }
+  nav#menu a:hover{background:var(--code); color:var(--text);}
+  nav#menu a.active{background:var(--accent); color:#fff;}
+
+  main#content{flex:1; padding:22px 26px; max-width:860px; overflow-y:auto;}
+  .page{display:none;}
+  .page.active{display:block;}
+  .page h2{margin-top:0; color:var(--accent);}
+  .page h3{color:var(--text); margin-top:24px;}
+  .page pre{background:var(--code); border:1px solid var(--border); border-radius:10px; padding:14px; overflow-x:auto;}
+  .page code{background:var(--code); border:1px solid var(--border); border-radius:5px; padding:1px 6px; font-family:Consolas,monospace;}
+  .page table{width:100%; border-collapse:collapse; margin:10px 0;}
+  .page th,.page td{border:1px solid var(--border); padding:7px 10px; text-align:left;}
+  .page th{background:var(--code); color:var(--accent);}
+  .tag{display:inline-block; font-size:0.78rem; padding:2px 8px; border-radius:10px; margin-left:6px; vertical-align:middle;}
+  .tag-real{background:#1e4620; color:#8fe090;}
+  .tag-placeholder{background:#4a3418; color:#f0c070;}
+  .milestone{border-left:3px solid var(--accent); padding:6px 0 6px 14px; margin:14px 0;}
+  .milestone .date{color:var(--sub); font-size:0.85rem;}
+
+  .term-audio{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:28px; height:28px; margin-left:6px; border-radius:50%;
+    border:1px solid var(--border); background:var(--code); color:var(--accent);
+    cursor:pointer; font-size:0.95rem; vertical-align:middle;
+  }
+  .term-audio:hover{background:var(--accent); color:#fff;}
+  .term-audio:active{transform:scale(0.92);}
+
+  @media (max-width:768px){
+    #menuBtn{display:block;}
+    nav#menu{
+      position:fixed; top:61px; left:0; bottom:0; width:78vw; max-width:300px;
+      transform:translateX(-100%); transition:transform .2s ease; z-index:40;
+      box-shadow:2px 0 12px rgba(0,0,0,.3);
+    }
+    nav#menu.open{transform:translateX(0);}
+    #overlay{
+      display:none; position:fixed; inset:61px 0 0 0; background:rgba(0,0,0,.4); z-index:30;
+    }
+    #overlay.open{display:block;}
+    main#content{padding:16px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <button id="menuBtn" onclick="toggleMenu()">☰</button>
+  <h1>PJ50 — 从0到实现</h1>
+  <input id="sb" type="search" placeholder="搜索..." oninput="doSearch(this.value)" autocomplete="off">
+</div>
+
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<div id="layout">
+  <nav id="menu">
+    <a href="#" data-target="p1" onclick="showPage('p1');return false">① 项目是什么</a>
+    <a href="#" data-target="p2" onclick="showPage('p2');return false">② 从0开始：最初的需求</a>
+    <a href="#" data-target="p3" onclick="showPage('p3');return false">③ 技术方案与取舍</a>
+    <a href="#" data-target="p4" onclick="showPage('p4');return false">④ 实现历程（时间线）</a>
+    <a href="#" data-target="p5" onclick="showPage('p5');return false">⑤ 文件结构</a>
+    <a href="#" data-target="p6" onclick="showPage('p6');return false">⑥ 部署流程</a>
+    <a href="#" data-target="p7" onclick="showPage('p7');return false">⑦ 关键设计决策</a>
+    <a href="#" data-target="p8" onclick="showPage('p8');return false">⑧ 已知限制</a>
+    <a href="#" data-target="p9" onclick="showPage('p9');return false">⑨ 术语表</a>
+  </nav>
+
+  <main id="content">
+
+    <div class="page active" id="p1">
+      <h2>① 项目是什么</h2>
+      <p><b>PJ50_personal_website</b>（原 PJ44）是 Jason / maySunAI 的个人品牌网站，域名 <code>maysuns.uk</code>。</p>
+      <p>用一句话概括定位的演变：</p>
+      <p><b>2026-07-08 立项时</b> → 面向「找工作 + 吸引投资 + 加关注引流」三类受众的单页简历型网站。<br>
+      <b>2026-07-18 第一次大改版</b> → 从单文件单页站改造成多页静态站，定位从「求职简历」转向「产品门户 + 投资人/合作伙伴门面」。<br>
+      <b>2026-07-19 第二次改版</b> → 从「产品卡片堆砌」改成「讲故事型展示」（菜单分层 + Featured Story + 信任指标）。</p>
+      <p>当前站点包含：首页、About、Portfolio、10+个产品详情页、3个AI知识库页面（含15篇真实技术文章）、动态/更新日志、未来展望等约20+个HTML页面，纯 HTML+CSS+少量内联JS 实现，无框架、无构建步骤。</p>
+    </div>
+
+    <div class="page" id="p2">
+      <h2>② 从0开始：最初的需求</h2>
+      <p>项目起点是用户 2026-07-08 的原话（逐字保留）：</p>
+      <pre>"maysuns.uk 是根目录，需要你更新内容。你全权处理。多个目的，
+a.找工作， b，吸引投资，c。加关注，引流 等等，是不是一个目的一个文件夹？"</pre>
+      <p>用户给予「全权处理」授权，可做实际内容/结构决策，无需逐条确认；但约定了两条边界：<b>不得部署上线</b>（部署步骤留给用户）、<b>不得改动任何支付/API Key/密钥相关配置</b>。</p>
+      <h3>第一个关键决策：要不要"一个目的一个文件夹"？</h3>
+      <p><b>结论：不采用。</b>改为「单一个人品牌叙事 + 每个受众独立锚点区块」的结构。</p>
+      <p>理由：个人网站的核心资产是"这个人是否可信、是否讲得清楚一个连贯的故事"。如果把找工作/投资/引流拆成三个完全独立的页面，容易变成三套互相矛盾或重复的自我介绍，反而稀释可信度。但三类受众确实需要不同的"第一屏信息"和不同的行动号召——所以折中方案是：共享同一套背景故事（25年SE + 2023年起AI自学历程），再为三类受众各设一个独立区块（招聘方/投资人/关注者），首屏下方放快捷入口让访客一眼跳到自己关心的区块。</p>
+      <p>这个"共享身份 + 分受众区块"的思路，后来在多次改版中始终延续（例如首页仍保留 Featured Story，产品详情页各自独立但共享导航和视觉系统）。</p>
+    </div>
+
+    <div class="page" id="p3">
+      <h2>③ 技术方案与取舍</h2>
+      <table>
+        <tr><th>方面</th><th>选择</th><th>为什么</th></tr>
+        <tr><td>框架</td><td>无（纯 HTML + CSS + 少量内联JS）</td><td>个人网站，页面数量有限，用框架增加构建步骤和维护成本，收益不明显</td></tr>
+        <tr><td>多语言</td><td>不用 i18n 库，自建 <code>data-i18n</code> 属性 + <code>assets/i18n.js</code> 字典对象</td><td>延续"单文件/零外部依赖"路线，避免引入构建步骤</td></tr>
+        <tr><td>Markdown渲染（知识库页）</td><td>手写几十行小函数，不引入 <code>marked.js</code> 等CDN库</td><td>全站"零外部依赖"约定——CDN被墙或挂了会导致功能整体失效；知识库文档语法简单，手写渲染器完全够用</td></tr>
+        <tr><td>托管</td><td>Vultr 服务器 + nginx（2026-07-19从GitHub Pages迁移）</td><td>跟其他 maysuns.uk 子站（shop/games/reader）同台，统一管理</td></tr>
+        <tr><td>DNS</td><td>Cloudflare</td><td>域名 <code>maysuns.uk</code> 绑定，A记录直接指向服务器IP</td></tr>
+        <tr><td>HTTPS</td><td>Let's Encrypt（certbot自动续期）</td><td>免费、自动化程度高</td></tr>
+      </table>
+      <p>GitHub仓库（<code>github.com/maysunAI/maysuns.uk</code>）仍保留作为版本历史/备份，但不再是实际托管源——每次改动都是"本地改 → git commit/push（存历史）→ scp上传到Vultr（真正生效）"两步分开的流程。</p>
+    </div>
+
+    <div class="page" id="p4">
+      <h2>④ 实现历程（时间线）</h2>
+      <p>以下按真实 git 提交历史 + OVERVIEW.md 记录整理，是这个项目从0到当前状态的关键节点：</p>
+
+      <div class="milestone"><span class="date">2026-06-13</span><br><b>立项</b> — 单文件单页站上线（91d6a90），dark/light主题切换 + 产品展示，托管在 GitHub Pages。</div>
+
+      <div class="milestone"><span class="date">2026-07-08</span><br><b>三受众改版</b> — 按②章节的决策，加入 Recruiters / Investors / Follow 三个锚点区块；联系邮箱统一。</div>
+
+      <div class="milestone"><span class="date">2026-07-18</span><br><b>多页化改版</b>（cad3cd7）— About + 10个产品详情页独立拆分成单独HTML文件，全站三语言（日/英/中）+ 主题切换全部同步。同一天完成三语言切换机制的实现（<code>data-i18n</code> + <code>translations</code>字典 + <code>detectDefaultLang()</code>按 <code>localStorage</code>/浏览器语言自动判定）。</div>
+
+      <div class="milestone"><span class="date">2026-07-19</span><br><b>迁移 + 讲故事型首页</b> — 从 GitHub Pages 迁移到 Vultr 服务器（167.179.106.32），Let's Encrypt证书配置完成；首页从"产品卡片堆砌"改成"讲故事型展示"；index-f候选草案定稿转正为正式 index.html，8项导航菜单（含3个下拉）全站统一。</div>
+
+      <div class="milestone"><span class="date">2026-07-20</span><br><b>知识库内容扩充 + 多轮修复</b> — 三个知识库页面从占位/短介绍扩充为15篇真实技术文章（T00知识库5篇、AI技术知识库5篇、通用知识库5篇），每篇HTML卡片配一份独立.md完整指南；同一天修复了导航下拉"要点两次"的CSS坑（见⑦ D001）、sticky导航失效的坑（见⑦ D008）、以及"改了没生效"的浏览器缓存坑（见⑦章节缓存版本号说明）。</div>
+
+      <div class="milestone"><span class="date">2026-07-21</span><br><b>本文档创建</b> — 首页新增本地知识库入口、AI客服页面接入（<code>ask-ai.html</code>，嵌入PJ02问答助手）、手机端导航bug修复。当前状态：内容重写完成，等待补充社媒账号链接与简历数字。</div>
+
+      <p>全部改动均在本地 <code>F:\T00\PJ50_personal_website</code> 完成 → <code>git commit/push</code>存历史 → <code>scp</code>部署到Vultr服务器 → 用 curl/Playwright 在真实域名上验证线上生效，这个"三步走"流程贯穿整个实现过程。</p>
+    </div>
+
+    <div class="page" id="p5">
+      <h2>⑤ 文件结构</h2>
+      <pre>PJ50_personal_website/
+  index.html                    ← 首页（产品作品集总览+导航）
+  about.html                    ← 关于我（履历+T00框架+投资人区块）
+  portfolio.html                ← AI Agent与自动化方向作品集
+  ask-ai.html                   ← AI客服问答（嵌入PJ02）
+  product-*.html                ← 11个产品各自独立详情页
+  products-general.html         ← 一般工具集汇总页
+  knowledge-t00.html            ← T00知识库（6篇文章）
+  knowledge-rag.html            ← AI技术知识库（RAG/LangChain/MCP等）
+  knowledge-general.html        ← 通用知识库（Git/Vue/Node/Python等）
+  kb-doc-viewer.html            ← 知识库.md文件查看器（自写MD渲染器）
+  kb-docs/                      ← 15+篇.md完整版技术指南（英文）
+  stories.html                  ← 故事专栏（占位）
+  updates-news.html / updates-changelog.html  ← AI行业动态 / 更新日志
+  whats-next.html               ← 未来展望
+  assets/
+    site.css                    ← 全站共享样式
+    i18n.js                     ← 全站共享三语翻译字典（ja/en/zh）
+    main.js                     ← 语言切换+主题切换共享逻辑
+  help_screenshots/             ← Playwright验证截图（不散落到T00根目录）
+  CLAUDE.md / REQUIREMENTS.md / DESIGN.md / OVERVIEW.md / FUTURE_FEATURES.md
+  CNAME                         ← 历史遗留（GitHub Pages时代用，服务器版本已不需要）</pre>
+      <p>语言切换按钮顺序固定为：日本語 / EN / 中文（默认语言由 <code>localStorage</code> 或浏览器语言判定，不固定为中文）。</p>
+    </div>
+
+    <div class="page" id="p6">
+      <h2>⑥ 部署流程</h2>
+      <p>纯静态文件站点，部署是"本地改 → 存历史 → 上传生效"三步，没有构建/编译环节：</p>
+      <pre>1. 本地改完文件
+2. git add / commit / push（github.com/maysunAI/maysuns.uk，保留版本历史）
+3. scp -i ~/.ssh/pj23_vultr_deploy -r &lt;改动的文件&gt; \
+     root@167.179.106.32:/var/www/pj50-website/
+4. 纯静态文件，nginx直接生效，不需要重启/重新构建任何东西</pre>
+      <p><b>nginx配置</b>：<code>/etc/nginx/sites-enabled/maysuns.uk</code><br>
+      <b>证书</b>：Let's Encrypt（certbot管理，自动续期，到期日2026-10-17）</p>
+      <h3>缓存版本号（cache busting）</h3>
+      <p>共享资源（<code>site.css</code>/<code>i18n.js</code>/<code>main.js</code>）的引用都带版本号参数，例如 <code>assets/i18n.js?v=20260731b</code>。每次真正改了这几个共享文件并重新部署时，把版本号改掉（通常用部署日期），浏览器会当成新地址重新下载，不再用旧缓存。这是2026-07-20修的一个真实bug："语言切不回来/页面显示老内容"排查后发现不是代码逻辑问题，是浏览器缓存了旧版 <code>i18n.js</code>。</p>
+      <h3>本地预览规则</h3>
+      <p>每次改完东西重新起本地预览服务器（<code>python -m http.server</code>）都要换一个新端口，避免浏览器缓存旧端口内容导致"确认的总是旧版本"。</p>
+      <h3>验证方式</h3>
+      <p>部署后用 <code>curl</code> 确认线上文件已更新 + 用 Playwright 直接打开真实域名截图核对内容，不能只在本地验证就算完成——2026-07-20曾发生过"本地改完但从未部署，用户看到的一直是老版本"的真实事故。</p>
+    </div>
+
+    <div class="page" id="p7">
+      <h2>⑦ 关键设计决策（踩过的坑）</h2>
+      <p>以下摘自项目 <code>DESIGN.md</code>，只记录"为什么这么设计"，不是操作步骤：</p>
+
+      <h3>导航下拉菜单"要点两次"的bug</h3>
+      <p><b>问题</b>：下拉菜单跟触发文字之间留白（<code>margin-top:12px</code>），鼠标从文字移到菜单要穿过一段"真空地带"，穿过时 <code>:hover</code> 状态先丢失，菜单消失。<br>
+      <b>解法</b>：改成零间距（<code>margin-top:0</code>），菜单卡片直接贴着导航文字下方，不依赖JS的标准解法。</p>
+
+      <h3>sticky导航栏不生效</h3>
+      <p><b>问题</b>：顶部导航栏没有一直固定在页面顶部。<br>
+      <b>根因</b>：<code>position:sticky</code>会被祖先元素上非<code>visible</code>的<code>overflow</code>值破坏——这是个常被忽略的CSS坑，sticky失效往往不是sticky本身的问题。<code>html</code>/<code>body</code>上原来有 <code>overflow-x:hidden</code>（为了防止内容撑破横向宽度加的），正是它破坏了sticky。<br>
+      <b>解法</b>：删除 <code>html</code>/<code>body</code>上的<code>overflow-x:hidden</code>，只保留 <code>max-width:100%</code>；需要横向滚动的内容（如代码块）改成组件级自带 <code>overflow-x:auto</code>。</p>
+
+      <h3>两个"看起来相似"的导航项，不能套用同一改法</h3>
+      <p>Game Hall 和 Maysun Shop 一开始被同等对待，都想直接跳转到产品本身（不经过站内介绍页）。后来发现 Shop 以后会有多个销售渠道（Web商店/KDP/Google Play/Apple Store），不应该绑死跳到单一渠道，改回站内汇总页；Game Hall 只有一个真实产品，维持直跳。<b>教训</b>：看起来相似的两个功能点，实际情况不同时不能默认套用同一个改法。</p>
+
+      <h3>查询参数命名坑：不能用 <code>?url=</code></h3>
+      <p>给知识库文档查看器设计"通过链接参数加载远程md文件"功能时，参数名一度想叫 <code>url</code>，但 Vite 开发服务器把 <code>?url=</code>当成自己内部"资源当URL导入"的保留写法，导致页面403打不开。改用 <code>?src=</code>后正常——这也是为什么最终这个功能落地在 PJ26 而不是 PJ25（PJ25为了应用商店审核策略保持"无网络请求"，加载远程内容的功能不适合放在PJ25）。</p>
+    </div>
+
+    <div class="page" id="p8">
+      <h2>⑧ 已知限制</h2>
+      <ul>
+        <li>AI行业动态板块（<code>updates-news.html</code>）目前是<b>诚实占位</b><span class="tag tag-placeholder">占位</span>——依赖的PJ09新闻搜索工具仍是手动触发、未部署公网，没有可展示的真实内容源，未编造新闻标题填充。</li>
+        <li>Line群/微信群订阅入口是<b>明确占位</b><span class="tag tag-placeholder">占位</span>（<code>href="#"</code>+"准备中"标签），邮件订阅是<b>真实可用</b><span class="tag tag-real">真实</span>（<code>mailto:</code>表单）。</li>
+        <li>故事专栏（<code>stories.html</code>）只有1张占位卡片<span class="tag tag-placeholder">占位</span>，未编造具体故事细节。</li>
+        <li>知识库15篇.md完整版指南目前只有英文一个语言版本（HTML卡片本身仍是三语），未做三语.md。</li>
+        <li>X（Twitter）/Facebook 真实链接尚未提供，Follow区块相关入口仍是占位符。</li>
+        <li>简历文件未直接嵌入网站，For Recruiters区块采用"发邮件索要简历"而非直接下载链接（简历草稿当时仍在核对中）。</li>
+      </ul>
+      <p>📎 完整/持续更新的限制清单见 <code>F:\T00\PJ50_personal_website\OVERVIEW.md</code> 与 <code>FUTURE_FEATURES.md</code>。</p>
+    </div>
+
+    <div class="page" id="p9">
+      <h2>⑨ 术语表</h2>
+      <p>
+        <b>i18n</b>（Internationalization 的缩写）<button class="term-audio" onclick="speak('internationalization')">🔊</button><br>
+        国际化/多语言支持。PJ50用 <code>data-i18n</code> 属性标记文本节点，配合 <code>assets/i18n.js</code> 里的三语字典对象实现切换，不引入外部i18n框架。
+      </p>
+      <p>
+        <b>CDN</b>（Content Delivery Network）<button class="term-audio" onclick="speak('content delivery network')">🔊</button><br>
+        内容分发网络。PJ50故意不依赖任何CDN库（如marked.js），保持"纯本地文件、零外部网络依赖"，避免CDN被墙或宕机导致页面功能失效。
+      </p>
+      <p>
+        <b>sticky positioning</b><button class="term-audio" onclick="speak('sticky positioning')">🔊</button><br>
+        CSS定位方式，元素滚动到指定位置后固定，常用于顶部导航栏。PJ50踩过的坑：祖先元素的<code>overflow</code>设置会让sticky失效。
+      </p>
+      <p>
+        <b>cache busting</b><button class="term-audio" onclick="speak('cache busting')">🔊</button><br>
+        缓存清除技巧。给共享资源URL加版本号参数（如<code>?v=20260720c</code>），改动后修改版本号，强制浏览器重新下载而不是用旧缓存。
+      </p>
+      <p>
+        <b>DNS</b>（Domain Name System）<button class="term-audio" onclick="speak('domain name system')">🔊</button><br>
+        域名系统，把 <code>maysuns.uk</code> 这样的域名解析成服务器IP。PJ50用Cloudflare管理DNS，A记录直接指向Vultr服务器IP。
+      </p>
+      <p>
+        <b>nginx</b><button class="term-audio" onclick="speak('engine x')">🔊</button><br>
+        Web服务器软件，负责把域名请求映射到服务器上的静态文件目录并返回。PJ50的nginx配置在 <code>/etc/nginx/sites-enabled/maysuns.uk</code>。
+      </p>
+      <p>
+        <b>Let's Encrypt</b><button class="term-audio" onclick="speak(\"Let's Encrypt\")">🔊</button><br>
+        免费的HTTPS证书颁发机构，配合certbot工具自动续期。PJ50用它给maysuns.uk启用HTTPS。
+      </p>
+      <p>
+        <b>anchor section</b>（锚点区块）<button class="term-audio" onclick="speak('anchor section')">🔊</button><br>
+        页面内可以通过URL片段（如 <code>#investors</code>）直接跳转到的区块。PJ50最初的"三受众"设计用锚点区块区分招聘方/投资人/关注者，而不是拆成独立页面。
+      </p>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#menu a').forEach(a=>a.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelector('#menu a[data-target="'+id+'"]').classList.add('active');
+  document.getElementById('menu').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('content').scrollTop=0;
+}
+function toggleMenu(){
+  document.getElementById('menu').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+function doSearch(q){
+  q = (q || '').trim().toLowerCase();
+  const links = document.querySelectorAll('#menu a[data-target]');
+  if(!q){ links.forEach(a=>a.style.display=''); return; }
+  let firstMatch = null;
+  links.forEach(a=>{
+    const id = a.getAttribute('data-target');
+    const page = document.getElementById(id);
+    const hit = page && page.innerText.toLowerCase().includes(q);
+    a.style.display = hit ? '' : 'none';
+    if(hit && !firstMatch) firstMatch = id;
+  });
+  if(firstMatch) showPage(firstMatch);
+}
+function speak(text, lang){
+  if(!('speechSynthesis' in window)){ alert('此浏览器不支持语音朗读'); return; }
+  window.speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = lang || 'en-US';
+  u.rate = 0.9;
+  window.speechSynthesis.speak(u);
+}
+</script>
+</body>
+</html>

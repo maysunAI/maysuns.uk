@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="kag_page_title">AI Glossary &amp; Knowledge Base — maySunAI</title>
+  <meta id="metaDescription" name="description" data-i18n-desc="kag_meta_description" content="A trilingual, from-zero-to-real-understanding glossary of AI concepts — LLMs, agents, RAG, MCP and more — with pronunciation." />
+  <meta property="og:title" content="AI Glossary &amp; Knowledge Base — maySunAI" />
+  <meta property="og:description" content="From-zero-to-real-understanding AI concepts glossary, in English / 日本語 / 中文, with pronunciation." />
+  <meta property="og:url" content="https://maysuns.uk/knowledge-ai-glossary.html" />
+  <link rel="canonical" href="https://maysuns.uk/knowledge-ai-glossary.html" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="assets/site.css?v=20260731a" />
+  <style>
+    /* ===== Glossary-specific layout. Namespaced with "gk-" / "gk" prefixes so
+       nothing here collides with the site nav's own classes/ids/functions
+       (nav-hamburger, navRight, toggleMobileNav, etc. — see assets/main.js). ===== */
+    .gk-hero { padding: 40px clamp(20px, 6vw, 100px) 6px; max-width: min(1200px, 94vw); margin: 0 auto; }
+    .gk-hero h1 { font-size: clamp(1.35em, 3vw, 1.8em); font-weight: 800; margin-bottom: 8px; }
+    .gk-hero p.sub { color: var(--muted); font-size: 0.98em; margin-bottom: 10px; }
+    .gk-credit { font-size: 0.86em; color: var(--muted); }
+    .gk-credit a { color: var(--accent); font-weight: 600; }
+
+    /* Glossary's own toolbar: search box + its own "☰ Terms" button (mobile only).
+       Deliberately NOT named menuBtn/overlay/menu/content — the site nav already
+       owns nav-hamburger / navRight / navBackdrop / toggleMobileNav(), and the
+       R11 template's ids (menuBtn/overlay/menu/content) aren't loaded on this
+       page, but using different names anyway keeps this page safe to ever merge
+       with template-based content later. */
+    .gk-toolbar {
+      display: flex; align-items: center; gap: 10px; max-width: min(1200px, 94vw);
+      margin: 0 auto; padding: 4px clamp(20px, 6vw, 100px) 14px;
+    }
+    #gkSearchBox {
+      flex: 1; max-width: 320px; padding: 8px 14px; border-radius: 20px;
+      border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 0.92em;
+    }
+    #gkSearchBox:focus { outline: none; border-color: var(--accent); }
+    #gkMenuBtn {
+      display: none; background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); font-size: 0.9em; padding: 8px 14px; cursor: pointer; white-space: nowrap;
+    }
+
+    /* Two-column docs-site layout: term menu (left) + term detail (right). */
+    .gk-layout {
+      display: flex; gap: 0; max-width: min(1200px, 94vw); margin: 0 auto 60px;
+      border-top: 1px solid var(--border);
+    }
+    /* IMPORTANT: site.css has a generic `nav { display: flex; ... }` rule that
+       targets every <nav> tag on the page, including this one (#gkMenu is a
+       <nav> so its own term links stay in a semantic list landmark). Without
+       an explicit `display: block` here, that flex rule wins (id selector
+       beats tag selector, but only for properties this rule doesn't set) and
+       the term links render as a horizontal row instead of a vertical list. */
+    #gkMenu {
+      display: block; width: 250px; flex: none; padding: 18px 14px 40px 0; border-right: 1px solid var(--border);
+      max-height: calc(100vh - 90px); overflow-y: auto; position: sticky; top: 76px; align-self: flex-start;
+    }
+    .gk-group-label {
+      font-size: 0.86em; font-weight: 800; letter-spacing: 0.02em;
+      color: var(--accent); margin: 20px 0 8px; padding: 6px 10px 6px 8px;
+      display: flex; align-items: center; gap: 6px;
+      border-top: 1px solid var(--border);
+    }
+    .gk-group-label::before { content: '📂'; font-size: 0.95em; }
+    .gk-group-label:first-child { margin-top: 4px; border-top: none; }
+    #gkMenu a {
+      display: block; padding: 8px 10px; margin: 1px 0; border-radius: 8px; color: var(--muted);
+      text-decoration: none; font-size: 0.9em; min-height: 30px; line-height: 20px;
+    }
+    #gkMenu a:hover { background: var(--bg2); color: var(--text); }
+    #gkMenu a.active { background: var(--accent); color: #fff; }
+
+    #gkContent { flex: 1; min-width: 0; padding: 24px clamp(18px, 4vw, 48px) 60px; }
+    .gk-term { display: none; }
+    .gk-term.active { display: block; max-width: 720px; }
+    .gk-term h2 { font-size: 1.35em; margin: 0 0 4px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .term-audio {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--card); color: var(--accent);
+      cursor: pointer; font-size: 1em; flex: none;
+    }
+    .term-audio:hover { background: var(--accent); color: #fff; }
+    .term-audio:active { transform: scale(0.92); }
+    .term-audio[aria-pressed="true"] { background: var(--accent); color: #fff; }
+    .gk-layer-tag {
+      display: inline-block; font-size: 0.72em; color: var(--muted); border: 1px solid var(--border);
+      border-radius: 12px; padding: 2px 10px; margin-bottom: 16px;
+    }
+    .gk-block { margin-bottom: 18px; }
+    .gk-block h3 {
+      font-size: 0.78em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--accent); margin: 0 0 6px;
+    }
+    .gk-block p { font-size: 0.96em; line-height: 1.7; color: var(--text); margin: 0; }
+    .gk-t00 {
+      margin-top: 22px; padding: 12px 16px; background: var(--card); border: 1px solid var(--border);
+      border-left: 3px solid var(--accent); border-radius: 8px; font-size: 0.88em; color: var(--muted);
+    }
+    .gk-t00 strong { color: var(--text); }
+    .gk-t00 a { font-weight: 600; }
+    .gk-seealso { margin-top: 10px; font-size: 0.85em; color: var(--muted); }
+    .gk-seealso a { font-weight: 600; }
+    .gk-nomatch { color: var(--muted); font-size: 0.92em; padding: 20px 0; }
+
+    /* Mobile: sidebar collapses into its own slide-out drawer, independent of
+       the site nav's hamburger drawer. Breakpoint (860px) is intentionally
+       different from the site nav's own 640px breakpoint in site.css — these
+       are two unrelated components and don't need to collapse at the same
+       width. z-index kept below the site <nav> (z-index:100 in site.css) and
+       its mobile drawer (.nav-right z-index:150) so if a visitor somehow has
+       both open, the site nav always wins and nothing steals taps from it. */
+    @media (max-width: 860px) {
+      #gkMenuBtn { display: inline-flex; align-items: center; justify-content: center; }
+      .gk-layout { flex-direction: column; border-top: none; }
+      #gkMenu {
+        position: fixed; top: 0; left: 0; bottom: 0; width: min(80vw, 300px);
+        background: var(--bg2); border-right: 1px solid var(--border);
+        transform: translateX(-100%); transition: transform 0.22s ease;
+        z-index: 60; padding: 70px 14px 30px; max-height: 100vh;
+        box-shadow: 4px 0 18px rgba(0,0,0,0.3);
+      }
+      #gkMenu.gk-open { transform: translateX(0); }
+      #gkOverlay {
+        display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.42); z-index: 55;
+      }
+      #gkOverlay.gk-open { display: block; }
+      #gkContent { padding: 18px 16px 50px; }
+      .gk-toolbar { padding-left: 16px; padding-right: 16px; }
+      #gkSearchBox { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo" style="text-decoration:none;">☀️ maySunAI</a>
+  <div class="nav-utility">
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="en" onclick="gkOnLangClick('en')">EN</button>
+      <button class="lang-btn" data-lang="ja" onclick="gkOnLangClick('ja')">日本語</button>
+      <button class="lang-btn" data-lang="zh" onclick="gkOnLangClick('zh')">中文</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </div>
+  <button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">☰</button>
+  <div class="nav-right" id="navRight">
+    <div class="nav-links">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label nav-current" data-i18n="nav_aiknowledge_label">AI Knowledge ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="knowledge-t00.html"><span data-i18n="nav_aiknowledge_t00">T00 Knowledge Base</span><small data-i18n="nav_aiknowledge_t00_sub">How I work with AI, day to day</small></a>
+          <a href="knowledge-rag.html"><span data-i18n="nav_aiknowledge_rag">RAG Knowledge Base</span><small data-i18n="nav_aiknowledge_rag_sub">What RAG is, with a real example</small></a>
+          <a href="knowledge-general.html"><span data-i18n="nav_aiknowledge_general">General Knowledge Base</span><small data-i18n="nav_aiknowledge_general_sub">Git, Vue, Node, Python, Flask basics</small></a>
+          <a href="knowledge-ai-glossary.html" class="nav-current"><span data-i18n="nav_aiknowledge_glossary">AI Concepts Glossary</span><small data-i18n="nav_aiknowledge_glossary_sub">30 AI terms, EN/JA/ZH, with pronunciation</small></a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_updates_label">AI Updates ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="updates-news.html" data-i18n="nav_updates_news">AI Industry News</a>
+          <a href="updates-changelog.html" data-i18n="nav_updates_changelog">My Updates</a>
+        </div>
+      </div>
+      <div class="nav-dropdown" tabindex="0">
+        <span class="nav-dropdown-label" data-i18n="nav_aiproducts_label">AI Products ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="portfolio.html#ai-tools" data-i18n="nav_aiproducts_tools">AI Tools</a>
+          <a href="products-general.html" data-i18n="nav_aiproducts_general">General Tools</a>
+        </div>
+      </div>
+      <a href="https://games.maysuns.uk" target="_blank" rel="noopener" data-i18n="nav_games">Relax</a>
+      <a href="ask-ai.html" data-i18n="nav_askai" style="color:var(--accent);font-weight:700;">✨ Ask AI</a>
+      <a href="about.html" data-i18n="nav_aboutme_us">About Us</a>
+    </div>
+  </div>
+</nav>
+<div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
+
+<div class="gk-hero">
+  <h1 data-i18n="kag_h1">AI Concepts Glossary &amp; Knowledge Base</h1>
+  <p class="sub" data-i18n="kag_sub">30 AI terms across 5 layers — foundations, dev tooling, agents, retrieval, and end applications — each explained from zero to real understanding, not just a one-line definition.</p>
+  <p class="gk-credit"><span data-i18n="kag_credit_prefix">Made by</span> <a href="https://maysuns.uk/" target="_blank" rel="noopener">maySunAI — maysuns.uk</a></p>
+</div>
+
+<div class="gk-toolbar">
+  <button id="gkMenuBtn" onclick="gkToggleMenu()">☰ <span id="gkMenuBtnLabel">Terms</span></button>
+  <input id="gkSearchBox" type="search" placeholder="Search terms..." oninput="gkSearch(this.value)" autocomplete="off">
+</div>
+
+<div id="gkOverlay" onclick="gkToggleMenu()"></div>
+
+<div class="gk-layout">
+  <nav id="gkMenu"></nav>
+  <main id="gkContent"></main>
+</div>
+
+<footer>
+  <p data-i18n="footer_line">© 2026 maySunAI</p>
+  <div class="footer-links">
+    <a href="contact.html" data-i18n="footer_contact">💬 Leave a message</a>
+    <a href="https://github.com/maysunai" target="_blank" rel="noopener" data-i18n="footer_github">🐙 GitHub</a>
+    <a href="https://maysuns.uk/" target="_blank" rel="noopener">maysuns.uk</a>
+  </div>
+</footer>
+
+<script src="assets/i18n.js?v=20260731b"></script>
+<script src="assets/main.js?v=20260727b"></script>
+<script>
+/* ===========================================================================
+   AI Glossary content + rendering.
+   Design note (judgment call, see tasks/T04 execution log for full reasoning):
+   the ~30 terms' trilingual mini-tutorial text is NOT stored in the shared
+   assets/i18n.js dictionary (unlike this page's nav/footer strings, which DO
+   live there like every other page). Reason: i18n.js is loaded on all ~28
+   site pages, and this page's content alone is on the order of 20,000+ words
+   across 3 languages — dumping that into the shared file would bloat every
+   other page's payload for no benefit. Instead this page keeps its own
+   content object (GK_TERMS below) and drives it off the same `currentLang`
+   global that assets/main.js already maintains, so language switching still
+   goes through the site's real setLanguage() function — this page just also
+   re-renders its term panel afterward via the gkOnLangClick() wrapper below.
+   =========================================================================== */
+
+var GK_UI = {
+  en: { what: "What it is", why: "Why it matters", example: "Example", confusion: "Common confusion", t00: "T00 example:", searchPh: "Search terms...", menuBtn: "Terms", seeAlso: "This term is also covered under" },
+  ja: { what: "それは何か", why: "なぜ重要か", example: "具体例", confusion: "よくある混同", t00: "T00での例：", searchPh: "用語を検索...", menuBtn: "用語一覧", seeAlso: "この用語はこちらのレイヤーでも解説しています：" },
+  zh: { what: "是什么", why: "为什么重要", example: "具体例子", confusion: "常见误区", t00: "T00 中的例子：", searchPh: "搜索术语...", menuBtn: "术语目录", seeAlso: "这个概念也在以下层级中出现：" }
+};
+
+var GK_LAYERS = [
+  { id: "l1", en: "Foundations", ja: "基礎レイヤー", zh: "基础层", terms: ["llm","prompt","context","token","model","embedding"] },
+  { id: "l2", en: "Dev & Tooling", ja: "開発ツールレイヤー", zh: "开发能力/工具层", terms: ["skills","mcp","tools","harness","memory","rules"] },
+  { id: "l3", en: "Agents", ja: "エージェントレイヤー", zh: "Agent层", terms: ["agent","planning","tooluse","workflow","multiagent"] },
+  { id: "l4", en: "Knowledge & Retrieval", ja: "知識・検索レイヤー", zh: "知识与应用层", terms: ["rag","embedding","vectordb","localkb","docsearch","langchain","langgraph","agenticrag"] },
+  { id: "l5", en: "End Applications", ja: "最終応用レイヤー", zh: "最终应用", terms: ["aiassistant","codingagent","researchagent","csagent","automation","personalai","enterpriseai"] }
+];
+
+var GK_TERMS = {
+  llm: {
+    en: { name: "Large Language Model (LLM)", what: "A large language model is a neural network trained on huge amounts of text to predict the next piece of text (a 'token') given what came before. Through this simple training goal at massive scale, it learns grammar, facts, reasoning patterns, and style well enough to hold conversations, write code, and answer questions.", why: "It's the engine behind almost every modern AI assistant — Claude, GPT, Gemini and others are all LLMs. Understanding 'it's just predicting the next token, very well' demystifies both its strengths (fluent, broad knowledge) and its weaknesses (it can sound confident while being wrong).", example: "When you type 'The capital of France is' into an LLM, it doesn't look up a fact in a database — it predicts that 'Paris' is overwhelmingly the most likely next token based on patterns learned during training.", confusion: "People often confuse the LLM itself with the AI Assistant product built around it — Claude the product is an LLM plus a system prompt, tools, and a user interface wrapped around it. The LLM alone is just the trained model weights." },
+    ja: { name: "大規模言語モデル（LLM）", what: "大規模言語モデル（LLM）は、大量のテキストで学習させたニューラルネットワークで、それまでの文脈をもとに次に来る単位（トークン）を予測するように訓練されています。この単純な学習目標を非常に大きな規模で行うことで、文法・知識・推論パターン・文体までも自然に身につけ、会話やコード生成、質問への回答ができるようになります。", why: "現在のAIアシスタント（Claude、GPT、Geminiなど）のほとんどはこのLLMを土台にしています。「次のトークンを予測しているだけ」という仕組みを理解しておくと、その強み（流暢さ・幅広い知識）と弱み（自信満々に間違えることがある）の両方が納得できます。", example: "「フランスの首都は」とLLMに入力すると、モデルはデータベースを検索しているわけではなく、学習データから「パリ」が次に来る確率が圧倒的に高いと予測しているだけです。", confusion: "LLM自体と、それを土台にした「AIアシスタント」という製品（AI Assistant参照）を混同しがちです。製品としてのClaudeは、LLMにシステムプロンプト・ツール・ユーザーインターフェースが組み合わさったものであり、LLM単体はあくまで学習済みのモデル重みにすぎません。" },
+    zh: { name: "大语言模型（LLM）", what: "大语言模型（LLM）是一种用海量文本训练出来的神经网络，训练目标很简单：根据前文预测接下来最可能出现的一小段文字（称为“token”，词元）。就是靠这个简单的训练目标、加上极大的训练规模，模型间接学会了语法、知识、推理模式和文风，从而能对话、写代码、回答问题。", why: "它是几乎所有现代AI助手（Claude、GPT、Gemini等）背后的引擎。理解“它其实只是在很擅长地预测下一个词”这一点，能同时解释它的优点（流畅、知识面广）和缺点（有时会一本正经地说错）。", example: "当你输入“法国的首都是”，模型并不是在查数据库，而是根据训练时学到的模式，判断“巴黎”是接下来最可能出现的词。", confusion: "很多人会把LLM本身和围绕它搭建出来的“AI助手”产品（见AI Assistant）混为一谈。产品意义上的Claude，是LLM加上系统提示词、工具和用户界面组合而成的；LLM本身只是训练好的模型参数。" }
+  },
+  prompt: {
+    en: { name: "Prompt", what: "A prompt is the text you send to an LLM to get a response — a question, instruction, or piece of content to work from. It's the input the model sees at that moment, on top of any earlier conversation and system-level instructions.", why: "Because LLMs are so sensitive to phrasing, how you write a prompt has a huge effect on the quality of the answer — this is why 'prompt engineering' became its own practical skill.", example: "'Summarize this email in two sentences' is a prompt; changing it to 'Summarize this email in two sentences, written for a 10-year-old' changes the output significantly even though the underlying task is similar.", confusion: "A prompt is not the same as a System Prompt — a regular prompt is what the user types each turn, while a system prompt is a standing instruction set applied silently to every turn (see Rules / System Prompt)." },
+    ja: { name: "プロンプト", what: "プロンプトとは、応答を得るためにLLMへ送る文章のことです——質問や指示、作業のもとになる文章など。会話の履歴やシステムプロンプトに加えて、その時点でモデルが目にする入力そのものを指します。", why: "LLMは表現の仕方にとても敏感なので、プロンプトの書き方次第で回答の質が大きく変わります。だからこそ「プロンプトエンジニアリング」という実践的なスキルが生まれました。", example: "「このメールを2文で要約して」もプロンプトですが、「このメールを、10歳の子どもにもわかるように2文で要約して」に変えると、タスクの本質は同じでも出力は大きく変わります。", confusion: "プロンプトはシステムプロンプトとは別物です。通常のプロンプトはユーザーが毎回入力するものですが、システムプロンプトはすべてのやり取りに裏側で常時適用される指示です（ルール／システムプロンプト参照）。" },
+    zh: { name: "提示词（Prompt）", what: "提示词（Prompt）就是你发给LLM、用来换取回答的那段文字——可以是问题、指令，或者一段要处理的内容。它是模型在那一刻看到的输入，再加上此前的对话记录和系统提示词。", why: "LLM对措辞非常敏感，提示词怎么写会极大影响回答质量，这也是“提示词工程”能成为一门实用技能的原因。", example: "“把这封邮件总结成两句话”是一个提示词；改成“把这封邮件总结成两句话，写给10岁小孩看”，任务本质没变，但输出会明显不同。", confusion: "提示词不等于系统提示词——普通提示词是用户每次自己输入的内容，而系统提示词是在背后对每一轮对话都默默生效的固定指令（见Rules/System Prompt）。" }
+  },
+  context: {
+    en: { name: "Context", what: "Context is everything the model can 'see' when generating a response — the current prompt, the conversation history, any documents or tool outputs added along the way, and the system prompt. It's the model's entire working memory for that one request.", why: "Context has a hard size limit (the 'context window', measured in tokens) — once a conversation or document set exceeds it, older content has to be dropped or summarized. Managing what's inside context is one of the biggest practical challenges in building useful AI systems.", example: "If you paste a 50-page PDF into a chat and then ask about page 2, the model can only answer well if that content is still inside its context window and hasn't been pushed out by everything typed afterward.", confusion: "Context is not the same as Memory — context is temporary and scoped to the current session (or manually loaded into it), while memory is explicitly designed to persist and be reloaded across separate sessions (see Memory)." },
+    ja: { name: "コンテキスト", what: "コンテキストとは、応答を生成する際にモデルが「見えている」情報すべてを指します——現在のプロンプト、会話の履歴、途中で追加された文書やツールの出力結果、そしてシステムプロンプトです。いわば、その1回のリクエストにおけるモデルの作業メモリ全体です。", why: "コンテキストには明確なサイズ上限（トークン数で測る「コンテキストウィンドウ」）があります。会話や文書量がそれを超えると、古い内容は削除または要約されます。何をコンテキストに残すかの管理は、実用的なAIシステムを作るうえで最大級の課題のひとつです。", example: "50ページのPDFをチャットに貼り付けて2ページ目について質問した場合、その内容がまだコンテキストウィンドウ内に残っていて、その後の入力で押し出されていない限り、正しく答えることはできません。", confusion: "コンテキストはメモリとは異なります。コンテキストはその場のセッションに限定された一時的なものですが、メモリは複数の別セッションをまたいで保持・再読み込みされるよう明確に設計されています（メモリ参照）。" },
+    zh: { name: "上下文（Context）", what: "上下文是模型在生成回答那一刻能“看到”的全部内容——当前的提示词、对话历史、中途加入的文档或工具输出，以及系统提示词。可以理解成模型在这一次请求中的全部工作记忆。", why: "上下文有严格的大小上限（用token数量衡量，叫“上下文窗口”）——一旦对话或文档量超出这个上限，早期内容就会被丢弃或压缩概括。管理好上下文里放什么，是打造实用AI系统时最核心的难题之一。", example: "如果你把一份50页的PDF贴进对话，然后问第2页的内容，只有当这部分内容还留在上下文窗口里、没被后面输入的内容挤出去时，模型才能答对。", confusion: "上下文不等于记忆（Memory）——上下文是临时的，仅限当前这一次会话（或被手动加载进来）；而记忆是专门设计成可以跨会话持久保存、并在未来重新加载的（见Memory）。" }
+  },
+  token: {
+    en: { name: "Token", what: "A token is the basic unit of text an LLM actually reads and generates — roughly a word, part of a word, or a punctuation mark (not exactly a character, not exactly a word). 'Tokenization' is the process of chopping text into these pieces before feeding it to the model.", why: "Everything about an LLM's limits and cost is measured in tokens — context window size, API pricing, and generation speed. A rough rule of thumb for English is about 4 characters per token.", example: "The word 'unbelievable' might be split into tokens like 'un', 'believ', 'able' rather than staying as one whole unit, depending on the model's tokenizer.", confusion: "People sometimes assume 1 token = 1 word, which is only roughly true for English and badly wrong for many other languages — Japanese and Chinese in particular often use more tokens per character than English uses per word." },
+    ja: { name: "トークン", what: "トークンとは、LLMが実際に読み書きする最小単位のことです——だいたい単語1つ、単語の一部、あるいは句読点にあたります（文字とも単語とも完全には一致しません）。「トークナイズ」とは、モデルに渡す前にテキストをこの単位に分割する処理のことです。", why: "LLMの上限やコストに関することはすべてトークン数で測られます——コンテキストウィンドウのサイズ、API料金、生成速度など。英語ではおおよそ4文字で1トークンというのが目安です。", example: "「unbelievable」という単語は、モデルのトークナイザーによっては1つの単位ではなく「un」「believ」「able」のように分割されることがあります。", confusion: "「1トークン＝1単語」だと思われがちですが、それは英語でもあくまで大まかな話にすぎず、日本語や中国語ではさらに大きくずれます。特に日本語・中国語は、英語の1単語あたりよりも1文字あたりのトークン数が多くなりがちです。" },
+    zh: { name: "词元（Token）", what: "Token（词元）是LLM实际读取和生成的最小单位——大致相当于一个单词、单词的一部分，或一个标点符号（既不完全等于字符，也不完全等于单词）。“分词（Tokenization）”就是把文本切成这些小块、再喂给模型的过程。", why: "LLM的各种上限和费用都是按token数计算的——上下文窗口大小、API计费、生成速度等等。英语大致的经验法则是每4个字符约等于1个token。", example: "英语单词“unbelievable”，根据模型分词器的不同，可能会被切成“un”、“believ”、“able”这几个token，而不是作为一个整体。", confusion: "很多人以为1个token等于1个单词，这个说法在英语里也只是大致成立，在其它语言里则相差更大——尤其是中文和日文，往往每个字符占用的token数比英语每个单词占用的token数还多。" }
+  },
+  model: {
+    en: { name: "Model (AI Model)", what: "In this context, 'model' refers to a specific trained system with a name and version — e.g. 'Claude Sonnet 5' or 'GPT-4o' — a concrete, deployable instance of the LLM concept, with its own particular strengths, weaknesses, size, and cost.", why: "Different models trade off capability, speed, and cost differently, so picking the right model for a task — a fast, cheap model for simple lookups vs. a stronger model for hard reasoning — is a real, everyday engineering decision.", example: "Claude Sonnet 5 and Claude Haiku are both 'Claude' but are different models — one is built for harder reasoning tasks, the other optimized for speed and cost on simpler ones.", confusion: "'Model' is often used loosely to mean the whole AI product (see AI Assistant), but strictly speaking the model is just the trained weights — the assistant experience also includes a system prompt, tools, and an interface wrapped around that model." },
+    ja: { name: "モデル", what: "ここでの「モデル」とは、名前とバージョンを持つ具体的な学習済みシステムのことです。例えば「Claude Sonnet 5」や「GPT-4o」のように、LLMという概念の実際にデプロイ可能な一実装であり、それぞれ得意分野・弱点・規模・コストが異なります。", why: "モデルによって能力・速度・コストのバランスが異なるため、用途に合ったモデルを選ぶこと——単純な調べ物には速くて安いモデル、難しい推論には強力なモデル——は日々の実務で実際に発生する判断です。", example: "Claude Sonnet 5とClaude Haikuはどちらも「Claude」ですが、別のモデルです。前者は難しい推論向け、後者はシンプルなタスクの速度とコストに最適化されています。", confusion: "「モデル」はAI製品全体（AI Assistant参照）を指す言葉としてゆるく使われがちですが、厳密にはモデルとは学習済みの重みそのものだけを指します。アシスタントとしての体験には、そこにシステムプロンプトやツール、インターフェースが加わっています。" },
+    zh: { name: "模型（Model）", what: "在这里，“模型”指的是一个具体的、有名字和版本号的已训练系统，比如“Claude Sonnet 5”或“GPT-4o”——是LLM这个概念的一个具体、可部署的实例，各自有不同的能力强弱、体量和成本。", why: "不同模型在能力、速度、成本上的取舍不同，所以为具体任务挑选合适的模型——简单查询用又快又便宜的模型，复杂推理用更强的模型——是日常工程实践中真实会做的决定。", example: "Claude Sonnet 5和Claude Haiku都属于“Claude”，但是两个不同的模型：前者面向更难的推理任务，后者针对简单任务的速度和成本做了优化。", confusion: "人们常把“模型”当成整个AI产品（见AI Assistant）的代称，但严格来说模型只是训练好的参数本身——助手的实际体验还包括围绕这个模型搭建的系统提示词、工具和界面。" }
+  },
+  embedding: {
+    en: { name: "Embedding", what: "An embedding is a way of turning text — a word, sentence, or document — into a list of numbers (a vector) that captures its meaning. Texts with similar meaning end up with vectors that are numerically close to each other, even if they don't share any of the same words.", why: "Embeddings are what make semantic search possible — search that matches based on meaning, not just exact keyword overlap. They are the foundation underneath RAG and vector databases (see the Knowledge & Retrieval layer below).", example: "The embeddings for 'How do I reset my password?' and 'I forgot my login credentials' land close together in vector space even though the sentences share almost no words, because they mean nearly the same thing.", confusion: "An embedding is not itself a search system — it's just the numeric representation. A Vector Database is the separate piece of infrastructure that stores embeddings and efficiently finds the closest ones to a query." },
+    ja: { name: "埋め込み（エンベディング）", what: "埋め込み（エンベディング）とは、単語・文・文書などのテキストを、意味を反映した数値の並び（ベクトル）に変換する手法です。意味が似ているテキスト同士は、単語がまったく重なっていなくても、ベクトル空間上で近い位置になります。", why: "埋め込みがあるからこそ「意味的検索（セマンティック検索）」——単なるキーワード一致ではなく意味で照合する検索——が可能になります。これはRAGやベクトルデータベース（下の「知識・検索レイヤー」参照）の土台となる技術です。", example: "「パスワードをリセットするには？」と「ログイン情報を忘れました」は、単語がほとんど重なっていなくても、意味がほぼ同じなのでベクトル空間上では近い位置に配置されます。", confusion: "埋め込みそのものは検索システムではなく、あくまで数値表現にすぎません。埋め込みを保存し、クエリに最も近いものを効率的に探し出す仕組みが、別のインフラであるベクトルデータベースです。" },
+    zh: { name: "嵌入向量（Embedding）", what: "嵌入（Embedding）是把文本（一个词、一句话、或一篇文档）转换成一串能代表其含义的数字（向量）的方法。意思相近的文本，即使一个共同的词都没有，转换出来的向量在数值上也会彼此接近。", why: "有了嵌入，才有“语义搜索”——按含义匹配而不是单纯按关键词重合匹配。它是RAG和向量数据库（见下方“知识与应用层”）背后的基础技术。", example: "“怎么重置密码？”和“我忘记登录信息了”这两句话几乎没有共同的词，但因为意思几乎一样，它们的向量在向量空间里会彼此靠得很近。", confusion: "嵌入本身不是一个搜索系统，只是一种数字表示方式。真正负责存储嵌入、并高效找出跟查询最接近的那些结果的，是另一个独立的基础设施——向量数据库（Vector Database）。" }
+  },
+
+  skills: {
+    en: { name: "Skills", what: "A skill is a packaged, on-demand set of instructions (and sometimes scripts or reference files) that an AI assistant loads only when it's actually relevant to the task at hand, instead of every conversation carrying the full weight of every capability it might ever need.", why: "Without this, either the system prompt has to cram in instructions for every possible task — wasting context and diluting attention — or the assistant simply doesn't know specialized workflows exist. Skills let deep, narrow expertise stay dormant until needed.", example: "A 'cold email' skill might contain detailed guidance on writing outbound sales emails that only gets loaded into context when a user actually asks for help with cold email — not during an unrelated coding conversation.", confusion: "A Skill is not the same as a Tool — a tool is something the model calls to take an action (like reading a file or searching the web); a skill is instructional text that changes how the model approaches a task. Skills often make use of tools once loaded, but they aren't the same layer." },
+    ja: { name: "スキル", what: "スキルとは、実際にそのタスクに関係がある時だけ読み込まれる、パッケージ化されたオンデマンドの指示セット（スクリプトや参考資料を含むこともある）です。毎回の会話が想定しうる全機能分の指示を常に抱え込む必要がなくなります。", why: "これがないと、システムプロンプトにあらゆるタスク向けの指示を詰め込んでコンテキストを浪費して注意力を薄めるか、あるいはアシスタントが専門的なワークフローの存在自体を知らないままになってしまいます。スキルにより、深く専門的な知識を、必要な時まで眠らせておけます。", example: "「コールドメール」スキルには営業メールの書き方の詳細な指針が含まれますが、それが実際にユーザーからコールドメールの相談があった時だけ読み込まれ、無関係なコーディングの会話中には読み込まれません。", confusion: "スキルはツールとは別物です。ツールはモデルが行動を起こすために呼び出すもの（ファイルを読む、ウェブ検索するなど）ですが、スキルはタスクへの取り組み方を変える指示文です。読み込まれた後のスキルはツールを活用することが多いですが、両者は異なるレイヤーです。" },
+    zh: { name: "技能（Skills）", what: "Skill（技能）是一套打包好、按需加载的指令集（有时还带脚本或参考文件），只有在真正跟当前任务相关时才会被AI助手加载，而不是每次对话都背着全部可能用到的能力。", why: "如果没有这个机制，要么系统提示词得把所有可能任务的指令都塞进去（浪费上下文、分散注意力），要么助手根本不知道有这些专门的工作流程存在。技能让深入、小众的专业知识可以“待机”，直到真正需要时才被唤起。", example: "一个“冷邮件（cold email）”技能可能包含撰写陌生开发信的详细指导，只有当用户真的问起冷邮件相关问题时才会被加载进上下文，而不会出现在无关的编程对话里。", confusion: "技能不等于工具（Tool）——工具是模型调用来执行动作的东西（比如读文件、搜网页），而技能是改变模型处理任务方式的指令文本。技能加载后经常会用到工具，但两者不是同一个层级的东西。" }
+  },
+  mcp: {
+    en: { name: "MCP (Model Context Protocol)", what: "MCP is an open standard, introduced by Anthropic in late 2024, that defines a common way for AI assistants to connect to external tools, data sources, and services — files, databases, APIs — without every AI application and every service needing a custom one-off integration.", why: "Before MCP, connecting an AI assistant to many different tools/services required building roughly M×N custom integrations (M assistants × N services). MCP standardizes the connection so a service builds one MCP server and any MCP-compatible AI client can use it — it's often compared to a 'USB-C port for AI applications.'", example: "A single MCP server for GitHub can expose actions like 'create an issue' or 'read a file'; any MCP-compatible assistant can use that same server without GitHub needing to build a separate integration for each AI product.", confusion: "MCP is not itself a tool — it's the protocol/plumbing that lets tools be discovered and called consistently. The actual capabilities (like 'search the web' or 'read a spreadsheet') are the Tools that get exposed through an MCP connection (see Tools / Function Calling). Verified against current sources as of this write-up (2026-07)." },
+    ja: { name: "MCP（モデルコンテキストプロトコル）", what: "MCPは、2024年後半にAnthropicが発表したオープンな標準規格で、AIアシスタントがファイル・データベース・API等の外部ツールやデータソース、サービスに接続するための共通の方法を定めたものです。これにより、AIアプリとサービスごとに個別のカスタム連携を作る必要がなくなります。", why: "MCP登場以前は、AIアシスタントを多数のツール・サービスに接続するには、おおよそM×N通り（M個のアシスタント×N個のサービス）のカスタム連携を作る必要がありました。MCPは接続方法を標準化し、サービス側は1つのMCPサーバーを作れば、MCP対応のあらゆるAIクライアントから使えるようになります。「AIアプリケーション向けのUSB-Cポート」とよく例えられます。", example: "GitHub用の1つのMCPサーバーが「Issueを作成する」「ファイルを読む」といった操作を提供すれば、MCP対応のどのアシスタントも、GitHub側がAI製品ごとに個別連携を作らずに同じサーバーを利用できます。", confusion: "MCP自体はツールではなく、ツールを発見し一貫した方法で呼び出せるようにするプロトコル（配管）です。実際の機能（「ウェブ検索する」「表計算ファイルを読む」など）は、MCP接続を通じて公開される「ツール」にあたります（ツール／Function Calling参照）。本項目は執筆時点（2026年7月）の最新情報をWeb検索で確認済みです。" },
+    zh: { name: "MCP（模型上下文协议）", what: "MCP是Anthropic在2024年下半年推出的一个开放标准，定义了AI助手连接外部工具、数据源和服务（文件、数据库、API等）的统一方式，让每个AI应用不必再为每个服务单独定制一套集成。", why: "在MCP出现之前，把一个AI助手连接到很多不同的工具/服务，大致需要做M×N次定制集成（M个助手 × N个服务）。MCP把连接方式标准化了：一个服务只需要搭建一个MCP服务器，任何兼容MCP的AI客户端都能直接用——常被比喻为“AI应用的USB-C接口”。", example: "一个GitHub的MCP服务器可以把“创建issue”“读取文件”这类操作暴露出来；任何兼容MCP的助手都能直接用这同一个服务器，GitHub不需要为每个AI产品单独做一套集成。", confusion: "MCP本身不是工具，而是让工具能被统一发现和调用的协议/管道。真正的具体能力（比如“搜索网页”“读取表格”）是通过MCP连接暴露出来的“工具”（见Tools/Function Calling）。本条目已在撰写时（2026年7月）通过网络搜索核实为最新定义。" }
+  },
+  tools: {
+    en: { name: "Tools / Function Calling", what: "Tool use (also called function calling) is the mechanism that lets an LLM go beyond generating text — it can request that a specific external action be taken (run a calculation, search the web, read a file, call an API), receive the result back, and continue reasoning with that new information.", why: "On its own, an LLM can only produce text based on what it already learned during training — it has no way to check today's weather, read your files, or run code. Tool use is what turns a 'text generator' into something that can actually act in the world.", example: "If you ask an assistant 'what's 847 × 2093?', a well-built system doesn't trust the LLM's mental arithmetic — it calls a calculator tool, gets the exact number back, and reports that.", confusion: "Tool use is the general mechanism; MCP is one standardized way tools get connected and discovered; a Skill is instructional text that might guide when and how to use a tool. The three work together but sit at different layers — protocol, capability, and instructions." },
+    ja: { name: "ツール／Function Calling", what: "ツール使用（Function Callingとも呼ばれます）とは、LLMが単なる文章生成にとどまらず、特定の外部アクション（計算の実行、ウェブ検索、ファイルの読み取り、API呼び出しなど）を要求し、その結果を受け取って、それをもとにさらに推論を続けられるようにする仕組みです。", why: "LLM単体では、学習時に得た知識をもとにテキストを生成することしかできず、今日の天気を調べたりファイルを読んだりコードを実行したりする手段がありません。ツール使用によって、「文章生成器」が実際に世界に働きかけられるものへと変わります。", example: "「847×2093は？」と聞かれた場合、きちんと設計されたシステムはLLMの暗算を信用せず、計算ツールを呼び出して正確な数値を取得し、それを報告します。", confusion: "ツール使用は一般的な仕組みそのものであり、MCPはツールを接続・発見する標準化された方法の1つ、スキルはツールをいつ・どう使うかを導く指示文です。3つは連携して働きますが、それぞれ「プロトコル」「機能」「指示」という異なるレイヤーにあります。" },
+    zh: { name: "工具/函数调用（Tools / Function Calling）", what: "工具调用（也叫function calling，函数调用）是让LLM能超越纯文本生成的机制——它可以请求执行一个具体的外部动作（做计算、搜网页、读文件、调用API），拿到结果后，再基于这个新信息继续推理。", why: "LLM单靠自身，只能根据训练时学到的东西生成文本——它没办法查今天的天气、读你的文件、或运行代码。工具调用正是把“文本生成器”变成“能真正对世界采取行动的东西”的关键。", example: "如果你问助手“847×2093等于多少？”，一个设计良好的系统不会信任LLM的心算能力，而是调用计算器工具拿到精确结果，再报告给你。", confusion: "工具调用是通用机制；MCP是让工具被统一连接和发现的一种标准化方式；技能（Skill）则是指导何时、如何使用工具的指令文本。三者协同工作，但分别处在“协议”“能力”“指令”这三个不同层级上。" }
+  },
+  harness: {
+    en: { name: "Harness", what: "A 'harness' is the surrounding application that runs an LLM in a loop with tools, memory, and a user interface — it's the scaffolding that turns a raw model into a usable product. Claude Code, ChatGPT, and Cursor are all different harnesses, sometimes running the same or similar underlying models.", why: "The same model can feel completely different depending on the harness around it, because the harness decides what tools are available, how context is managed, what the system prompt says, and what interface the user interacts through.", example: "Claude Code is a harness built for coding and file-system tasks — it gives the model access to a terminal, file editing, and code search; a chat website is a harness built for open-ended conversation with a much simpler toolset.", confusion: "People sometimes conflate 'the model' with 'the harness' — e.g. assuming a bad answer means the model itself is weak, when actually the harness gave it the wrong tools or too little context. Same model, different harness, can perform very differently on the same task." },
+    ja: { name: "ハーネス", what: "「ハーネス」とは、LLMをツール・メモリ・ユーザーインターフェースと組み合わせてループ実行する周辺アプリケーションのことです。生のモデルを実際に使えるプロダクトへと変える骨組みにあたります。Claude Code、ChatGPT、Cursorはいずれも異なるハーネスであり、同じ、あるいは似たモデルを使っていることもあります。", why: "同じモデルでも、周囲のハーネス次第でまったく違う印象になります。ハーネスがどんなツールを使えるか、コンテキストをどう管理するか、システムプロンプトの内容、そしてユーザーがどんなインターフェースで接するかを決めているからです。", example: "Claude Codeはコーディングやファイル操作向けに作られたハーネスで、モデルにターミナル操作やファイル編集、コード検索の権限を与えます。一方チャットサイトは、もっとシンプルなツールセットで自由な会話向けに作られたハーネスです。", confusion: "「モデル」と「ハーネス」を混同しがちです。例えば、回答が悪かったときにモデル自体が弱いと決めつけてしまうことがありますが、実際にはハーネスが適切でないツールしか与えていなかったり、コンテキストが不足していたりすることが原因のこともあります。同じモデルでもハーネスが違えば、同じタスクへの結果が大きく変わり得ます。" },
+    zh: { name: "运行框架（Harness）", what: "Harness（运行框架/宿主环境）指的是把LLM放进一个循环里、配合工具、记忆和用户界面一起运行的外围应用程序——它是把一个原始模型变成可用产品的“脚手架”。Claude Code、ChatGPT、Cursor都是不同的harness，它们有时用的是相同或相似的底层模型。", why: "同一个模型放在不同的harness里，体验可能天差地别，因为harness决定了它能用哪些工具、上下文怎么管理、系统提示词写了什么，以及用户通过什么界面和它交互。", example: "Claude Code是专为编程和文件系统任务打造的harness——它给模型配了终端访问、文件编辑、代码搜索的能力；而一个聊天网站则是为自由对话打造的harness，工具集简单得多。", confusion: "人们有时会把“模型”和“harness”混为一谈——比如看到回答不好就认为是模型能力弱，但实际上可能是harness给的工具不对、或上下文给得不够。同一个模型换一个harness，在同一个任务上的表现可能完全不同。" }
+  },
+  memory: {
+    en: { name: "Memory", what: "Memory, in AI-agent terms, is a mechanism for persisting information across separate conversations — a small durable file or database of facts, preferences, and conventions that gets reloaded into context at the start of future sessions, so things don't need to be re-explained from scratch every time.", why: "Without memory, every new conversation starts from zero — the model has no idea what was discussed yesterday. Memory is what creates the feeling of an assistant 'getting to know you' over time, even though the underlying model itself doesn't change or learn between conversations.", example: "A memory file might note 'user prefers concise answers' or 'user's project uses PowerShell, not bash' — small durable facts that get quietly re-read and applied in every new session.", confusion: "Memory is often confused with the model 'learning' — it isn't. The model's weights are frozen; memory just means specific text gets re-inserted into context every time, which only simulates persistent learning from the outside." },
+    ja: { name: "メモリ", what: "AIエージェントにおけるメモリとは、別々のセッションをまたいで情報を保持する仕組みのことです。事実・好み・決めごとなどをまとめた小さな永続ファイルやデータベースがあり、以後のセッション開始時にコンテキストへ再読み込みされることで、毎回ゼロから説明し直す必要がなくなります。", why: "メモリがなければ、新しい会話は常にゼロから始まり、モデルは昨日何が話されたか知る術がありません。メモリがあることで、モデル自体は会話をまたいで変化・学習しているわけではないのに、「だんだん自分のことをわかってくれている」という感覚が生まれます。", example: "メモリファイルには「ユーザーは簡潔な回答を好む」「ユーザーのプロジェクトはbashではなくPowerShellを使う」といった、小さいけれど持続的な事実が記録され、新しいセッションのたびに静かに再読み込みされ適用されます。", confusion: "メモリはモデルが「学習している」ことと混同されがちですが、それは誤りです。モデルの重み自体は固定されたままで、メモリは特定のテキストを毎回コンテキストに再挿入しているだけであり、外から見ると持続的な学習をしているように見えるにすぎません。" },
+    zh: { name: "记忆（Memory）", what: "在AI Agent的语境里，记忆是一种让信息能跨越不同会话持续保存下来的机制——一个小巧、持久的文件或数据库，记录着事实、偏好和约定，会在未来每次新会话开始时被重新加载进上下文，这样就不用每次都从头解释一遍。", why: "没有记忆的话，每次新对话都要从零开始，模型完全不知道昨天聊过什么。正是记忆，才让人产生“助手在慢慢了解我”的感觉——尽管模型本身在不同对话之间并没有真的发生变化或学习。", example: "一份记忆文件里可能写着“用户喜欢简洁的回答”或“用户的项目用PowerShell、不用bash”这类细小但持久的事实，会在每次新会话里被悄悄重新读取并应用。", confusion: "记忆常被误以为是模型在“学习”，其实不是。模型的参数是固定不变的；记忆只是让特定文字每次都被重新插入到上下文里，从外部看起来像是在持续学习，实际上并不是。" }
+  },
+  rules: {
+    en: { name: "Rules / System Prompt", what: "A system prompt (sometimes just called 'rules' or 'custom instructions') is a standing set of instructions given to the model before the user's own messages — it shapes tone, behavior, and constraints for the entire conversation, invisibly, without the user having to repeat them every turn.", why: "It's the main lever for customizing how an AI assistant behaves without changing the underlying model — a company can make the 'same' model answer in their brand voice, refuse certain requests, or always follow a particular process, purely through system-prompt instructions.", example: "A customer-support bot's system prompt might say 'Always respond in a friendly tone, never promise refunds directly, escalate to a human for anything involving legal complaints' — the user never sees this text, but every response follows it.", confusion: "A system prompt is not the same as a Prompt (the user's own message) or a Skill (instructions loaded conditionally, only when relevant) — a system prompt is always active for the whole conversation, unlike a skill which loads on demand." },
+    ja: { name: "ルール／システムプロンプト", what: "システムプロンプト（「ルール」や「カスタム指示」とも呼ばれます）は、ユーザーのメッセージより前にモデルへ与えられる常時有効な指示セットです。会話全体のトーン・振る舞い・制約を、ユーザーに毎回繰り返してもらう必要なく、裏側で形作ります。", why: "モデル自体を変えずにAIアシスタントの振る舞いをカスタマイズする、最も主要な手段です。企業は「同じ」モデルであっても、システムプロンプトの指示だけでブランドの口調で答えさせたり、特定の依頼を拒否させたり、決まった手順を常に踏ませたりできます。", example: "カスタマーサポートボットのシステムプロンプトには「常にフレンドリーな口調で応答し、返金を直接約束せず、法的な苦情に関することは必ず人間へエスカレーションする」などと書かれていることがあります。ユーザーはこの文章を目にしませんが、すべての応答がこれに従います。", confusion: "システムプロンプトは、ユーザー自身のメッセージであるプロンプトや、必要な時だけ条件付きで読み込まれるスキルとは異なります。システムプロンプトは会話全体を通じて常に有効ですが、スキルはオンデマンドで読み込まれる点が違います。" },
+    zh: { name: "规则/系统提示词（Rules / System Prompt）", what: "系统提示词（有时也叫“规则”或“自定义指令”）是在用户自己发消息之前，就先给模型的一套长期有效的指令——它在背后默默塑造了整段对话的语气、行为和限制，用户不需要每次都重复说一遍。", why: "它是在不改动底层模型的前提下，定制AI助手行为的主要手段——公司可以让“同一个”模型用自己品牌的语气说话、拒绝某些请求、或始终遵循特定流程，全靠系统提示词的指令来实现。", example: "一个客服机器人的系统提示词可能写着“始终用友好的语气回复，绝不直接承诺退款，涉及法律投诉的一律转交给人工”——用户看不到这段文字，但每次回复都会遵守。", confusion: "系统提示词不等于普通的提示词（用户自己发的消息），也不等于技能（Skill，按需有条件加载的指令）——系统提示词在整段对话中始终生效，而技能是按需加载的，这是两者的关键区别。" }
+  },
+
+  agent: {
+    en: { name: "Agent / AI Agent", what: "An AI agent is a system built around an LLM that can autonomously take a sequence of actions — using tools, checking results, and deciding what to do next — to accomplish a goal, rather than just answering a single question in one shot.", why: "Plain question-answering is useful, but many real tasks need multiple steps with decisions in between ('search for X, then based on what you find, do Y'). Agents are what let an LLM handle open-ended, multi-step work instead of only single-turn replies.", example: "A coding agent given the task 'fix the failing test' might read the error message, open the relevant file, edit the code, re-run the test, and repeat until it passes — all without being told each individual step.", confusion: "Not every LLM-powered app is an 'agent' — a simple chatbot that answers one question at a time with no tools and no multi-step planning is just a chat interface, not an agent. The defining trait of an agent is autonomous, multi-step action toward a goal." },
+    ja: { name: "エージェント／AIエージェント", what: "AIエージェントとは、LLMを中心に構築されたシステムで、ツールを使い、結果を確認し、次に何をすべきか判断しながら、一連の行動を自律的に実行して目標を達成できるものです。1回の質問に1回答えるだけの仕組みとは異なります。", why: "単純な質問応答も便利ですが、実際のタスクの多くは「Xを調べて、その結果をもとにYをする」といった、途中に判断を挟む複数ステップを必要とします。エージェントによって、LLMは1ターン限りの返答ではなく、オープンエンドな複数ステップの作業をこなせるようになります。", example: "「失敗しているテストを直して」というタスクを与えられたコーディングエージェントは、エラーメッセージを読み、該当ファイルを開き、コードを修正し、テストを再実行する、という流れを、いちいち指示されなくてもテストが通るまで繰り返します。", confusion: "LLMを使ったアプリすべてが「エージェント」というわけではありません。ツールも複数ステップの計画も持たず、1問1答するだけのシンプルなチャットボットは、単なるチャットインターフェースであってエージェントではありません。エージェントを定義づける特徴は、目標に向けた自律的で複数ステップの行動です。" },
+    zh: { name: "智能体（Agent / AI Agent）", what: "AI Agent（智能体）是围绕LLM搭建的系统，能够自主地采取一连串动作——使用工具、检查结果、决定接下来该做什么——来完成一个目标，而不只是一问一答式地回答单个问题。", why: "单纯的问答很有用，但很多真实任务需要多个步骤、中间还要做判断（“先搜索X，再根据结果做Y”）。正是Agent让LLM能处理开放式的、多步骤的工作，而不只是单轮回复。", example: "给一个编程Agent“修好这个失败的测试”这个任务，它可能会：读错误信息、打开相关文件、修改代码、重新跑测试，如此反复直到测试通过——全程不需要一步步告诉它该做什么。", confusion: "不是所有用LLM做的应用都叫“Agent”——一个只会一问一答、没有工具也不做多步规划的简单聊天机器人，只是一个聊天界面，不是Agent。Agent的核心特征是：为达成一个目标而自主地采取多步骤行动。" }
+  },
+  planning: {
+    en: { name: "Planning", what: "Planning is the part of an agent's process where it breaks a goal down into an ordered sequence of smaller steps before (or while) executing them, rather than jumping straight to an action.", why: "Complex tasks fail more often when an agent acts step-by-step with no forethought — planning reduces wasted work and catches obvious problems (missing information, wrong order of operations) before they cause errors.", example: "Given 'deploy this website update,' a planning step might produce: 1) run tests locally, 2) commit changes, 3) upload changed files to the server, 4) verify the live URLs respond correctly — before executing any of it.", confusion: "Planning is often confused with Workflow — a plan is usually generated dynamically by the agent for a specific task, while a workflow is typically a predefined, reusable sequence of steps someone designed in advance (see Workflow)." },
+    ja: { name: "プランニング（計画立案）", what: "プランニングとは、エージェントが目標をいきなり行動に移すのではなく、実行の前（または実行しながら）に、目標をより小さな手順の順序立った並びへと分解する処理のことです。", why: "エージェントが先を見越さずに一歩ずつ行動すると、複雑なタスクほど失敗しやすくなります。プランニングによって無駄な作業が減り、情報不足や手順の順序ミスといった明らかな問題をエラーが起きる前に発見できます。", example: "「このウェブサイトの更新をデプロイして」というタスクに対して、プランニングの段階で「1.ローカルでテストを実行 2.変更をコミット 3.変更ファイルをサーバーへアップロード 4.本番URLが正しく応答するか確認」という手順を実行前に用意することがあります。", confusion: "プランニングはワークフローと混同されがちです。プラン（計画）は通常、特定のタスクのためにエージェントがその場で動的に生成するものですが、ワークフローは通常、あらかじめ人が設計した再利用可能な定型の手順です（ワークフロー参照）。" },
+    zh: { name: "规划（Planning）", what: "规划（Planning）是Agent流程中的一环，指在真正执行之前（或执行过程中），先把一个目标拆解成有先后顺序的一串小步骤，而不是直接就冲上去行动。", why: "Agent如果不假思索、走一步算一步地行动，复杂任务失败的概率会更高——规划能减少无用功，并在信息缺失、步骤顺序不对等明显问题造成错误之前就先发现它们。", example: "面对“部署这次网站更新”这个任务，规划阶段可能先产出这样的步骤：1）本地跑测试，2）提交改动，3）把改动的文件上传到服务器，4）确认线上URL能正确响应——然后才真正开始执行。", confusion: "规划常和工作流（Workflow）混淆——规划通常是Agent针对某个具体任务当场动态生成的，而工作流通常是有人事先设计好、可反复复用的固定步骤序列（见Workflow）。" }
+  },
+  tooluse: {
+    en: { name: "Tool Use", what: "See Tools / Function Calling in the Dev & Tooling layer above — in the context of agents specifically, 'tool use' describes an agent's ability to select and invoke the right tool, from among several available ones, at each step of a multi-step task.", why: "An agent that can only 'think in text' is limited to what the model already knows; tool use is what lets an agent's plan actually be carried out — searching, editing files, running code, calling APIs — instead of just describing what it would do.", example: "Mid-task, an agent might use a file-search tool to locate a config file, then a file-edit tool to change one line, then a terminal tool to re-run the build — three different tools chosen and sequenced by the agent itself.", confusion: "Tool Use (the ability) is distinct from any specific Tool (a single capability like 'web search'). It's also distinct from MCP, which is the protocol that makes many tools discoverable and callable in a standard way." },
+    ja: { name: "ツール使用", what: "上の「開発ツールレイヤー」にあるツール／Function Callingを参照してください。エージェントの文脈で特に「ツール使用」と言う場合は、複数ステップのタスクの各段階で、利用可能な複数のツールの中から適切なものを選び呼び出す、エージェントの能力を指します。", why: "「文章で考える」しかできないエージェントは、モデルがすでに知っていることに限定されてしまいます。ツール使用によって、エージェントの計画は説明で終わらず、検索・ファイル編集・コード実行・API呼び出しなど、実際に実行へと移せます。", example: "タスクの途中で、エージェントはまずファイル検索ツールで設定ファイルを探し、次にファイル編集ツールで1行変更し、最後にターミナルツールでビルドを再実行する——といった具合に、3つの異なるツールをエージェント自身が選び、順番に使うことがあります。", confusion: "ツール使用（能力）は、「ウェブ検索」のような個々の具体的なツールとは別物です。また、多くのツールを標準的な方法で発見・呼び出し可能にするプロトコルであるMCPとも異なります。" },
+    zh: { name: "工具使用（Tool Use）", what: "参见上方“开发能力/工具层”里的Tools/Function Calling——在Agent的语境下，“工具使用”特指Agent在完成多步骤任务的每一步时，能从多个可用工具里挑出正确的一个并调用它的能力。", why: "只能“用文字思考”的Agent局限于模型本身已经知道的东西；正是工具使用让Agent的计划能真正被执行——搜索、编辑文件、运行代码、调用API——而不只是描述它打算做什么。", example: "任务进行到一半时，Agent可能先用文件搜索工具找到配置文件，再用文件编辑工具改一行代码，最后用终端工具重新跑一次构建——这三个不同的工具，全是Agent自己选择并按顺序调用的。", confusion: "工具使用（这项能力）不同于某个具体的工具（比如“网页搜索”这一个能力）；它也不同于MCP——MCP是让很多工具能被以标准方式发现和调用的协议。" }
+  },
+  workflow: {
+    en: { name: "Workflow", what: "A workflow is a predefined, often reusable sequence of steps for accomplishing a recurring task — it can be followed by a human, an agent, or a mix of both, and is typically designed in advance rather than invented fresh each time.", why: "Turning a repeated multi-step process into an explicit workflow, rather than re-deciding the steps from scratch every time, makes outcomes more consistent and lets the process be improved once and reused many times.", example: "A 'publish a blog post' workflow might always be: draft → review → add images → schedule → post to social media — the same sequence every time, whether a person or an agent executes it.", confusion: "A workflow is not the same as an agent's dynamic Planning — a workflow is pre-written and reusable across tasks, while a plan is generated on the fly for one specific goal, though an agent can absolutely be given a workflow to follow instead of planning from scratch." },
+    ja: { name: "ワークフロー", what: "ワークフローとは、繰り返し発生するタスクをこなすためにあらかじめ定義された、多くの場合再利用可能な手順の並びです。人間・エージェント・その両方の組み合わせのいずれによっても実行され、通常は毎回その場で考えるのではなく事前に設計されます。", why: "繰り返される複数ステップの処理を、毎回ゼロから手順を考え直すのではなく明示的なワークフローにすることで、結果が安定し、一度改善した手順を何度も再利用できるようになります。", example: "「ブログ記事を公開する」ワークフローは、常に「下書き→レビュー→画像追加→予約投稿→SNS投稿」という同じ手順であり、実行するのが人間でもエージェントでも変わりません。", confusion: "ワークフローはエージェントの動的なプランニングとは異なります。ワークフローは事前に書かれ、複数のタスクにまたがって再利用されるものですが、プランは特定の1つの目標のためにその場で生成されます。もっとも、エージェントに一から計画させる代わりにワークフローに従わせることも当然可能です。" },
+    zh: { name: "工作流（Workflow）", what: "工作流（Workflow）是为完成一个重复出现的任务而预先定义好、通常可以反复复用的步骤序列——可以由人来执行、由Agent执行，或两者结合，通常是事先设计好的，而不是每次临时想出来的。", why: "把一个反复出现的多步骤流程明确写成工作流，而不是每次都从头决定步骤，能让结果更一致，也能把流程一次性优化好、之后反复复用。", example: "“发布一篇博客文章”的工作流可能永远是：写草稿→审阅→加图片→定时发布→发到社交媒体——不管是人还是Agent来执行，每次都是同一套顺序。", confusion: "工作流不同于Agent的动态规划（Planning）——工作流是事先写好、可跨任务复用的，而规划是针对某一个具体目标临时生成的。不过Agent完全可以被指定去照着一个既有工作流执行，而不是从零开始规划。" }
+  },
+  multiagent: {
+    en: { name: "Multi-Agent", what: "A multi-agent system uses several distinct AI agents, often with different roles or specialties, working together — in sequence, in parallel, or coordinated by a 'manager' agent — to accomplish something too large or too varied in skill for one agent to handle efficiently alone.", why: "Splitting a complex task across specialized agents — a 'researcher' agent, a 'writer' agent, a 'reviewer' agent — can be more reliable and easier to reason about than asking one generalist agent to juggle every role at once; each sub-agent gets a narrower, clearer job.", example: "A research task might use one agent to search and gather sources, a second agent to synthesize findings into a draft, and a third to fact-check the draft against the original sources — coordinated by a main agent.", confusion: "Multi-agent is not the same as simply running several separate chat sessions — the defining feature is coordination: agents pass results to each other or to an orchestrating agent as part of one overall task, not isolated unrelated conversations." },
+    ja: { name: "マルチエージェント", what: "マルチエージェントシステムとは、複数の異なる役割や専門性を持つAIエージェントが、直列・並列、あるいは「マネージャー」役のエージェントによる調整のもとで協働し、1つのエージェントだけでは効率よく扱いきれないほど大きい、あるいは多様なスキルを要するタスクを達成する仕組みです。", why: "「調査担当」「執筆担当」「レビュー担当」のように複雑なタスクを専門化したエージェントに分担させる方が、1つの万能エージェントにすべての役割を同時にこなさせるより、信頼性が高く、動作も追いやすくなります。各サブエージェントはより狭く明確な役割を持つことになります。", example: "調査タスクでは、あるエージェントが情報源を検索・収集し、別のエージェントがそれをもとに下書きを作成し、さらに別のエージェントが下書きを元の情報源と照合してファクトチェックする、といった流れを、メインのエージェントが調整することがあります。", confusion: "マルチエージェントは、単に複数の独立したチャットセッションを走らせることとは違います。決定的な特徴は「調整」にあります——エージェント同士、あるいは統括するエージェントへ、1つの全体タスクの一部として結果を受け渡す点が、無関係な孤立した会話とは異なります。" },
+    zh: { name: "多智能体（Multi-Agent）", what: "多智能体系统（Multi-Agent）指的是使用多个各自扮演不同角色或专精不同领域的AI Agent，通过串行、并行、或由一个“管理者”Agent协调的方式一起工作，来完成单个Agent独自处理效率太低或所需技能太杂的任务。", why: "把一个复杂任务拆分给专精不同方向的Agent（比如“研究员”Agent、“写手”Agent、“审核员”Agent）来分别负责，往往比让一个万能型Agent同时兼顾所有角色更可靠、也更容易理清逻辑——每个子Agent的职责更窄、更清晰。", example: "一个研究任务可能由一个Agent负责搜索并收集资料，第二个Agent负责把发现的内容整理成初稿，第三个Agent负责拿初稿去和原始资料核对事实——整个过程由一个主Agent协调。", confusion: "多智能体不等于同时开好几个互不相关的独立聊天——它的核心特征是“协调”：各个Agent之间、或和一个统筹Agent之间，是作为同一个整体任务的一部分互相传递结果，而不是彼此无关的孤立对话。" }
+  },
+
+  rag: {
+    en: { name: "RAG (Retrieval-Augmented Generation)", what: "RAG is a technique that gives an LLM access to specific outside information at answer-time — a query first retrieves relevant text, usually via a vector database and embeddings, from a document collection, and that retrieved text is inserted into the model's context before it generates its answer.", why: "An LLM's built-in knowledge is frozen at training time and doesn't include private documents, recent events, or company-specific data. RAG lets it answer accurately about exactly that kind of content, without needing to retrain the model itself.", example: "A support chatbot for a software product can use RAG to pull the exact, current help-doc paragraph about a feature before answering a user's question, instead of relying on the model's possibly outdated or generic training knowledge.", confusion: "RAG is not 'training the model on your data' — no weights are changed. It's closer to an open-book exam: the model still reasons and writes the answer itself, but with the relevant 'page' handed to it first." },
+    ja: { name: "RAG（検索拡張生成）", what: "RAGは、回答生成の時点でLLMに特定の外部情報へアクセスさせる手法です。まずクエリに基づき、通常はベクトルデータベースと埋め込みを使って文書コレクションから関連するテキストを検索し、その検索結果をモデルが回答を生成する前にコンテキストへ挿入します。", why: "LLMに組み込まれた知識は学習時点で固定されており、非公開文書や最新の出来事、企業固有のデータは含まれません。RAGを使えば、モデル自体を再学習させることなく、そうした内容について正確に答えられるようになります。", example: "ソフトウェア製品向けのサポートチャットボットは、モデルの古い・一般的な学習知識に頼るのではなく、RAGを使って該当機能に関する現行のヘルプ文書の該当箇所そのものを取得してから回答できます。", confusion: "RAGは「モデルを自社データで学習させる」こととは違います。重みは一切変更されません。むしろ「持ち込み可の試験」に近く、モデルは自分で推論し回答を書きますが、その前に関連する「該当ページ」を渡されている、というイメージです。" },
+    zh: { name: "RAG（检索增强生成）", what: "RAG是一种在回答的那一刻，让LLM能访问特定外部信息的技术——先根据查询，通常借助向量数据库和嵌入，从一批文档中检索出相关文本，再把检索到的内容插入到模型的上下文里，然后模型才生成回答。", why: "LLM内置的知识在训练时就已经固定，不包含私有文档、最新事件或企业专属数据。RAG让模型能准确回答这类内容，而不需要重新训练模型本身。", example: "一个软件产品的客服聊天机器人可以用RAG，在回答用户问题之前，先取出关于该功能的、当前最新的帮助文档段落，而不是依赖模型训练时可能已过时或过于笼统的知识。", confusion: "RAG不等于“用你的数据重新训练模型”——模型参数完全没有被改变。它更像一场“开卷考试”：模型仍然自己推理、自己写答案，只不过先把相关的“那一页”递到它手上。" }
+  },
+  vectordb: {
+    en: { name: "Vector Database", what: "A vector database is a specialized database built to store embeddings — long lists of numbers representing meaning — and quickly find the ones closest in meaning to a given query, using similarity search across potentially millions of vectors.", why: "Regular databases are built for exact matches or simple filters, not 'find me the meaning closest to this' — vector databases are the piece of infrastructure that makes semantic search and RAG fast enough to be usable in real applications.", example: "When a RAG system searches a company's knowledge base, it's a vector database that turns 'how do I reset my password' into an embedding and instantly returns the stored document chunks whose embeddings are most similar.", confusion: "A vector database is not the same as RAG — RAG is the overall technique (retrieve, then generate); a vector database is one specific piece of infrastructure commonly used inside a RAG pipeline to perform the retrieval step efficiently." },
+    ja: { name: "ベクトルデータベース", what: "ベクトルデータベースは、意味を表す長い数値の並び（埋め込み）を保存し、あるクエリに対して意味的に最も近いものを、数百万件のベクトルの中からでも高速に見つけ出せるよう作られた専用データベースです。", why: "通常のデータベースは完全一致や単純な条件検索を前提としており、「これに意味が最も近いものを探す」ことは想定していません。ベクトルデータベースは、意味的検索やRAGを実用に足る速さで動かすためのインフラです。", example: "RAGシステムが企業のナレッジベースを検索する際、「パスワードをリセットするには」を埋め込みへ変換し、意味的に最も近い保存済み文書断片を即座に返しているのはベクトルデータベースです。", confusion: "ベクトルデータベースはRAGそのものではありません。RAGは「検索してから生成する」という全体的な手法であり、ベクトルデータベースはRAGのパイプラインの中で検索ステップを効率よく担う、特定のインフラの一部です。" },
+    zh: { name: "向量数据库（Vector Database）", what: "向量数据库是专门为存储嵌入（表示含义的一长串数字）而设计的数据库，能在可能多达几百万条向量里，快速找出跟某个查询在语义上最接近的那些，靠的是相似度搜索。", why: "普通数据库擅长精确匹配或简单条件筛选，而不擅长“帮我找出意思最接近这个的内容”。向量数据库正是让语义搜索和RAG快到能在实际应用里真正可用的那部分基础设施。", example: "当一个RAG系统搜索公司知识库时，是向量数据库把“怎么重置密码”转换成一个嵌入向量，然后瞬间返回存储的、语义最接近的那些文档片段。", confusion: "向量数据库不等于RAG——RAG是“先检索、再生成”这个整体技术方案；向量数据库只是RAG流程里，负责高效完成检索这一步的一个具体基础设施组件。" }
+  },
+  localkb: {
+    en: { name: "Local Knowledge Base", what: "A local knowledge base is a RAG-style setup where the documents, embeddings, and retrieval all run on your own machine or private server, rather than sending your data to a third-party cloud API for indexing and search.", why: "For private or sensitive documents, keeping retrieval entirely local avoids sending that content to an external service — it trades some convenience and raw scale for data privacy and control.", example: "Someone could point a local knowledge base tool at a folder of personal notes or internal company documents and ask questions about them without any of that content leaving their own computer.", confusion: "'Local' describes where the retrieval infrastructure runs, not a different retrieval technique — a local knowledge base still uses the same RAG / embeddings / vector-database concepts, just self-hosted instead of cloud-hosted." },
+    ja: { name: "ローカルナレッジベース", what: "ローカルナレッジベースとは、文書・埋め込み・検索のすべてを、外部のクラウドAPIへデータを送ってインデックス化・検索するのではなく、自分のマシンやプライベートサーバー上で完結させるRAG方式のシステムです。", why: "非公開・機微な文書については、検索処理を完全にローカルで完結させることで、外部サービスへ内容を送らずに済みます。多少の利便性や規模を犠牲にして、データのプライバシーと管理権を得るトレードオフです。", example: "個人的なメモや社内文書のフォルダをローカルナレッジベースツールに指定し、内容が自分のコンピュータの外へ一切出ることなく、それについて質問できます。", confusion: "「ローカル」とは検索インフラがどこで動いているかを表しているだけで、検索の手法自体が別物というわけではありません。ローカルナレッジベースも、RAG・埋め込み・ベクトルデータベースという同じ概念を使っており、クラウドではなく自前でホストしている、という違いだけです。" },
+    zh: { name: "本地知识库（Local Knowledge Base）", what: "本地知识库是一种RAG式的搭建方式，文档、嵌入和检索全部运行在你自己的电脑或私有服务器上，而不是把数据发到第三方云端API去做索引和搜索。", why: "对于私密或敏感的文档，让检索完全在本地完成，可以避免把内容发给外部服务——这是用一部分便利性和规模，换取数据隐私和掌控权。", example: "有人可以把一个本地知识库工具指向自己的个人笔记或公司内部文档文件夹，向它提问，而这些内容完全不会离开自己的电脑。", confusion: "“本地”说的是检索基础设施运行在哪里，而不是一种不同的检索技术——本地知识库用的还是同一套RAG/嵌入/向量数据库的概念，只是自己搭建、而不是托管在云端而已。" }
+  },
+  docsearch: {
+    en: { name: "Document Search", what: "Document search is the general task of finding relevant documents or passages in response to a query — it can be done with simple keyword matching, as in traditional search engines, or with semantic/embedding-based matching, as used in RAG.", why: "It's the retrieval half of RAG, and also a standalone useful capability on its own — search over a codebase, a set of PDFs, or a help-doc site all fall under this umbrella, whether or not an LLM is generating an answer afterward.", example: "Searching a folder of markdown files for the word 'invoice' is keyword-based document search; searching that same folder for 'how do I get paid' and having it also return a document titled 'billing instructions' — which never contains the word 'paid' — is semantic document search.", confusion: "Document search doesn't require an LLM at all — plain keyword search has existed for decades. RAG specifically pairs document search with an LLM that generates a written answer from what was found." },
+    ja: { name: "ドキュメント検索", what: "ドキュメント検索とは、クエリに関連する文書や箇所を見つけ出す一般的なタスクのことです。従来の検索エンジンのような単純なキーワード一致で行うこともできますし、RAGで使われるような意味・埋め込みベースの照合で行うこともできます。", why: "これはRAGの「検索」の半分にあたる部分であり、それ自体単独でも有用な機能です。コードベースの検索、PDF群の検索、ヘルプ文書サイトの検索なども、後でLLMが回答を生成するかどうかにかかわらず、すべてこの範疇に入ります。", example: "markdownファイル群を「invoice」というキーワードで検索するのはキーワードベースのドキュメント検索です。同じフォルダを「支払いはどう受け取れますか」で検索して、「paid」という単語を一度も含まない「請求案内」というタイトルの文書がヒットするのは、意味的なドキュメント検索です。", confusion: "ドキュメント検索そのものにLLMは必須ではありません。単純なキーワード検索は何十年も前から存在します。RAGは、そのドキュメント検索と、見つかった内容から文章の回答を生成するLLMを組み合わせたものです。" },
+    zh: { name: "文档搜索（Document Search）", what: "文档搜索是根据查询找出相关文档或段落这一通用任务的统称——可以用传统搜索引擎那种简单的关键词匹配来做，也可以用RAG里那种基于语义/嵌入的匹配来做。", why: "它是RAG里“检索”这一半的工作，同时它本身也是一项独立有用的能力——搜代码库、搜一堆PDF、搜帮助文档站点，都属于这个范畴，跟后面有没有LLM来生成回答无关。", example: "在一堆markdown文件里搜索“invoice”这个词，是基于关键词的文档搜索；在同一批文件里搜索“我怎么才能收到钱”，还能搜到一篇叫“计费说明”、但正文里从没出现过“钱”这个词的文档，这就是语义文档搜索。", confusion: "文档搜索本身完全不需要LLM——单纯的关键词搜索已经存在了几十年。RAG特指把文档搜索和一个能根据搜到的内容写出回答的LLM结合起来。" }
+  },
+  langchain: {
+    en: { name: "LangChain", what: "LangChain is a widely used open-source library, for Python and JavaScript, for building applications powered by LLMs — it provides pre-built components for prompts, connecting to different models, chaining steps together, and integrating tools and data sources like RAG pipelines.", why: "Before frameworks like LangChain, developers wrote a lot of repetitive glue code to connect an LLM to tools, memory, and data sources. LangChain packages common patterns so developers can assemble an LLM application from parts instead of writing everything from scratch.", example: "A developer building a RAG chatbot might use LangChain to handle loading documents, splitting them into chunks, generating embeddings, querying a vector database, and formatting the final prompt — all with a few lines of LangChain code instead of custom plumbing for each step.", confusion: "LangChain is not itself an AI model — it's an orchestration library that sits on top of one or more models. It's also easy to confuse with LangGraph, a related but different library focused specifically on building stateful, branching, loop-capable agent workflows (see LangGraph)." },
+    ja: { name: "LangChain", what: "LangChainは、Python・JavaScript向けに広く使われているオープンソースライブラリで、LLMを活用したアプリケーションを構築するためのものです。プロンプト・複数モデルへの接続・ステップの連結、RAGパイプラインのようなツールやデータソースとの統合のための部品があらかじめ用意されています。", why: "LangChainのようなフレームワークが登場する以前は、LLMをツール・メモリ・データソースへ接続するために、開発者が繰り返し似たようなグルーコード（つなぎのコード）を書く必要がありました。LangChainはよくあるパターンを部品化し、開発者がゼロから書く代わりに部品を組み合わせてLLMアプリを作れるようにしています。", example: "RAGチャットボットを作る開発者は、文書の読み込み・チャンク分割・埋め込み生成・ベクトルデータベースへの問い合わせ・最終プロンプトの整形といった処理を、それぞれ独自に配管を書く代わりに、数行のLangChainコードでまとめて扱えます。", confusion: "LangChainそれ自体はAIモデルではなく、1つ以上のモデルの上に乗る「オーケストレーション（統制）」ライブラリです。ステートフルで分岐・ループ可能なエージェントワークフローの構築に特化した、関連するが別物のライブラリであるLangGraphとも混同しやすいので注意してください（LangGraph参照）。" },
+    zh: { name: "LangChain", what: "LangChain是一个被广泛使用的开源库（有Python和JavaScript版本），用来搭建基于LLM的应用程序——它提供了处理提示词、连接不同模型、把多个步骤串联起来、以及整合工具和数据源（比如RAG流程）的现成组件。", why: "在LangChain这类框架出现之前，开发者需要写大量重复的“胶水代码”，才能把LLM和工具、记忆、数据源连起来。LangChain把这些常见模式打包成组件，让开发者可以用拼装的方式搭建LLM应用，而不用每次都从零写起。", example: "一个在做RAG聊天机器人的开发者，可能会用LangChain来处理加载文档、切块、生成嵌入、查询向量数据库、拼装最终提示词这一整套流程——只需几行LangChain代码，而不用为每一步单独写连接逻辑。", confusion: "LangChain本身不是一个AI模型，而是架在一个或多个模型之上的编排（orchestration）库。它也很容易和LangGraph混淆——后者是一个相关但不同的库，专门用来搭建有状态、可分支、可循环的Agent工作流（见LangGraph）。" }
+  },
+  langgraph: {
+    en: { name: "LangGraph", what: "LangGraph is an open-source library from the LangChain team for building agent workflows as an explicit graph of steps ('nodes') connected by transitions ('edges'), rather than a straight-line script — this lets a workflow branch, loop back, retry, and pause for human input in ways a simple linear chain can't easily do.", why: "Real agent tasks are rarely a straight line — they need to retry failed steps, loop until a condition is met, or wait for a human to approve something midway. LangGraph gives developers explicit control over exactly that kind of branching, cyclical logic, and keeps track of the workflow's state as it runs.", example: "A LangGraph workflow for handling a support ticket might have nodes for 'classify issue,' 'search knowledge base,' 'draft reply,' and 'escalate to human' — with an edge that loops back to 'search knowledge base' if the draft reply's confidence score is too low, instead of always moving forward in a fixed order.", confusion: "LangGraph is not a replacement for LangChain — it's commonly used alongside it, added specifically when a task's control flow needs loops, branches, or persistent state that a simple linear chain can't express. Verified against current sources as of this write-up (2026-07)." },
+    ja: { name: "LangGraph", what: "LangGraphは、LangChainチームが開発したオープンソースライブラリで、エージェントのワークフローを一直線の台本としてではなく、明示的な手順（「ノード」）とその間の遷移（「エッジ」）から成るグラフとして構築できるようにします。これにより、単純な直線的な連結では難しい、分岐・ループ・リトライ・途中での人間の承認待ちといった動作が可能になります。", why: "実際のエージェントタスクは一直線に進むことはまれで、失敗したステップのリトライ、条件を満たすまでのループ、途中での人間による承認待ちなどが必要になります。LangGraphは、こうした分岐・循環ロジックを開発者が明示的に制御し、実行中のワークフローの状態を追跡できるようにします。", example: "サポートチケットを処理するLangGraphワークフローには、「問題を分類する」「ナレッジベースを検索する」「返信を下書きする」「人間へエスカレーションする」といったノードがあり、下書きの信頼度スコアが低い場合は常に先へ進むのではなく「ナレッジベースを検索する」へ戻るエッジを持たせることができます。", confusion: "LangGraphはLangChainの代替ではありません。多くの場合LangChainと併用され、単純な直線的な連結では表現できないループ・分岐・永続的な状態がタスクの制御フローに必要な場合に、特にLangGraphが加えられます。本項目は執筆時点（2026年7月）の最新情報をWeb検索で確認済みです。" },
+    zh: { name: "LangGraph", what: "LangGraph是LangChain团队开发的一个开源库，用来把Agent的工作流构建成一张由步骤（“节点”）和转移关系（“边”）组成的显式图，而不是一份从头到尾的直线脚本——这让工作流能够分支、循环回退、重试，并在中途暂停等待人工介入，这些是简单的线性链条很难做到的。", why: "真实的Agent任务很少是一条直线——它们常常需要重试失败的步骤、循环直到满足某个条件、或者中途等人来批准某件事。LangGraph让开发者能明确控制这种分支和循环逻辑，并在运行过程中持续追踪整个工作流的状态。", example: "一个处理客服工单的LangGraph工作流，可能有“分类问题”“搜索知识库”“起草回复”“转交人工”这几个节点，并设置一条边：当草稿回复的置信度分数太低时，就循环回到“搜索知识库”，而不是永远只按固定顺序往前走。", confusion: "LangGraph不是LangChain的替代品——它通常和LangChain搭配使用，专门在任务的控制流需要简单线性链条表达不了的循环、分支或持久状态时才会加进来。本条目已在撰写时（2026年7月）通过网络搜索核实为最新定义。" }
+  },
+  agenticrag: {
+    en: { name: "Agentic RAG", what: "Agentic RAG extends plain RAG by giving an agent control over the retrieval process itself — instead of a fixed 'retrieve once, then answer' pipeline, an agent can decide whether to search at all, reformulate the query, search multiple times, check whether what it found is actually sufficient, and loop back to search again if not.", why: "Plain RAG's single fixed retrieval step often isn't enough for complex questions that need information from multiple sources, or where the first search doesn't return good results. Agentic RAG adds judgment and iteration to the retrieval step itself, closer to how a person would actually research a hard question.", example: "Asked to 'compare our Q1 and Q3 revenue and explain the difference,' an agentic RAG system might run two separate searches — one per quarter — notice the results don't explain the gap, and run a third search specifically for 'reasons for revenue change' before finally answering; a plain RAG system would typically only search once.", confusion: "Agentic RAG is not a different retrieval technology — it still uses the same embeddings and vector databases as plain RAG. The difference is entirely about control flow: a fixed pipeline (plain RAG) versus an agent making decisions about when and how to retrieve (agentic RAG). Verified against current sources as of this write-up (2026-07)." },
+    ja: { name: "エージェンティックRAG", what: "エージェンティックRAGは、通常のRAGを拡張し、検索プロセス自体をエージェントに制御させるものです。「1回検索して回答する」という固定パイプラインではなく、エージェントは検索するかどうか、クエリを言い換えるか、複数回検索するか、見つけた内容が十分かを判断し、不十分なら再度検索へ戻るかを自ら決定できます。", why: "通常のRAGの固定的な1回きりの検索ステップは、複数の情報源からの情報を要する複雑な質問や、最初の検索で良い結果が得られない場合には不十分なことがよくあります。エージェンティックRAGは検索ステップ自体に判断力と反復性を加え、人が難しい質問を実際に調べる過程により近づけます。", example: "「第1四半期と第3四半期の売上を比較して差を説明して」と聞かれた場合、エージェンティックRAGのシステムは各四半期ごとに検索を2回行い、その結果だけでは差の理由が説明できないと気づき、「売上変動の理由」に絞った3回目の検索を行ってから回答することがあります。通常のRAGシステムでは、たいてい1回しか検索しません。", confusion: "エージェンティックRAGは別の検索技術というわけではありません。使っている埋め込みやベクトルデータベースは通常のRAGと同じです。違いは完全に制御フローにあります——固定パイプライン（通常のRAG）か、エージェントがいつ・どう検索するかを判断する（エージェンティックRAG）かの違いです。本項目は執筆時点（2026年7月）の最新情報をWeb検索で確認済みです。" },
+    zh: { name: "Agentic RAG（智能体式RAG）", what: "Agentic RAG是对普通RAG的扩展，把检索过程本身的控制权交给一个Agent——不再是固定的“检索一次、然后回答”流程，Agent可以自己判断要不要搜索、要不要改写查询、要不要搜索多次，并检查搜到的内容是否真的够用，不够就循环回去再搜一次。", why: "普通RAG那种固定的单次检索，对于需要综合多个来源信息的复杂问题、或者第一次搜索没搜到好结果的情况，往往是不够的。Agentic RAG把判断力和反复迭代加入了检索这一步本身，更接近一个人真正去研究一个难题时的样子。", example: "被问到“对比我们第一季度和第三季度的营收并解释差异”时，一个Agentic RAG系统可能先分别搜两次（每个季度一次），发现搜到的内容解释不了这个差距，于是再专门针对“营收变化的原因”搜第三次，最后才回答——而普通RAG系统通常只会搜一次。", confusion: "Agentic RAG不是一种不同的检索技术——它用的还是和普通RAG一样的嵌入和向量数据库。区别完全在于控制流：固定的流程（普通RAG） vs. 由Agent自己判断何时、如何检索（Agentic RAG）。本条目已在撰写时（2026年7月）通过网络搜索核实为最新定义。" }
+  },
+
+  aiassistant: {
+    en: { name: "AI Assistant", what: "An AI assistant is the complete, user-facing product built around one or more LLMs — it bundles a model with a system prompt, tools, memory, and an interface (chat window, app, voice) into something a person can actually use for everyday tasks.", why: "This is the layer most people actually interact with and think of as 'AI' — but as this glossary shows, it's built from many separate pieces (model, prompt, tools, memory) working together, not one single monolithic thing.", example: "Claude, ChatGPT, and Gemini are all AI assistants — each is a specific model wrapped in a specific harness, with its own system prompt, tool access, and interface, even though the underlying 'predict the next token' mechanism is the same basic idea across all of them.", confusion: "See Model — people often use 'the AI' and 'the model' interchangeably, but the assistant experience (tone, capabilities, what it refuses to do) depends heavily on the system prompt and tools around the model, not the model alone." },
+    ja: { name: "AIアシスタント", what: "AIアシスタントとは、1つ以上のLLMを中心に構築された、ユーザーが直接触れる完成された製品のことです。モデルにシステムプロンプト・ツール・メモリ・インターフェース（チャット画面、アプリ、音声など）を組み合わせ、人が日常のタスクに実際に使えるものへと仕上げたものです。", why: "多くの人が実際にやり取りし「AI」だと思っているのはこの層ですが、このグロッサリーで見てきた通り、モデル・プロンプト・ツール・メモリという複数の別々の部品が組み合わさってできており、単一の一枚岩ではありません。", example: "Claude、ChatGPT、Geminiはいずれも「AIアシスタント」です。それぞれ特定のモデルを特定のハーネスで包み、独自のシステムプロンプト・ツールアクセス・インターフェースを持っていますが、根底にある「次のトークンを予測する」という仕組み自体はどれも同じ基本原理です。", confusion: "モデルの項目も参照してください。「AI」と「モデル」は同じ意味で使われがちですが、アシスタントとしての体験（口調・できること・拒否すること）は、モデル単体ではなく、その周りのシステムプロンプトやツールに大きく左右されます。" },
+    zh: { name: "AI助手（AI Assistant）", what: "AI助手是围绕一个或多个LLM打造出来的、面向用户的完整产品——它把模型和系统提示词、工具、记忆、界面（聊天窗口、App、语音等）打包在一起，变成一个人能真正拿来完成日常任务的东西。", why: "这是大多数人实际接触、并当成“AI”来理解的那一层——但正如这份词汇表所展示的，它其实是由模型、提示词、工具、记忆这好几个各自独立的部分组合工作而成的，并不是单一的一整块东西。", example: "Claude、ChatGPT、Gemini都是AI助手——每一个都是某个具体模型被装进某个具体的harness里，配上各自的系统提示词、工具访问权限和界面，尽管它们底层“预测下一个token”的机制原理都一样。", confusion: "参见Model——人们常把“AI”和“模型”混用，但助手的实际体验（语气、能力、拒绝做什么）很大程度上取决于围绕模型搭建的系统提示词和工具，而不是模型本身。" }
+  },
+  codingagent: {
+    en: { name: "Coding Agent", what: "A coding agent is an AI agent specialized for software development tasks — reading and editing code, running tests, searching a codebase, and using developer tools like a terminal, git, and linters autonomously to complete programming tasks.", why: "Coding is a natural fit for agents because progress can be checked objectively (does the test pass? does the code run?), which gives the agent a clear signal for whether its last action worked and what to try next.", example: "Given 'add a dark mode toggle to this page,' a coding agent might search the codebase for the existing theme logic, add new CSS and a toggle button, and verify the change actually works before reporting done.", confusion: "A coding agent is not the same as an autocomplete tool — code autocomplete suggests the next few lines as a person types, while a coding agent can independently plan and execute an entire multi-file task with no line-by-line supervision." },
+    ja: { name: "コーディングエージェント", what: "コーディングエージェントとは、ソフトウェア開発タスクに特化したAIエージェントです。コードの読み書き、テストの実行、コードベースの検索、ターミナル・git・リンターなどの開発ツールの自律的な利用によって、プログラミングタスクを完了させます。", why: "コーディングはエージェントと相性が良い分野です。テストが通るか、コードが動くかなど、進捗を客観的に確認できるため、直前の行動がうまくいったか、次に何を試すべきかについて明確な手がかりをエージェントに与えられるからです。", example: "「このページにダークモード切り替えを追加して」というタスクに対し、コーディングエージェントはコードベース内の既存のテーマ処理を検索し、新しいCSSと切り替えボタンを追加し、変更が実際に機能することを確認してから完了報告をすることがあります。", confusion: "コーディングエージェントはオートコンプリート（自動補完）ツールとは異なります。コード補完は、人が入力している最中に次の数行を提案するものですが、コーディングエージェントは1行ずつの監督なしに、複数ファイルにまたがるタスク全体を自律的に計画・実行できます。" },
+    zh: { name: "编程智能体（Coding Agent）", what: "编程智能体（Coding Agent）是专门用于软件开发任务的AI Agent——它能读写代码、运行测试、搜索代码库，并自主使用终端、git、代码检查工具（linter）等开发工具来完成编程任务。", why: "编程天生就很适合Agent来做，因为进展可以被客观检验（测试通过了吗？代码能跑吗？），这给了Agent一个清晰的信号，判断上一步做得对不对、接下来该试什么。", example: "给编程Agent“给这个页面加一个深色模式切换按钮”这个任务，它可能会在代码库里搜索现有的主题逻辑，加上新的CSS和切换按钮，验证改动真的生效之后，才汇报完成。", confusion: "编程Agent不同于代码自动补全工具——代码补全是在人打字的过程中提示接下来几行该写什么，而编程Agent能不需要逐行监督，独立规划并执行一整个横跨多个文件的任务。" }
+  },
+  researchagent: {
+    en: { name: "Research Agent", what: "A research agent is an AI agent specialized for finding, evaluating, and synthesizing information — searching the web or documents, judging source quality, and compiling findings into a coherent answer or report, often across many searches rather than one.", why: "A single web search often isn't enough for a genuinely hard question — a research agent can run multiple searches, cross-check conflicting sources, and organize the result, doing in minutes what might otherwise take a person much longer.", example: "Asked to research 'current pricing for three competing AI note-taking apps,' a research agent might search for each product separately, visit their pricing pages, and compile a comparison table, rather than answering from memory alone.", confusion: "A research agent is a specific application of Agentic RAG / Tool Use over web search rather than a private document collection — the underlying mechanics (retrieve, judge, iterate) are similar to agentic RAG, just pointed at the open web instead of a private knowledge base." },
+    ja: { name: "リサーチエージェント", what: "リサーチエージェントとは、情報の発見・評価・統合に特化したAIエージェントです。ウェブや文書を検索し、情報源の質を見極め、多くの場合1回ではなく複数回の検索を経て、まとまった回答やレポートへと調査結果をまとめ上げます。", why: "本当に難しい質問に対しては、1回のウェブ検索だけでは不十分なことがよくあります。リサーチエージェントは複数回の検索を行い、矛盾する情報源を突き合わせて結果を整理でき、人がやればもっと時間のかかる作業を数分でこなせます。", example: "「競合する3つのAIメモアプリの現在の価格を調べて」と頼まれたリサーチエージェントは、記憶だけで答えるのではなく、各製品を個別に検索し、価格ページを確認して、比較表にまとめることがあります。", confusion: "リサーチエージェントは、非公開の文書コレクションではなくウェブ検索に対して、エージェンティックRAG／ツール使用を適用した特定の応用例です。根底の仕組み（検索・評価・反復）はエージェンティックRAGと似ていますが、対象が非公開のナレッジベースではなく公開ウェブである点が異なります。" },
+    zh: { name: "研究智能体（Research Agent）", what: "研究智能体（Research Agent）是专门用于查找、评估、整合信息的AI Agent——它会搜索网页或文档、判断信息来源的可信度，并把研究结果整理成一份连贯的回答或报告，通常需要多次搜索而不是一次。", why: "对于真正困难的问题，单次网页搜索往往不够——研究智能体可以进行多次搜索，交叉核对互相矛盾的信息来源，并把结果整理清楚，能在几分钟内完成一个人可能要花更久才能做完的事。", example: "被要求“调研三款竞品AI笔记App目前的定价”，研究智能体可能不会只凭记忆回答，而是分别搜索每个产品、访问它们的定价页面，再整理出一张对比表。", confusion: "研究智能体是Agentic RAG/工具使用在网页搜索上的一种具体应用，而不是针对私有文档库——它底层的机制（检索、判断、迭代）和Agentic RAG很相似，只是把目标从私有知识库换成了公开互联网。" }
+  },
+  csagent: {
+    en: { name: "Customer Service Agent", what: "A customer service agent is an AI agent deployed to handle support conversations — answering questions, looking up account or order information, and resolving common issues, usually backed by RAG over a company's help documentation and connected to internal systems via tools.", why: "A large share of customer-support questions are repetitive and well-documented, making them a good fit for automation; a well-built customer service agent can resolve these instantly while escalating to a human anything unusual or high-stakes.", example: "A customer service agent for an online store might use RAG to answer 'what's your return policy?' from the actual policy document, and use a tool call to look up 'where's my order #4471?' from the real order database, then hand off to a human for a complaint that mentions legal action.", confusion: "A customer service agent is not just a script of canned responses — the 'agent' part means it can use tools to check real data (an order status, an account balance) and decide when to escalate, rather than only matching against a fixed FAQ list." },
+    ja: { name: "カスタマーサポートエージェント", what: "カスタマーサポートエージェントとは、サポート対応を担当するAIエージェントです。質問への回答、アカウントや注文情報の照会、よくある問題の解決などを行い、通常は企業のヘルプ文書に対するRAGを裏側に持ち、ツールを通じて社内システムと連携しています。", why: "カスタマーサポートへの問い合わせの多くは繰り返しが多く、文書化されているため自動化に向いています。よく設計されたカスタマーサポートエージェントは、こうした問い合わせを即座に解決しつつ、通常とは異なる、あるいは重大な案件は人間へエスカレーションできます。", example: "オンラインストアのカスタマーサポートエージェントは、「返品ポリシーは？」という質問には実際のポリシー文書からRAGで回答し、「注文番号4471はどこにありますか？」にはツール呼び出しで実際の注文データベースを照会して回答し、法的措置に言及する苦情については人間へ引き継ぐ、といった対応をすることがあります。", confusion: "カスタマーサポートエージェントは、定型文を返すだけのスクリプトではありません。「エージェント」である所以は、固定のFAQリストと照合するだけでなく、実際のデータ（注文状況や口座残高など）をツールで確認し、いつエスカレーションすべきかを判断できる点にあります。" },
+    zh: { name: "客服智能体（Customer Service Agent）", what: "客服智能体（Customer Service Agent）是部署来处理客服对话的AI Agent——回答问题、查询账户或订单信息、解决常见问题，通常背后靠RAG检索公司的帮助文档，并通过工具连接到内部系统。", why: "客服问题里有很大一部分是重复的、且已有现成文档的，这类问题很适合自动化；一个搭建得好的客服智能体能立刻解决这些问题，同时把不寻常或高风险的情况转交给人工。", example: "一个网店的客服智能体，可能用RAG根据真实的政策文档回答“你们的退货政策是什么”，用工具调用查询真实订单数据库来回答“我的4471号订单在哪”，然后把提到法律诉讼的投诉转交给人工处理。", confusion: "客服智能体不只是一堆固定话术脚本——“智能体”的关键在于它能用工具去核实真实数据（订单状态、账户余额等），并自己判断什么时候该转人工，而不是只能对着一份固定的FAQ列表做匹配。" }
+  },
+  automation: {
+    en: { name: "Automation", what: "Automation, in this AI context, means having a workflow or agent run a task on a trigger — a schedule, an event, a message — without a person needing to manually kick it off and supervise every step.", why: "The value of an AI system often comes less from any single answer and more from letting it run recurring or triggered work reliably in the background — reviewing new files, checking for errors, generating a weekly summary — freeing a person from having to remember to do it manually.", example: "An automation might watch for a new support email to arrive, have an agent draft a reply using RAG over the help docs, and queue that draft for a human to approve — running unattended until the human review step.", confusion: "Automation doesn't require an agent — a simple scheduled script with no LLM at all is still 'automation.' What's newer is combining automation (the trigger/scheduling part) with agents (the judgment/tool-use part) so the automated task can handle variation, not just a rigid fixed script." },
+    ja: { name: "自動化（オートメーション）", what: "このAIの文脈での自動化とは、スケジュール・イベント・メッセージなどのトリガーに応じて、ワークフローやエージェントがタスクを実行し、人が手動で開始・各ステップを監督する必要がない状態を指します。", why: "AIシステムの価値は、1回の回答そのものよりも、繰り返し発生する、あるいはトリガーに応じた作業（新しいファイルの確認、エラーチェック、週次サマリーの生成など）を裏側で確実に実行し続けられる点にあることが多く、人が手動でやることを覚えておく手間から解放してくれます。", example: "自動化の例として、新しいサポートメールの到着を監視し、エージェントがヘルプ文書に対するRAGを使って返信の下書きを作成し、人間が承認するためのキューに入れる——人間のレビューステップまでは無人で実行される、という仕組みが考えられます。", confusion: "自動化にエージェントは必須ではありません。LLMを一切使わない単純なスケジュール実行スクリプトも「自動化」です。新しいのは、自動化（トリガー・スケジューリングの部分）とエージェント（判断・ツール使用の部分）を組み合わせることで、自動化されたタスクが単なる固定スクリプトではなく、変化に対応できるようになった点です。" },
+    zh: { name: "自动化（Automation）", what: "在AI的语境下，自动化指的是让一个工作流或Agent根据触发条件（定时、事件、消息）自动运行一个任务，不需要人手动去启动并盯着每一步。", why: "AI系统的价值往往不只在于某一次的回答，更在于它能可靠地在后台持续运行重复性或触发式的工作——检查新文件、排查错误、生成周报——把人从“必须记得手动去做”这件事里解放出来。", example: "一个自动化流程可能是：监听有没有新的客服邮件到达，让Agent用RAG检索帮助文档起草一份回复，然后放进队列等人工审批——在人工审核这一步之前全程无人值守运行。", confusion: "自动化不一定需要Agent——一个完全不用LLM的简单定时脚本也算“自动化”。比较新的是把自动化（触发/调度部分）和Agent（判断/工具使用部分）结合起来，让自动化任务能应对变化，而不只是执行一套死板的固定脚本。" }
+  },
+  personalai: {
+    en: { name: "Personal AI", what: "Personal AI describes an AI assistant configured and adapted specifically around one individual's own workflow, preferences, files, and recurring tasks — as opposed to a generic assistant that starts from a blank slate in every conversation.", why: "Generic AI assistants are broadly useful, but re-explaining everything every single time gets tedious; a personal AI setup — memory, custom rules, project-specific context — removes that friction and makes the assistant feel like it actually knows your situation.", example: "A personal AI setup might remember that its user always wants PowerShell commands rather than bash, always writes commit messages in a certain style, and has a specific set of ongoing projects it should already have context on — all without being told again each session.", confusion: "Personal AI is not a special type of model — it's the same underlying LLM as any generic assistant, customized through Memory, Rules / System Prompt, and accumulated project context, not through retraining." },
+    ja: { name: "パーソナルAI", what: "パーソナルAIとは、毎回の会話が白紙の状態から始まる汎用アシスタントとは異なり、ある個人自身のワークフロー・好み・ファイル・日常業務に合わせて具体的に設定・適応されたAIアシスタントのことです。", why: "汎用のAIアシスタントは幅広く役立ちますが、毎回すべてを説明し直すのは煩わしいものです。メモリ・カスタムルール・プロジェクト固有のコンテキストといったパーソナルAIの仕組みは、その手間をなくし、アシスタントが本当に自分の状況をわかってくれているように感じさせてくれます。", example: "パーソナルAIの設定では、ユーザーがbashではなく常にPowerShellのコマンドを望んでいること、コミットメッセージを特定のスタイルで書くこと、すでに把握しておくべき進行中のプロジェクト群があることなどを、セッションごとに改めて伝えなくても覚えていることがあります。", confusion: "パーソナルAIは特別な種類のモデルではありません。汎用アシスタントと同じ基盤となるLLMを使いながら、再学習ではなく、メモリ・ルール／システムプロンプト・蓄積されたプロジェクトのコンテキストを通じてカスタマイズされているだけです。" },
+    zh: { name: "个人AI（Personal AI）", what: "个人AI（Personal AI）指的是专门围绕某一个人自己的工作流程、偏好、文件和日常任务来配置和适配的AI助手——而不是每次对话都从一张白纸开始的通用助手。", why: "通用AI助手用途很广，但每次都要重新解释一遍所有背景会很累人；个人AI这一套设置（记忆、自定义规则、项目相关的上下文）消除了这种摩擦，让助手感觉真的了解你的情况。", example: "一套个人AI配置可能会记住：这个用户总是要PowerShell命令而不是bash，写commit信息总是用某种特定风格，而且手头有一批特定的、正在进行的项目背景它应该已经知道——所有这些都不需要每次会话都重新讲一遍。", confusion: "个人AI不是一种特殊的模型——它用的底层LLM和任何通用助手完全一样，只是通过记忆、规则/系统提示词和不断积累的项目上下文来做定制，而不是靠重新训练模型来实现的。" }
+  },
+  enterpriseai: {
+    en: { name: "Enterprise AI", what: "Enterprise AI refers to AI systems deployed at company scale rather than for one individual — with requirements individual/personal AI setups usually don't need: access controls over who can see what data, audit logs, integration with existing business systems, and consistent behavior across many users.", why: "What works for one person's personal workflow doesn't automatically work for a company of hundreds of employees with different permission levels and compliance requirements — enterprise AI is the layer that adds governance, security, and scale on top of the same underlying model, agent, and RAG building blocks.", example: "An enterprise AI deployment for internal support might use RAG over the company's internal documents, but with access control so that HR documents are only retrievable by HR staff, plus a log of every query and answer for audit purposes.", confusion: "Enterprise AI isn't a different underlying technology from Personal AI — it uses the same core pieces (model, RAG, agents, memory) but adds a layer of access control, auditing, and multi-user management that a single-person setup doesn't need." },
+    ja: { name: "エンタープライズAI（企業AI）", what: "エンタープライズAIとは、個人向けではなく企業規模で導入されるAIシステムのことです。個人・パーソナルAIの構成では通常必要のない要件——誰がどのデータを見られるかのアクセス制御、監査ログ、既存の業務システムとの連携、多数のユーザー間での一貫した振る舞い——を備えています。", why: "1人の個人ワークフローで機能する仕組みが、権限レベルやコンプライアンス要件の異なる何百人もの従業員を抱える企業でそのまま機能するとは限りません。エンタープライズAIは、同じモデル・エージェント・RAGという基盤部品の上に、ガバナンス・セキュリティ・スケールを加える層です。", example: "社内サポート向けのエンタープライズAI導入では、社内文書に対するRAGを使いながらも、人事部の文書は人事部のスタッフしか検索・取得できないようアクセス制御をかけ、さらに監査のためにすべての質問と回答をログとして記録することがあります。", confusion: "エンタープライズAIはパーソナルAIと根本的に異なる技術というわけではありません。同じ中核部品（モデル・RAG・エージェント・メモリ）を使いながら、1人用の構成には不要な、アクセス制御・監査・複数ユーザー管理という層を加えたものです。" },
+    zh: { name: "企业AI（Enterprise AI）", what: "企业AI指的是以公司规模部署（而非面向单个个人）的AI系统——它有个人AI设置通常不需要具备的要求：谁能看哪些数据的访问控制、审计日志、和现有业务系统的集成，以及在众多用户之间保持一致的行为。", why: "适用于一个人个人工作流的方案，不会自动适用于一家有着几百名员工、权限等级和合规要求各不相同的公司——企业AI这一层，是在同样的模型/Agent/RAG这些基础组件之上，加了一层治理、安全性和规模化能力。", example: "一个面向内部支持的企业AI部署，可能会用RAG检索公司内部文档，但加了访问控制——人事相关文档只有人事部员工能检索到——并且为了审计目的，记录下每一次查询和回答的日志。", confusion: "企业AI在底层技术上和个人AI并没有本质区别——用的是同一套核心组件（模型、RAG、Agent、记忆），只是加了一层单人配置不需要的访问控制、审计和多用户管理。" }
+  }
+};
+
+/* T00 example / see-also callouts. Kept separate from the core content object
+   above (rather than duplicated per language inline) since these are short,
+   link-bearing fragments that reference real pages already confirmed to exist
+   in this repo (knowledge-t00.html, product-rag.html, knowledge-rag.html). */
+var GK_T00 = {
+  llm: null, prompt: { en: 'T00\'s req/reply convention is essentially a structured way of writing prompts and organizing the model\'s responses. See <a href="knowledge-t00.html">knowledge-t00.html</a>.', ja: 'T00のreq/reply（依頼/返答）の約束事は、まさにプロンプトの書き方と回答の整理の仕方を構造化したものです。<a href="knowledge-t00.html">knowledge-t00.html</a>を参照。', zh: 'T00的req/reply（请求/回复）约定，本质上就是一套结构化地写提示词、整理模型回复的方法。见<a href="knowledge-t00.html">knowledge-t00.html</a>。' },
+  context: null, token: null, model: null, embedding: null,
+  skills: { en: 'T00 uses exactly this pattern for specialized workflows — see "Skills: on-demand instruction sets" on <a href="knowledge-t00.html">knowledge-t00.html</a>.', ja: 'T00は専門的なワークフローにまさにこのパターンを使っています——<a href="knowledge-t00.html">knowledge-t00.html</a>の「スキル：オンデマンドの指示セット」参照。', zh: 'T00里专门的工作流程正是用了这个模式——见<a href="knowledge-t00.html">knowledge-t00.html</a>里的"Skills：按需加载的指令集"。' },
+  mcp: { en: 'Claude Code (the harness T00 runs on) connects to MCP servers like Playwright for browser automation — see <a href="knowledge-t00.html">knowledge-t00.html</a> for how T00\'s daily workflow uses this kind of tooling.', ja: 'T00が動作するハーネスであるClaude Codeは、ブラウザ操作用のPlaywrightのようなMCPサーバーに接続します——T00の日々のワークフローでのツールの使い方は<a href="knowledge-t00.html">knowledge-t00.html</a>参照。', zh: 'T00所运行的harness——Claude Code——会连接像Playwright这样的MCP服务器来做浏览器自动化操作，T00日常工作流如何用到这类工具，见<a href="knowledge-t00.html">knowledge-t00.html</a>。' },
+  tools: { en: 'T00 relies on Claude Code\'s built-in tools (file read/write, terminal, web search) plus MCP-connected tools like Playwright for browser testing.', ja: 'T00は、Claude Codeに組み込まれたツール（ファイルの読み書き、ターミナル、ウェブ検索）に加え、Playwrightのようなブラウザテスト用のMCP接続ツールを活用しています。', zh: 'T00依赖Claude Code内置的工具（文件读写、终端、网页搜索），再加上像Playwright这样通过MCP连接的浏览器测试工具。' },
+  harness: { en: 'T00 itself is a set of conventions layered on top of the Claude Code harness — it is not a harness itself. See <a href="knowledge-t00.html">knowledge-t00.html</a>.', ja: 'T00自体は、Claude Codeというハーネスの上に重ねられた一連の約束事であり、それ自体はハーネスではありません。<a href="knowledge-t00.html">knowledge-t00.html</a>参照。', zh: 'T00本身是叠加在Claude Code这个harness之上的一套约定，它本身并不是一个harness。见<a href="knowledge-t00.html">knowledge-t00.html</a>。' },
+  memory: { en: 'T00 keeps a MEMORY.md file with exactly this kind of durable, cross-session context — see "Persistent memory across sessions" on <a href="knowledge-t00.html">knowledge-t00.html</a>.', ja: 'T00はまさにこの種の、セッションをまたぐ持続的なコンテキストをMEMORY.mdファイルとして保持しています——<a href="knowledge-t00.html">knowledge-t00.html</a>の「セッションをまたぐ持続的メモリ」参照。', zh: 'T00维护着一份MEMORY.md文件，存的正是这种能跨会话持久保留的上下文——见<a href="knowledge-t00.html">knowledge-t00.html</a>里的"跨会话的持久记忆"。' },
+  rules: { en: 'T00\'s CLAUDE.md file is exactly this — a standing rules file loaded at the start of every session across every project. See <a href="knowledge-t00.html">knowledge-t00.html</a>.', ja: 'T00のCLAUDE.mdファイルはまさにこれにあたります——すべてのプロジェクトで、セッション開始のたびに読み込まれる常時有効なルールファイルです。<a href="knowledge-t00.html">knowledge-t00.html</a>参照。', zh: 'T00的CLAUDE.md文件正是这个——一份在每个项目、每次会话开始时都会被加载的长期规则文件。见<a href="knowledge-t00.html">knowledge-t00.html</a>。' },
+  agent: null, planning: null, tooluse: null,
+  workflow: { en: 'T00\'s custom slash commands are workflows in this exact sense — see "Custom slash commands" on <a href="knowledge-t00.html">knowledge-t00.html</a>.', ja: 'T00のカスタムスラッシュコマンドは、まさにこの意味でのワークフローです——<a href="knowledge-t00.html">knowledge-t00.html</a>の「カスタムスラッシュコマンド」参照。', zh: 'T00的自定义斜杠命令，正是这个意义上的工作流——见<a href="knowledge-t00.html">knowledge-t00.html</a>里的"自定义斜杠命令"。' },
+  multiagent: null,
+  rag: { en: 'T00 has a real local knowledge base built with RAG — see <a href="product-rag.html">product-rag.html</a> and <a href="knowledge-rag.html">knowledge-rag.html</a> for a working example.', ja: 'T00にはRAGで構築された実際のローカルナレッジベースがあります——実例は<a href="product-rag.html">product-rag.html</a>と<a href="knowledge-rag.html">knowledge-rag.html</a>参照。', zh: 'T00有一个真实用RAG搭建的本地知识库——实际案例见<a href="product-rag.html">product-rag.html</a>和<a href="knowledge-rag.html">knowledge-rag.html</a>。' },
+  vectordb: null,
+  localkb: { en: 'T00\'s own local knowledge base project is a real working example — see <a href="product-rag.html">product-rag.html</a>.', ja: 'T00自身のローカルナレッジベースプロジェクトが実際の実例です——<a href="product-rag.html">product-rag.html</a>参照。', zh: 'T00自己的本地知识库项目就是一个真实可用的例子——见<a href="product-rag.html">product-rag.html</a>。' },
+  docsearch: null, langchain: null, langgraph: null,
+  agenticrag: { en: 'T00\'s current local knowledge base (see <a href="product-rag.html">product-rag.html</a>) is a straightforward RAG setup today, not agentic RAG.', ja: 'T00の現在のローカルナレッジベース（<a href="product-rag.html">product-rag.html</a>参照）は、現時点ではエージェンティックRAGではなく、通常のシンプルなRAG構成です。', zh: 'T00目前的本地知识库（见<a href="product-rag.html">product-rag.html</a>）目前是一套普通的RAG方案，还不是Agentic RAG。' },
+  aiassistant: null,
+  codingagent: { en: 'Claude Code, the harness T00 runs on, is itself a coding agent — see <a href="knowledge-t00.html">knowledge-t00.html</a> for how it\'s used day to day.', ja: 'T00が動作するハーネスであるClaude Code自体が、コーディングエージェントです——日々どう使われているかは<a href="knowledge-t00.html">knowledge-t00.html</a>参照。', zh: 'T00所运行的harness——Claude Code——本身就是一个编程智能体，日常怎么使用见<a href="knowledge-t00.html">knowledge-t00.html</a>。' },
+  researchagent: null, csagent: null, automation: null,
+  personalai: { en: 'T00 itself is exactly this — a personal AI framework built around one person\'s real daily workflow. See <a href="knowledge-t00.html">knowledge-t00.html</a> for the full picture, and <a href="https://maysuns.uk/" target="_blank" rel="noopener">maysuns.uk</a> for more.', ja: 'T00自体がまさにこれです——ある1人の実際の日々のワークフローを中心に構築された、パーソナルAIのフレームワークです。全体像は<a href="knowledge-t00.html">knowledge-t00.html</a>、詳しくは<a href="https://maysuns.uk/" target="_blank" rel="noopener">maysuns.uk</a>参照。', zh: 'T00本身正是这样一个例子——围绕一个人真实的日常工作流搭建起来的个人AI框架。完整介绍见<a href="knowledge-t00.html">knowledge-t00.html</a>，更多内容见<a href="https://maysuns.uk/" target="_blank" rel="noopener">maysuns.uk</a>。' },
+  enterpriseai: null
+};
+
+/* Cross-link note shown on the shared "embedding" term when reached from the
+   Knowledge & Retrieval layer's menu (same content div, per the task spec:
+   "don't duplicate the full writeup, just cross-link back to it"). */
+var GK_EMBEDDING_XLINK = {
+  en: "This term is shared with the Foundations layer above — RAG and vector databases (right below) are both built directly on top of embeddings.",
+  ja: "この用語は上の「基礎レイヤー」と共通です——RAGとベクトルデータベース（すぐ下）は、いずれも埋め込みの上に直接構築されています。",
+  zh: "这个术语和上面“基础层”里的是同一条内容——RAG和向量数据库（就在下方）都是直接建立在嵌入之上的。"
+};
+
+var gkCurrentTerm = null;
+
+function gkLang() { return (window.currentLang && GK_TERMS.llm[window.currentLang]) ? window.currentLang : 'en'; }
+
+function gkRenderMenu() {
+  var lang = gkLang();
+  var menu = document.getElementById('gkMenu');
+  var html = '';
+  GK_LAYERS.forEach(function (layer) {
+    html += '<div class="gk-group-label">' + layer[lang] + '</div>';
+    layer.terms.forEach(function (termId) {
+      var t = GK_TERMS[termId][lang];
+      html += '<a href="#term-' + termId + '" data-target="' + termId + '" onclick="gkShowTerm(\'' + termId + '\');return false;">' + t.name + '</a>';
+    });
+  });
+  menu.innerHTML = html;
+}
+
+function gkRenderContent() {
+  var lang = gkLang();
+  var ui = GK_UI[lang];
+  var content = document.getElementById('gkContent');
+  var html = '';
+  Object.keys(GK_TERMS).forEach(function (termId) {
+    var t = GK_TERMS[termId][lang];
+    var layerLabel = '';
+    GK_LAYERS.forEach(function (layer) { if (layer.terms.indexOf(termId) !== -1 && !layerLabel) layerLabel = layer[lang]; });
+    html += '<div class="gk-term" id="term-' + termId + '">';
+    html += '<h2>' + t.name + ' <button class="term-audio" type="button" aria-pressed="false" onclick="gkSpeak(\'' + termId + '\', this)" title="' + (lang === 'en' ? 'Listen' : (lang === 'ja' ? '発音を聞く' : '朗读')) + '">🔊</button></h2>';
+    html += '<div class="gk-layer-tag">' + layerLabel + '</div>';
+    html += '<div class="gk-block"><h3>' + ui.what + '</h3><p>' + t.what + '</p></div>';
+    html += '<div class="gk-block"><h3>' + ui.why + '</h3><p>' + t.why + '</p></div>';
+    html += '<div class="gk-block"><h3>' + ui.example + '</h3><p>' + t.example + '</p></div>';
+    html += '<div class="gk-block"><h3>' + ui.confusion + '</h3><p>' + t.confusion + '</p></div>';
+    if (termId === 'embedding') {
+      html += '<div class="gk-seealso">' + GK_EMBEDDING_XLINK[lang] + '</div>';
+    }
+    var t00 = GK_T00[termId];
+    if (t00 && t00[lang]) {
+      html += '<div class="gk-t00"><strong>' + ui.t00 + '</strong> ' + t00[lang] + '</div>';
+    }
+    html += '</div>';
+  });
+  content.innerHTML = html;
+}
+
+function gkRenderToolbar() {
+  var lang = gkLang();
+  document.getElementById('gkSearchBox').placeholder = GK_UI[lang].searchPh;
+  document.getElementById('gkMenuBtnLabel').textContent = GK_UI[lang].menuBtn;
+}
+
+function gkRenderGlossary(skipScroll) {
+  gkRenderMenu();
+  gkRenderContent();
+  gkRenderToolbar();
+  gkShowTerm(gkCurrentTerm || 'llm', skipScroll);
+}
+
+function gkShowTerm(termId, skipScroll) {
+  if (!GK_TERMS[termId]) return;
+  gkCurrentTerm = termId;
+  document.querySelectorAll('.gk-term').forEach(function (p) { p.classList.remove('active'); });
+  document.querySelectorAll('#gkMenu a').forEach(function (a) { a.classList.remove('active'); });
+  var page = document.getElementById('term-' + termId);
+  if (page) page.classList.add('active');
+  document.querySelectorAll('#gkMenu a[data-target="' + termId + '"]').forEach(function (a) { a.classList.add('active'); });
+  document.getElementById('gkMenu').classList.remove('gk-open');
+  document.getElementById('gkOverlay').classList.remove('gk-open');
+  var content = document.getElementById('gkContent');
+  if (content) content.scrollTop = 0;
+  if (!skipScroll) window.scrollTo({ top: document.querySelector('.gk-toolbar').offsetTop - 70, behavior: 'auto' });
+}
+
+function gkToggleMenu() {
+  document.getElementById('gkMenu').classList.toggle('gk-open');
+  document.getElementById('gkOverlay').classList.toggle('gk-open');
+}
+
+function gkSearch(q) {
+  q = (q || '').trim().toLowerCase();
+  var lang = gkLang();
+  var links = document.querySelectorAll('#gkMenu a[data-target]');
+  if (!q) { links.forEach(function (a) { a.style.display = ''; }); return; }
+  var firstMatch = null;
+  links.forEach(function (a) {
+    var id = a.getAttribute('data-target');
+    var t = GK_TERMS[id][lang];
+    var hit = (t.name + ' ' + t.what + ' ' + t.why + ' ' + t.example + ' ' + t.confusion).toLowerCase().indexOf(q) !== -1;
+    a.style.display = hit ? '' : 'none';
+    if (hit && !firstMatch) firstMatch = id;
+  });
+  if (firstMatch) gkShowTerm(firstMatch);
+}
+
+/* Pronunciation: browser TTS reading the real term name out loud (never a
+   phonetic-spelling / romanization string), per the site-wide R11 standard.
+   Reads document.documentElement.lang at click time — which assets/main.js
+   keeps in sync with the visitor's chosen language (langCodeMap: en/ja/zh-CN)
+   — so the voice automatically matches whatever language is currently shown,
+   without this page needing its own separate language control. */
+var gkSpeakLastId = null;
+function gkSpeak(termId, btn) {
+  if (!('speechSynthesis' in window)) { alert('Speech not supported in this browser.'); return; }
+  var lang = gkLang();
+  var text = GK_TERMS[termId][lang].name;
+  var htmlLang = document.documentElement.lang || 'en';
+  document.querySelectorAll('.term-audio').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+  if (termId === gkSpeakLastId && window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+    window.speechSynthesis.pause();
+    return;
+  }
+  if (termId === gkSpeakLastId && window.speechSynthesis.paused) {
+    window.speechSynthesis.resume();
+    if (btn) btn.setAttribute('aria-pressed', 'true');
+    return;
+  }
+  window.speechSynthesis.cancel();
+  gkSpeakLastId = termId;
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = htmlLang;
+  var voices = window.speechSynthesis.getVoices();
+  if (voices && voices.length) {
+    var wantPrefix = htmlLang.split('-')[0];
+    var match = voices.find(function (v) { return v.lang === htmlLang; }) ||
+                voices.find(function (v) { return v.lang && v.lang.split('-')[0] === wantPrefix; });
+    if (match) u.voice = match;
+  }
+  u.rate = 0.92;
+  if (btn) btn.setAttribute('aria-pressed', 'true');
+  u.onend = function () { if (btn) btn.setAttribute('aria-pressed', 'false'); };
+  window.speechSynthesis.speak(u);
+}
+
+/* Wrapper called by this page's own EN/日本語/中文 buttons: still calls the
+   real, shared setLanguage() from assets/main.js first (updates site chrome,
+   document.documentElement.lang, localStorage, theme-button label — exactly
+   like every other page), then re-renders this page's own term content in
+   the newly selected language. */
+function gkOnLangClick(lang) {
+  setLanguage(lang);
+  gkRenderGlossary();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  var hash = (location.hash || '').replace('#term-', '');
+  if (hash && GK_TERMS[hash]) gkCurrentTerm = hash;
+  gkRenderGlossary(true);
+});
+</script>
+</body>
+</html>
